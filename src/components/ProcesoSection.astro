@@ -1,0 +1,66 @@
+---
+const pasos = [
+  {
+    n: '01',
+    title: 'Asesoría sin costo',
+    description:
+      'Te contactamos por WhatsApp o llamada, entendemos tu necesidad y resolvemos dudas iniciales.',
+  },
+  {
+    n: '02',
+    title: 'Visita técnica',
+    description:
+      'Vamos a tu hogar o negocio, hacemos el levantamiento y proponemos la mejor distribución.',
+  },
+  {
+    n: '03',
+    title: 'Propuesta clara',
+    description:
+      'Recibes una cotización detallada por escrito: equipos, mano de obra, tiempos y garantía.',
+  },
+  {
+    n: '04',
+    title: 'Instalación y entrega',
+    description:
+      'Instalamos, configuramos tu app, te capacitamos y dejamos todo funcionando 100%.',
+  },
+];
+---
+
+<section id="proceso" class="section-brand relative overflow-hidden">
+  <!-- Línea decorativa ámbar superior -->
+  <div class="absolute left-0 top-0 h-1 w-full bg-accent-500" aria-hidden="true"></div>
+
+  <div class="container relative">
+    <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+      <div>
+        <span class="eyebrow-light">Cómo trabajamos</span>
+        <h2 class="heading-lg mt-4 heading-light text-balance">
+          Un proceso simple, transparente y
+          <span class="text-accent-400">a tu ritmo</span>.
+        </h2>
+        <span class="marker-line mt-5"></span>
+      </div>
+      <p class="lead-light">
+        Desde el primer mensaje hasta el día que activamos tu sistema, sabes exactamente qué sigue.
+        Sin presión de venta, sin tecnicismos innecesarios.
+      </p>
+    </div>
+
+    <ol class="mt-14 grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        pasos.map((p, i) => (
+          <li
+            class={`relative p-7 lg:p-8 ${i < pasos.length - 1 ? 'lg:border-r-2 lg:border-brand-400/40' : ''} ${i % 2 === 0 ? 'border-b-2 border-brand-400/40 sm:border-b-0' : ''}`}
+          >
+            <span class="grid h-14 w-14 place-items-center rounded-md bg-accent-500 font-display text-xl font-black text-white">
+              {p.n}
+            </span>
+            <h3 class="mt-5 font-display text-xl font-black text-white">{p.title}</h3>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-cream-200">{p.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

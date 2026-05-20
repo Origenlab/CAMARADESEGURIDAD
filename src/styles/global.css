@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand: 10 37 64;
+    --color-accent: 220 38 38;
+    --color-cream: 241 245 249;
+    --color-ink: 30 41 59;
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-cream-100 text-ink-800 font-sans antialiased selection:bg-accent-100 selection:text-accent-700;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-black tracking-tight text-brand-500;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cream-200;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-brand-300 rounded-full border-2 border-cream-200;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-500;
+  }
+}
+
+@layer components {
+  /* ── CONTAINER 100% WIDTH ─────────────────────────────────
+     Sobrescribe el .container de Tailwind para que SIEMPRE
+     ocupe el 100% del ancho del navegador, sin tope.
+     Padding lateral mínimo en % para que el texto no toque
+     el borde absoluto en monitores grandes.                  */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  /* ── BOTONES ─────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-bold rounded-md transition-all duration-200 px-6 py-3 text-[14.5px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/30 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Primario: Rojo alerta sólido — CTA principal */
+  .btn-primary {
+    @apply btn bg-accent-500 text-white hover:bg-accent-600 active:bg-accent-700 shadow-cta;
+  }
+
+  /* Marino sólido — botón secundario / acción institucional */
+  .btn-brand {
+    @apply btn bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700;
+  }
+
+  /* Outline sobre fondos claros */
+  .btn-outline {
+    @apply btn bg-transparent text-brand-500 border-2 border-brand-500 hover:bg-brand-500 hover:text-white;
+  }
+
+  /* Outline sobre fondos marino */
+  .btn-outline-light {
+    @apply btn bg-transparent text-white border-2 border-white/40 hover:bg-white hover:text-brand-500;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-brand-500 hover:bg-brand-50;
+  }
+
+  /* ── SECCIONES ──────────────────────────────────────────── */
+  .section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  .section-cream {
+    @apply section bg-cream-100;
+  }
+
+  .section-white {
+    @apply section bg-white;
+  }
+
+  .section-brand {
+    @apply section bg-brand-500 text-white;
+  }
+
+  /* ── EYEBROW: punto rojo + texto uppercase ─────────────── */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.22em] text-accent-500;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply inline-block h-[6px] w-[6px] rounded-full bg-accent-500;
+  }
+
+  .eyebrow-light {
+    @apply inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.22em] text-accent-400;
+  }
+
+  .eyebrow-light::before {
+    content: '';
+    @apply inline-block h-[6px] w-[6px] rounded-full bg-accent-400;
+  }
+
+  /* Marker decorativo: línea roja delgada */
+  .marker-line {
+    @apply block h-[3px] w-12 bg-accent-500 rounded-full;
+  }
+
+  /* ── HEADINGS ─────────────────────────────────────────── */
+  .heading-xl {
+    @apply text-5xl sm:text-6xl lg:text-7xl font-black leading-[0.95] tracking-tight text-brand-500;
+  }
+
+  .heading-lg {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-brand-500;
+  }
+
+  .heading-md {
+    @apply text-2xl sm:text-3xl font-black leading-snug tracking-tight text-brand-500;
+  }
+
+  .heading-light {
+    @apply text-white;
+  }
+
+  /* ── TEXTO ─────────────────────────────────────────────── */
+  .lead {
+    @apply text-base sm:text-[17px] text-ink-700 leading-relaxed;
+  }
+
+  .lead-light {
+    @apply text-base sm:text-[17px] text-cream-200 leading-relaxed;
+  }
+
+  /* ── TARJETAS ─────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-xl border border-cream-200 shadow-soft hover:shadow-card transition-all duration-200 overflow-hidden;
+  }
+
+  /* Lista de paquetes (item con flecha) */
+  .pkg-item {
+    @apply flex items-center justify-between gap-4 px-5 py-4 border-t border-cream-200 transition-colors hover:bg-cream-50;
+  }
+
+  /* Badge "REC" estilo cámara grabando */
+  .rec-badge {
+    @apply inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-accent-500 shadow-soft;
+  }
+
+  .rec-badge::before {
+    content: '';
+    @apply inline-block h-2 w-2 rounded-full bg-accent-500;
+    animation: rec-blink 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes rec-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

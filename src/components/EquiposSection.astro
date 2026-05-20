@@ -1,0 +1,176 @@
+---
+const equipos = [
+  {
+    title: 'Cámaras IP 4K',
+    eyebrow: 'TECNOLOGÍA HIKVISION / DAHUA',
+    color: 'brand',
+    icon: 'camera',
+    paquetes: [
+      { name: '4K Bullet Exterior', detail: 'IP67 · IR 30m · 8MP · ONVIF' },
+      { name: '4K Domo Vandálico', detail: 'IK10 · audio 2 vías · microSD' },
+      { name: '4K Color Vu', detail: 'Color total en noche · sin IR' },
+      { name: 'Pack 4× IP 4K + NVR', detail: 'Solución completa profesional' },
+    ],
+  },
+  {
+    title: 'Cámaras PTZ',
+    eyebrow: 'PATRULLAJE AUTOMÁTICO',
+    color: 'accent',
+    icon: 'ptz',
+    paquetes: [
+      { name: 'PTZ Speed Dome 4MP', detail: 'Zoom óptico 25× · IR 100m' },
+      { name: 'PTZ Auto-Tracking', detail: 'Seguimiento automático IA' },
+      { name: 'PTZ Patrol 360°', detail: 'Rutinas programables · presets' },
+      { name: 'PTZ Industrial Pro', detail: 'Largo alcance · presupuesto custom' },
+    ],
+  },
+  {
+    title: 'Cámaras Térmicas',
+    eyebrow: 'DETECCIÓN PERIMETRAL',
+    color: 'brand',
+    icon: 'thermal',
+    paquetes: [
+      { name: 'Térmica Bullet 256×192', detail: 'Detección a 50m · IA' },
+      { name: 'Térmica Bispectrum', detail: 'Térmica + óptica integradas' },
+      { name: 'Térmica Industrial', detail: 'Mantenimiento predictivo' },
+      { name: 'Térmica + LPR Perímetro', detail: 'Solución de máxima seguridad' },
+    ],
+  },
+  {
+    title: 'Cámaras LPR · Placas',
+    eyebrow: 'CONTROL VEHICULAR',
+    color: 'accent',
+    icon: 'lpr',
+    paquetes: [
+      { name: 'LPR Básico', detail: 'Lectura 1 carril · 30 km/h' },
+      { name: 'LPR Pro', detail: '2 carriles · listas blancas/negras' },
+      { name: 'LPR + Barrera Auto', detail: 'Apertura autónoma flotilla' },
+      { name: 'LPR Empresarial', detail: 'Integración ERP/CRM · cloud' },
+    ],
+  },
+];
+
+const icons: Record<string, string> = {
+  camera:
+    '<path d="M3 8a2 2 0 0 1 2-2h3l2-2h4l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="4"/><path d="M16 8h.01"/>',
+  ptz:
+    '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>',
+  thermal:
+    '<path d="M12 2v8a3 3 0 1 0 0 6v4"/><circle cx="12" cy="16" r="3"/><path d="M12 8c2 0 3 1 3 3"/>',
+  lpr:
+    '<rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 11h2M11 11h2M15 11h2M7 14h10"/>',
+};
+---
+
+<section class="section-cream">
+  <div class="container">
+    <div class="grid items-end gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <div>
+        <span class="eyebrow">
+          Equipo Hikvision, Dahua y Provision-ISR — lo mismo que usan bancos.
+        </span>
+        <h2 class="heading-lg mt-5 text-balance">
+          Equipos
+          <span class="text-accent-500">profesionales</span>
+          de videovigilancia.
+        </h2>
+        <span class="marker-line mt-5"></span>
+      </div>
+
+      <div class="space-y-4 text-[15.5px] leading-relaxed text-ink-700">
+        <p>
+          Una cámara residencial de gama baja graba "algo" — pero cuando algo pasa, la grabación
+          no sirve. La diferencia entre un sistema que funciona y uno que decora está en la
+          electrónica de la cámara, el sensor, el ancho de banda y la calidad del NVR.
+        </p>
+        <p>
+          Trabajamos sólo con marcas que se usan en bancos, aeropuertos y centros comerciales.
+          Cada equipo se selecciona según tu necesidad real — sin sobre-vender ni recortar
+          calidad por debajo de lo profesional.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        equipos.map((s) => {
+          const isBrand = s.color === 'brand';
+          const headerBg = isBrand ? 'bg-brand-500' : 'bg-accent-500';
+          return (
+            <article class="card group flex flex-col">
+              <div class={`${headerBg} relative px-6 py-7`}>
+                <span class="grid h-14 w-14 place-items-center rounded-lg bg-white/15">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-7 w-7 text-white"
+                    aria-hidden="true"
+                    set:html={icons[s.icon]}
+                  />
+                </span>
+                <p class="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/80">
+                  {s.eyebrow}
+                </p>
+                <h3 class="mt-2 font-display text-xl font-black leading-tight text-white">
+                  {s.title}
+                </h3>
+              </div>
+
+              <ul class="flex-1">
+                {s.paquetes.map((p) => (
+                  <li>
+                    <a href="#contacto" class="pkg-item">
+                      <div>
+                        <p class="text-[14px] font-bold text-brand-500">{p.name}</p>
+                        <p class="text-xs text-ink-600">{p.detail}</p>
+                      </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="h-4 w-4 shrink-0 text-cream-400 transition-all group-hover:text-accent-500"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="px-5 pb-5 pt-3">
+                <a href="#contacto" class="btn-brand w-full uppercase tracking-wider text-xs">
+                  Ver especificaciones
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,157 @@
+---
+const testimonios = [
+  {
+    nombre: 'Laura M.',
+    rol: 'Dueña de papelería',
+    zona: 'Coyoacán, CDMX',
+    iniciales: 'LM',
+    rating: 5,
+    texto:
+      'Llegaron puntuales, dejaron todo impecable y me enseñaron a usar la app paso a paso. Llevo casi un año con el sistema y nunca ha fallado. Recomendados al 100%.',
+  },
+  {
+    nombre: 'Roberto V.',
+    rol: 'Gerente de bodega',
+    zona: 'Naucalpan, Edomex',
+    iniciales: 'RV',
+    rating: 5,
+    texto:
+      'Cotizamos con tres empresas. Ellos fueron los únicos que pidieron una visita técnica antes de mandar precio. La instalación quedó como diseñaron: limpia, oculta y exactamente donde se necesitaba.',
+  },
+  {
+    nombre: 'María Fernanda H.',
+    rol: 'Residente · casa familiar',
+    zona: 'Polanco, CDMX',
+    iniciales: 'MF',
+    rating: 5,
+    texto:
+      'Después de un intento de robo decidimos contratarlos. El equipo Hikvision es de otro nivel comparado con lo que teníamos. La app funciona perfecto desde mi celular.',
+  },
+  {
+    nombre: 'Andrés T.',
+    rol: 'Director · clínica dental',
+    zona: 'Tlalpan, CDMX',
+    iniciales: 'AT',
+    rating: 5,
+    texto:
+      'Necesitábamos cumplir con requisitos de protección de datos en consultorios. Diseñaron la cobertura respetando privacidad de pacientes. Profesionales y discretos.',
+  },
+  {
+    nombre: 'Verónica P.',
+    rol: 'Administradora · fracc.',
+    zona: 'Huixquilucan, Edomex',
+    iniciales: 'VP',
+    rating: 5,
+    texto:
+      'Instalaron 24 cámaras en accesos y áreas comunes del fraccionamiento. Capacitaron a los vigilantes y dejaron todo documentado con planos. Excelente proyecto.',
+  },
+  {
+    nombre: 'Jaime C.',
+    rol: 'Dueño · taller mecánico',
+    zona: 'Iztapalapa, CDMX',
+    iniciales: 'JC',
+    rating: 5,
+    texto:
+      'Otros instaladores me querían cobrar el doble. Ellos me explicaron qué necesitaba y qué no — sin venderme cosas de más. Garantía real, llamé por una duda y vinieron al día siguiente.',
+  },
+];
+---
+
+<section class="section-cream">
+  <div class="container">
+    <div class="grid items-end gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+      <div>
+        <span class="eyebrow">Lo que dicen nuestros clientes</span>
+        <h2 class="heading-lg mt-4 text-balance">
+          Más de
+          <span class="text-accent-500">1,200 proyectos</span>
+          en CDMX y Edomex.
+        </h2>
+        <span class="marker-line mt-5"></span>
+      </div>
+      <p class="lead">
+        Detrás de cada instalación hay una familia, un negocio o una operación que confió en nosotros.
+        Estos son algunos de los comentarios reales que nos han dejado — sin filtros.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        testimonios.map((t, i) => (
+          <article class={`card flex flex-col p-7 ${i === 0 ? 'border-2 border-accent-500' : ''}`}>
+            {/* Rating */}
+            <div class="flex items-center gap-1">
+              {Array.from({ length: t.rating }).map(() => (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="h-4 w-4 text-accent-500"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+
+            {/* Comilla */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="mt-4 h-8 w-8 text-brand-100"
+              aria-hidden="true"
+            >
+              <path d="M9.5 6c-3 0-5.5 2.5-5.5 5.5V18h6v-6.5H6.5c0-1.7 1.3-3 3-3V6Zm10 0c-3 0-5.5 2.5-5.5 5.5V18h6v-6.5h-3.5c0-1.7 1.3-3 3-3V6Z" />
+            </svg>
+
+            <p class="mt-2 flex-1 text-[15px] leading-relaxed text-ink-700">{t.texto}</p>
+
+            {/* Autor */}
+            <div class="mt-6 flex items-center gap-3 border-t border-cream-300 pt-5">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-500 font-display text-sm font-black text-cream-50">
+                {t.iniciales}
+              </span>
+              <div>
+                <p class="font-display text-[15px] font-black text-brand-500">{t.nombre}</p>
+                <p class="text-xs text-ink-600">
+                  {t.rol} · <span class="font-medium">{t.zona}</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {/* Stat bar */}
+    <div class="mt-12 overflow-hidden rounded-xl border-2 border-brand-500 bg-white">
+      <div class="grid divide-y divide-brand-500 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+        <div class="p-6 text-center">
+          <p class="font-display text-4xl font-black text-brand-500">+1,200</p>
+          <p class="mt-2 text-[11px] font-bold uppercase tracking-wider text-ink-600">
+            Proyectos completados
+          </p>
+        </div>
+        <div class="bg-cream-50 p-6 text-center">
+          <p class="font-display text-4xl font-black text-brand-500">98<span class="text-accent-500">%</span></p>
+          <p class="mt-2 text-[11px] font-bold uppercase tracking-wider text-ink-600">
+            Clientes nos recomiendan
+          </p>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-display text-4xl font-black text-brand-500">10<span class="text-accent-500">+</span></p>
+          <p class="mt-2 text-[11px] font-bold uppercase tracking-wider text-ink-600">
+            Años de experiencia
+          </p>
+        </div>
+        <div class="bg-accent-500 p-6 text-center text-white">
+          <p class="font-display text-4xl font-black">5.0<span class="opacity-70">/5</span></p>
+          <p class="mt-2 text-[11px] font-bold uppercase tracking-wider text-white/90">
+            Calificación promedio
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+const beneficios = [
+  {
+    title: 'Técnicos certificados',
+    description:
+      'Personal capacitado en Hikvision, Dahua y Provision-ISR. Instalaciones limpias, cableado oculto y montaje firme que dura años.',
+  },
+  {
+    title: 'Garantía de 2 años',
+    description:
+      'Equipos y mano de obra cubiertos. Si algo falla, lo resolvemos sin costo durante el periodo de garantía. Por escrito.',
+  },
+  {
+    title: 'Cotización transparente',
+    description:
+      'Sin sorpresas. Te explicamos qué necesitas, qué no, y por qué. Precios claros antes de empezar — todo en WhatsApp.',
+  },
+  {
+    title: 'Soporte continuo',
+    description:
+      'No te dejamos solo después de la instalación. Atención por WhatsApp, llamada o visita cuando lo requieras.',
+  },
+];
+---
+
+<section id="beneficios" class="section-white">
+  <div class="container">
+    <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+      <div class="lg:sticky lg:top-32">
+        <span class="eyebrow">Por qué nosotros</span>
+        <h2 class="heading-lg mt-4 text-balance">
+          La diferencia no son las cámaras.<br />
+          <span class="text-accent-500">Es cómo se instalan.</span>
+        </h2>
+        <span class="marker-line mt-5"></span>
+
+        <p class="lead mt-6">
+          Una instalación profesional no se nota — pero es justo eso lo que la hace funcionar.
+          Cuando el sistema es el correcto y está bien montado, no piensas en él. Solo sabes que
+          está ahí, cuando lo necesitas.
+        </p>
+
+        <p class="lead mt-4">
+          Llevamos más de 10 años haciendo exactamente eso. Nada de cámaras desconfiguradas,
+          cableado a la vista o apps imposibles de usar.
+        </p>
+
+        <!-- Bloque sólido con stat destacado -->
+        <div class="mt-8 inline-flex items-stretch overflow-hidden rounded-lg border-2 border-brand-500">
+          <div class="bg-brand-500 px-5 py-4">
+            <p class="font-display text-3xl font-black leading-none text-white">98%</p>
+          </div>
+          <div class="bg-cream-50 px-5 py-4">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-ink-600">
+              Clientes
+            </p>
+            <p class="font-bold text-brand-500">nos recomiendan</p>
+          </div>
+        </div>
+      </div>
+
+      <ul class="space-y-4">
+        {
+          beneficios.map((b, i) => (
+            <li class="card flex gap-0 overflow-hidden">
+              <span class="grid w-20 shrink-0 place-items-center bg-accent-500 font-display text-2xl font-black text-white">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div class="flex-1 p-6 lg:p-7">
+                <h3 class="font-display text-lg font-black text-brand-500">{b.title}</h3>
+                <p class="mt-2 text-[15px] leading-relaxed text-ink-700">{b.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

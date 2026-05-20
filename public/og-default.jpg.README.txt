@@ -1,0 +1,7 @@
+Reemplazar este placeholder con una imagen JPG/PNG de 1200x630 px llamada og-default.jpg
+para mostrar en redes sociales (Facebook, WhatsApp, Twitter/X) al compartir el sitio.
+
+Recomendaciones:
+- 1200x630 px, <300 KB
+- Logo + nombre de marca + tagline
+- Alto contraste (se ve pequeño en feeds)

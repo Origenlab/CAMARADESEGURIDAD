@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://camara-de-seguridad.com/sitemap-index.xml

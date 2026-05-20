@@ -1,0 +1,147 @@
+---
+const cdmxAlcaldias = [
+  'Álvaro Obregón',
+  'Azcapotzalco',
+  'Benito Juárez',
+  'Coyoacán',
+  'Cuajimalpa',
+  'Cuauhtémoc',
+  'Gustavo A. Madero',
+  'Iztacalco',
+  'Iztapalapa',
+  'Magdalena Contreras',
+  'Miguel Hidalgo',
+  'Milpa Alta',
+  'Tláhuac',
+  'Tlalpan',
+  'Venustiano Carranza',
+  'Xochimilco',
+];
+
+const edomexMunicipios = [
+  'Atizapán',
+  'Coacalco',
+  'Cuautitlán',
+  'Cuautitlán Izcalli',
+  'Chimalhuacán',
+  'Ecatepec',
+  'Huixquilucan',
+  'Ixtapaluca',
+  'Metepec',
+  'Naucalpan',
+  'Nezahualcóyotl',
+  'Tecámac',
+  'Tlalnepantla',
+  'Toluca',
+  'Tultitlán',
+  'Valle de Chalco',
+];
+---
+
+<section class="section-cream">
+  <div class="container">
+    <div class="grid items-end gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+      <div>
+        <span class="eyebrow">Cobertura</span>
+        <h2 class="heading-lg mt-4 text-balance">
+          Llegamos a toda la
+          <span class="text-accent-500">Zona Metropolitana</span>
+          del Valle de México.
+        </h2>
+        <span class="marker-line mt-5"></span>
+        <p class="lead mt-6">
+          Instalamos en las 16 alcaldías de la CDMX y en los principales municipios conurbados
+          del Estado de México. Para proyectos foráneos en el Bajío o el norte del país,
+          también podemos cotizar — pregúntanos.
+        </p>
+
+        <div class="mt-8 flex items-center gap-4 rounded-lg bg-white p-5 border-2 border-brand-500">
+          <span class="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-accent-500 text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-6 w-6"
+              aria-hidden="true"
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </span>
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-wider text-ink-600">Visita técnica</p>
+            <p class="font-display text-lg font-black text-brand-500">Gratis en toda la zona</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        {/* CDMX */}
+        <div class="card overflow-hidden">
+          <div class="flex items-center gap-3 bg-brand-500 px-5 py-4">
+            <span class="font-display text-2xl font-black text-accent-500">16</span>
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-cream-200">
+                Alcaldías
+              </p>
+              <p class="font-display text-base font-black text-white">Ciudad de México</p>
+            </div>
+          </div>
+          <ul class="grid grid-cols-2 gap-x-3 gap-y-1.5 p-5 text-[13.5px] text-ink-700">
+            {
+              cdmxAlcaldias.map((c) => (
+                <li class="flex items-center gap-1.5">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="h-3 w-3 text-accent-500"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="6" />
+                  </svg>
+                  <span class="truncate">{c}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        {/* Edomex */}
+        <div class="card overflow-hidden">
+          <div class="flex items-center gap-3 bg-accent-500 px-5 py-4">
+            <span class="font-display text-2xl font-black text-white">16+</span>
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/85">
+                Municipios
+              </p>
+              <p class="font-display text-base font-black text-white">Estado de México</p>
+            </div>
+          </div>
+          <ul class="grid grid-cols-2 gap-x-3 gap-y-1.5 p-5 text-[13.5px] text-ink-700">
+            {
+              edomexMunicipios.map((c) => (
+                <li class="flex items-center gap-1.5">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="h-3 w-3 text-brand-500"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="6" />
+                  </svg>
+                  <span class="truncate">{c}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

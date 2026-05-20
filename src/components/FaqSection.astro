@@ -1,0 +1,118 @@
+---
+const faqs = [
+  {
+    q: '¿Cuánto cuesta instalar cámaras de seguridad en mi casa?',
+    a: 'En CDMX y Estado de México, una instalación básica de 2 cámaras HD con todo incluido (equipo + DVR + disco duro + mano de obra) cuesta desde $3,490 MXN. Un paquete completo de 4 cámaras Full HD ronda los $5,490. Los precios exactos dependen del tipo de inmueble — la cotización por WhatsApp es gratis y te llega el mismo día.',
+  },
+  {
+    q: '¿Qué marcas de cámaras instalan?',
+    a: 'Trabajamos con Hikvision, Dahua, Provision-ISR, Ezviz y Ubiquiti — las mismas marcas que se usan en bancos, hoteles y aeropuertos. Para proyectos corporativos también ofrecemos Axis y Avigilon. Nunca instalamos equipos de marcas desconocidas: el ahorro inicial casi siempre termina en fallas a los pocos meses.',
+  },
+  {
+    q: '¿Cuánto tiempo tarda la instalación?',
+    a: 'Un paquete residencial de 2-4 cámaras se instala en 1 día. Un sistema de 6-8 cámaras (negocio mediano) toma 2-3 días. Proyectos industriales con 16+ cámaras o cableado estructurado complejo requieren entre 5 y 10 días hábiles según el diseño.',
+  },
+  {
+    q: '¿Cuál es la garantía?',
+    a: 'Garantía de 2 años por escrito en equipo y mano de obra — el doble de lo que ofrece la mayoría del mercado (1 año). Si algo falla durante el periodo de garantía lo resolvemos sin costo: equipo, refacciones y visita técnica incluidas.',
+  },
+  {
+    q: '¿Necesito firmar contrato o pagar mensualidad?',
+    a: 'No. Pagas una sola vez por la instalación y el sistema es tuyo — no hay contratos forzosos a 24 o 36 meses como otras empresas. Si quieres servicio de monitoreo opcional, lo ofrecemos desde $700/mes sin permanencia obligatoria.',
+  },
+  {
+    q: '¿Puedo ver las cámaras desde mi celular?',
+    a: 'Sí. Todas las instalaciones incluyen configuración de la app oficial de la marca (Hik-Connect, DMSS, etc.) en hasta 4 dispositivos. Te capacitamos en el uso antes de irnos: cómo ver en vivo, revisar grabaciones, recibir notificaciones de movimiento y compartir acceso con familia o socios.',
+  },
+  {
+    q: '¿La visita técnica tiene costo?',
+    a: 'Es completamente gratis en CDMX y zona metropolitana del Estado de México — incluye levantamiento, propuesta de distribución y cotización formal por escrito. Para proyectos foráneos en el Bajío o norte del país se calcula viático según distancia.',
+  },
+  {
+    q: '¿Qué pasa si se va la luz?',
+    a: 'Los paquetes Premium y Plus incluyen UPS (respaldo de batería) para mantener cámaras y NVR funcionando entre 2 y 4 horas durante un corte eléctrico. Si quieres respaldo total (24+ horas) instalamos sistema con batería + inversor adicional.',
+  },
+];
+---
+
+<section class="section-white">
+  <div class="container">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+      <div class="lg:sticky lg:top-32 lg:self-start">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 class="heading-lg mt-4 text-balance">
+          Lo que la gente nos pregunta
+          <span class="text-accent-500">antes de cotizar</span>.
+        </h2>
+        <span class="marker-line mt-5"></span>
+        <p class="lead mt-6">
+          Si tu pregunta no está aquí, escríbenos por WhatsApp y te respondemos en menos de
+          15 minutos — sin formularios ni vendedores.
+        </p>
+
+        <a
+          href="#contacto"
+          class="btn-primary mt-8 inline-flex"
+        >
+          Pregúntanos por WhatsApp
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="space-y-3">
+        {
+          faqs.map((f, i) => (
+            <details
+              class="faq-item group overflow-hidden rounded-xl border border-cream-300 bg-cream-50 transition-colors open:border-brand-500 open:bg-white open:shadow-soft"
+              open={i === 0}
+            >
+              <summary class="flex cursor-pointer items-start justify-between gap-4 px-6 py-5 list-none">
+                <h3 class="font-display text-[16.5px] font-black leading-snug text-brand-500 transition-colors group-hover:text-accent-500">
+                  {f.q}
+                </h3>
+                <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-brand-500 text-brand-500 transition-all group-open:rotate-45 group-open:border-accent-500 group-open:bg-accent-500 group-open:text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6">
+                <span class="block h-[2px] w-10 bg-accent-500 mb-4" />
+                <p class="text-[15px] leading-relaxed text-ink-700">{f.a}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

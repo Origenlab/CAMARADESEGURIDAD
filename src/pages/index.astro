@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ServiciosSection from '@components/ServiciosSection.astro';
+import EquiposSection from '@components/EquiposSection.astro';
+import BeneficiosSection from '@components/BeneficiosSection.astro';
+import TestimoniosSection from '@components/TestimoniosSection.astro';
+import ProcesoSection from '@components/ProcesoSection.astro';
+import CoberturaSection from '@components/CoberturaSection.astro';
+import FaqSection from '@components/FaqSection.astro';
+import CTASection from '@components/CTASection.astro';
+---
+
+<BaseLayout>
+  <!-- 1. HERO — fondo crema con bloque teal a la derecha + strip de quick-links -->
+  <Hero />
+
+  <!-- 2. SERVICIOS PRINCIPALES — 4 segmentos (Hogar / Comercio / Industrial / Control Acceso) -->
+  <ServiciosSection />
+
+  <!-- 3. EQUIPOS PROFESIONALES — deep dive (IP 4K, PTZ, Térmicas, LPR) -->
+  <EquiposSection />
+
+  <!-- 4. BENEFICIOS — 4 diferenciadores con stat destacado -->
+  <BeneficiosSection />
+
+  <!-- 5. TESTIMONIOS — 6 reseñas + stat bar -->
+  <TestimoniosSection />
+
+  <!-- 6. PROCESO — 4 pasos sobre fondo teal sólido -->
+  <ProcesoSection />
+
+  <!-- 7. COBERTURA — alcaldías CDMX + municipios Edomex -->
+  <CoberturaSection />
+
+  <!-- 8. FAQ — 8 preguntas frecuentes en acordeón -->
+  <FaqSection />
+
+  <!-- 9. CTA FINAL — caja split crema/teal con datos de contacto -->
+  <CTASection />
+</BaseLayout>

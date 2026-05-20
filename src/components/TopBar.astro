@@ -1,0 +1,68 @@
+---
+import { SITE } from '@/consts';
+---
+
+<div class="hidden border-b border-cream-300 bg-cream-50 text-[13px] text-ink-700 lg:block">
+  <div class="container flex h-10 items-center justify-between gap-6">
+    <p class="font-semibold text-brand-500">
+      Venta e instalación de cámaras de seguridad — CDMX y zona metropolitana
+    </p>
+    <div class="flex items-center gap-6">
+      <a
+        href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`}
+        class="inline-flex items-center gap-2 hover:text-accent-500"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-4 w-4 text-accent-500"
+          aria-hidden="true"
+        >
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.55 19.55 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72a2 2 0 0 1 1.72 2.01Z"
+          ></path>
+        </svg>
+        {SITE.contact.phone}
+      </a>
+      <span class="inline-flex items-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-4 w-4 text-accent-500"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        {SITE.contact.hours}
+      </span>
+      <span class="inline-flex items-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-4 w-4 text-accent-500"
+          aria-hidden="true"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+        Garantía y soporte incluidos
+      </span>
+    </div>
+  </div>
+</div>

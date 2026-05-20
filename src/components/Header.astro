@@ -1,0 +1,162 @@
+---
+import { NAV_LINKS, SITE } from '@/consts';
+import TopBar from '@components/TopBar.astro';
+---
+
+<TopBar />
+
+<header
+  id="site-header"
+  class="sticky top-0 z-40 w-full border-b border-cream-300 bg-white transition-shadow duration-200"
+>
+  <div class="container flex h-20 items-center justify-between gap-6">
+    <!-- Logo wordmark — teal con punto ámbar -->
+    <a
+      href="/"
+      class="flex flex-col leading-none transition-opacity hover:opacity-80"
+      aria-label={`${SITE.name} — Inicio`}
+    >
+      <span class="font-display text-[26px] font-black tracking-tight text-brand-500">
+        CÁMARA<span class="text-accent-500">.</span>SEGURIDAD
+      </span>
+      <span
+        class="mt-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-ink-500"
+      >
+        CCTV · INSTALACIÓN · MONITOREO
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class="rounded-md px-4 py-2 text-[15px] font-bold text-ink-800 transition-colors hover:text-accent-500"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <a
+        href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent('Hola, me interesa información sobre cámaras de seguridad.')}`}
+        target="_blank"
+        rel="noopener"
+        class="btn-primary"
+      >
+        Cotiza Gratis
+      </a>
+    </div>
+
+    <button
+      id="mobile-menu-toggle"
+      class="grid h-11 w-11 place-items-center rounded-md text-brand-500 transition-colors hover:bg-cream-100 lg:hidden"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-6 w-6"
+        aria-hidden="true"
+      >
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-cream-300 bg-white lg:hidden"
+    aria-hidden="true"
+  >
+    <nav class="container flex flex-col gap-1 py-4" aria-label="Navegación móvil">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class="rounded-md px-3 py-3 text-base font-bold text-ink-800 transition-colors hover:bg-cream-100 hover:text-accent-500"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={`https://wa.me/${SITE.contact.whatsapp}`}
+        target="_blank"
+        rel="noopener"
+        class="btn-primary mt-2"
+      >
+        Cotiza Gratis
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- Breadcrumb teal sólido con barra ámbar (en lugar de negro) -->
+<div class="bg-brand-500 text-cream-50">
+  <div class="container flex h-12 items-center gap-2 text-sm">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="h-4 w-4 text-accent-400"
+      aria-hidden="true"
+    >
+      <path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-6h-2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"></path>
+    </svg>
+    <a href="/" class="font-medium text-cream-50/90 hover:text-accent-400">Inicio</a>
+  </div>
+  <div class="h-1 w-full bg-brand-600">
+    <div class="h-full w-1/5 bg-accent-500"></div>
+  </div>
+</div>
+
+<script>
+  const header = document.getElementById('site-header');
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 8) {
+        header.classList.add('shadow-soft');
+      } else {
+        header.classList.remove('shadow-soft');
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      menu.setAttribute('aria-hidden', String(isOpen));
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    menu.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        menu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
