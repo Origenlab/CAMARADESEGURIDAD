@@ -39,7 +39,7 @@ export const NAV_LINKS = [
   { href: '/servicios/', label: 'Servicios' },
   { href: '/#porque-nosotros', label: 'Por qué nosotros' },
   { href: '/proceso/', label: 'Cómo trabajamos' },
-  { href: '/#faq', label: 'Preguntas frecuentes' },
+  { href: '/faq/', label: 'Preguntas frecuentes' },
   { href: '/#contacto', label: 'Contacto' },
 ] as const;
 
@@ -58,7 +58,7 @@ export const SECTION_LINKS = [
   { href: '/#equipos', label: 'Equipos Profesionales' },
   { href: '/proceso/', label: 'Cómo trabajamos' },
   { href: '/cobertura/', label: 'Cobertura CDMX' },
-  { href: '/#faq', label: 'Preguntas frecuentes' },
+  { href: '/faq/', label: 'Preguntas frecuentes' },
 ] as const;
 
 export type NavLink = (typeof NAV_LINKS)[number];

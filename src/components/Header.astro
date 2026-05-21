@@ -11,6 +11,7 @@ const segmentLabel = (slug: string): string => {
     nosotros: 'Nosotros',
     proceso: 'Cómo trabajamos',
     cobertura: 'Cobertura',
+    faq: 'Preguntas frecuentes',
     servicios: 'Servicios',
     hogar: 'Hogar',
     comercio: 'Comercio',
@@ -55,7 +56,7 @@ const mobileNavIcons: Record<string, string> = {
   '/nosotros/':  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
   '/proceso/':   '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
   '/cobertura/': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/>',
-  '/#faq':       '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
+  '/faq/':       '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
   '/#contacto':  '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.92 3.42 2 2 0 0 1 3.9 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.91 6.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/>',
 };
 
@@ -64,7 +65,7 @@ const mainNavLinks = [
   { href: '/nosotros/',  label: 'Nosotros' },
   { href: '/proceso/',   label: 'Proceso' },
   { href: '/cobertura/', label: 'Cobertura' },
-  { href: '/#faq',       label: 'FAQ' },
+  { href: '/faq/',       label: 'FAQ' },
   { href: '/#contacto',  label: 'Contacto' },
 ];
 ---
