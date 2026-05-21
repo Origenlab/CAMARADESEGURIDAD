@@ -3,7 +3,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/nosotros/'];
 
 // ── Datos JSON-LD (también pasados al componente FaqSection) ──
 const faq = [
@@ -116,9 +120,10 @@ const comparacion = [
 ---
 
 <BaseLayout
-  title="Nosotros | Cámara de Seguridad — Expertos CCTV en México"
-  description="Más de 10 años instalando cámaras de seguridad en CDMX y México. Técnicos certificados Hikvision y Dahua, garantía de 2 años por escrito y soporte real post-instalación."
-  canonical={`${SITE.url}/nosotros/`}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="/nosotros/"
   breadcrumb={breadcrumb}
   faq={faq}
 >
@@ -422,6 +427,9 @@ por WhatsApp en menos de 15 minutos en horario hábil.`,
 
   <!-- ── 7. FAQ + COTIZACIÓN ───────────────────────────────── -->
   <FaqSection faqs={faq} />
+
+  <!-- ── 7.5 ENLAZADO INTERNO ─────────────────────────────── -->
+  <RelatedLinks variant="cream" eyebrow="Profundiza en nuestra propuesta" />
 
   <!-- ── 8. CTA ─────────────────────────────────────────────── -->
   <CTASection />

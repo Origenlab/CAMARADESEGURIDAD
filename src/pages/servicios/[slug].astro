@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
 
 export async function getStaticPaths() {
@@ -26,6 +27,34 @@ const breadcrumb = [
 ];
 
 const faqSchema = s.faq.map((f) => ({ q: f.q, a: f.a }));
+
+// Products schema para los paquetes de ESTE servicio
+const productsSchema = (s.paquetes ?? [])
+  .map((pkg) => ({
+    name: `${pkg.name} — ${s.title}`,
+    description: pkg.detail,
+    ...(pkg.precio !== undefined && { price: pkg.precio }),
+    priceCurrency: 'MXN',
+    brand: 'Cámara de Seguridad',
+    category: s.title,
+    url: `/servicios/${slug}/#paquetes`,
+  }))
+  .filter((p) => p.price !== undefined);
+
+// Service schema para esta página
+const serviceSchema = [
+  {
+    name: s.title,
+    description: s.description,
+    url: `/servicios/${slug}/`,
+    serviceType: s.title,
+  },
+];
+
+// SEO meta optimizado por slug
+const seoTitle = s.seo?.title ?? `${s.title} | Instalación CCTV Profesional · Garantía 2 Años`;
+const seoDesc = s.seo?.description ?? `${s.description} Visita técnica gratuita en CDMX y Edomex. Técnicos certificados Hikvision y Dahua, garantía 2 años por escrito.`;
+const seoKeywords = `${s.title.toLowerCase()}, cámaras de seguridad ${slug}, instalación CCTV ${slug}, ${s.shortTitle?.toLowerCase() ?? ''}, Hikvision, Dahua, cotización gratis`;
 
 // ── Iconos SVG paths ───────────────────────────────────────────
 const svgIcons: Record<string, string> = {
@@ -63,11 +92,14 @@ const formatPrice = (n: number) =>
 ---
 
 <BaseLayout
-  title={s.seo?.title ?? s.title}
-  description={s.seo?.description ?? s.description}
+  title={seoTitle}
+  description={seoDesc}
+  keywords={seoKeywords}
   canonical={`/servicios/${slug}/`}
   breadcrumb={breadcrumb}
   faq={faqSchema}
+  services={serviceSchema}
+  products={productsSchema}
 >
 
   <!-- ══════════════════════════════════════════════════════

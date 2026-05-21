@@ -2,7 +2,11 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/faq/'];
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
@@ -203,9 +207,10 @@ const phone = SITE.contact.whatsapp;
 ---
 
 <BaseLayout
-  title="Preguntas Frecuentes sobre Cámaras de Seguridad CCTV | Cámara de Seguridad México"
-  description="Resuelve todas tus dudas sobre instalación de cámaras CCTV: precios, garantías, marcas, proceso, app y cobertura. 31 respuestas de expertos certificados Hikvision y Dahua."
-  canonical={`${SITE.url}/faq/`}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="/faq/"
   breadcrumb={breadcrumb}
   faq={allFaqs}
 >
@@ -548,6 +553,9 @@ pero el chat siempre tiene la respuesta más reciente.`,
       </div>
     </div>
   </section>
+
+  <!-- ── 4.5 ENLAZADO INTERNO ──────────────────────────────────── -->
+  <RelatedLinks variant="cream" eyebrow="Continúa investigando" />
 
   <!-- ── 5. CTA ─────────────────────────────────────────────────── -->
   <CTASection />

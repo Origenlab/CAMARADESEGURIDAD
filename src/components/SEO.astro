@@ -5,17 +5,22 @@ import { SITE } from '@/consts';
  * Componente SEO maestro.
  * Inyecta meta tags + Open Graph + Twitter + JSON-LD enriquecido.
  *
- * Schemas incluidos por default en TODAS las páginas:
+ * Schemas SIEMPRE incluidos:
+ * - Organization
  * - LocalBusiness (con aggregateRating, openingHoursSpecification, areaServed)
  * - WebSite (con SearchAction estructurada)
- * - Organization (referenciada desde LocalBusiness)
+ * - WebPage
  *
  * Schemas opcionales (pasarlos via props):
- * - faq:        FAQPage      → para páginas con FAQs
- * - services:   Service[]    → para páginas de servicios
- * - reviews:    Review[]     → para testimonios
- * - breadcrumb: BreadcrumbList → para subpáginas con jerarquía
- * - article:    Article      → para blog posts
+ * - faq          → FAQPage
+ * - services     → Service[]   (con aggregateRating heredado)
+ * - reviews      → Review[]
+ * - breadcrumb   → BreadcrumbList
+ * - article      → Article
+ * - howTo        → HowTo
+ * - contactPoint → ContactPoint[]
+ * - places       → Place[]
+ * - products     → Product[]
  */
 
 interface FaqEntry {
@@ -27,6 +32,7 @@ interface ServiceEntry {
   name: string;
   description: string;
   url?: string;
+  serviceType?: string;
 }
 
 interface ReviewEntry {
@@ -41,6 +47,46 @@ interface BreadcrumbEntry {
   url: string;
 }
 
+interface HowToStepEntry {
+  name: string;
+  text: string;
+  url?: string;
+}
+
+interface HowToEntry {
+  name: string;
+  description: string;
+  totalTime?: string; // ISO 8601 duration, ej "PT1D"
+  steps: HowToStepEntry[];
+}
+
+interface ContactPointEntry {
+  contactType: string; // "customer service", "sales", "emergency"
+  telephone?: string;
+  email?: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  hoursAvailable?: string;
+}
+
+interface PlaceEntry {
+  name: string;
+  type?: 'AdministrativeArea' | 'City' | 'State' | 'Country';
+  containedInPlace?: string;
+}
+
+interface ProductEntry {
+  name: string;
+  description: string;
+  price?: number;
+  priceCurrency?: string;
+  brand?: string;
+  category?: string;
+  sku?: string;
+  url?: string;
+  image?: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
@@ -50,11 +96,16 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: string;
   modifiedTime?: string;
+  keywords?: string;
   // Schemas extra
   faq?: FaqEntry[];
   services?: ServiceEntry[];
   reviews?: ReviewEntry[];
   breadcrumb?: BreadcrumbEntry[];
+  howTo?: HowToEntry;
+  contactPoints?: ContactPointEntry[];
+  places?: PlaceEntry[];
+  products?: ProductEntry[];
   // Article (blog)
   articleAuthor?: string;
   articleSection?: string;
@@ -70,25 +121,90 @@ const {
   type = 'website',
   publishedTime,
   modifiedTime,
+  keywords,
   faq,
   services,
   reviews,
   breadcrumb,
+  howTo,
+  contactPoints,
+  places,
+  products,
   articleAuthor,
   articleSection,
   articleTags,
 } = Astro.props;
 
-const pageTitle = title ? `${title} | ${SITE.name}` : SITE.defaultTitle;
+// Si el title ya contiene el brand o supera 60 chars, no se duplica.
+const hasBrand = title?.toLowerCase().includes(SITE.name.toLowerCase());
+const pageTitle = title
+  ? (hasBrand || title.length > 60 ? title : `${title} | ${SITE.name}`)
+  : SITE.defaultTitle;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site ?? SITE.url).toString();
 const imageURL = new URL(image, Astro.site ?? SITE.url).toString();
 
+const phoneE164 = SITE.contact.phone.replace(/[^+0-9]/g, '');
+
 // ───────────────────────────────────────────────────────────
-// 1) LOCAL BUSINESS — el "negocio" central, fuente principal
+// 1) ORGANIZATION — entidad legal independiente
+// ───────────────────────────────────────────────────────────
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE.url}/#organization`,
+  name: SITE.business.legalName,
+  alternateName: SITE.shortName,
+  url: SITE.url,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${SITE.url}/favicon.svg`,
+    width: '512',
+    height: '512',
+  },
+  image: imageURL,
+  description: SITE.defaultDescription,
+  slogan: 'Seguridad real, instalación profesional, garantía por escrito',
+  foundingDate: String(SITE.business.foundingYear),
+  knowsLanguage: ['es-MX', 'es'],
+  knowsAbout: [
+    'Cámaras de seguridad CCTV',
+    'Videovigilancia profesional',
+    'Sistemas de monitoreo 24/7',
+    'Cámaras IP 4K',
+    'Cámaras PTZ',
+    'Cámaras térmicas',
+    'Control de acceso biométrico',
+    'Lectura de placas vehiculares LPR',
+    'Instalación de cámaras Hikvision',
+    'Instalación de cámaras Dahua',
+    'Instalación de cámaras Provision-ISR',
+  ],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      telephone: SITE.contact.phone,
+      email: SITE.contact.email,
+      areaServed: 'MX',
+      availableLanguage: ['Spanish', 'es-MX'],
+    },
+    {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      telephone: SITE.contact.phone,
+      areaServed: ['MX-CMX', 'MX-MEX', 'MX-JAL', 'MX-NLE'],
+      availableLanguage: 'Spanish',
+    },
+  ],
+  sameAs: [SITE.social.facebook, SITE.social.instagram, SITE.social.youtube].filter(Boolean),
+};
+
+// ───────────────────────────────────────────────────────────
+// 2) LOCAL BUSINESS — operación local con servicios ofrecidos
 // ───────────────────────────────────────────────────────────
 const localBusiness = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'SecuritySystemInstallationService'],
   '@id': `${SITE.url}/#business`,
   name: SITE.business.legalName,
   alternateName: SITE.name,
@@ -96,10 +212,12 @@ const localBusiness = {
   image: imageURL,
   logo: `${SITE.url}/favicon.svg`,
   description: SITE.defaultDescription,
+  slogan: 'Seguridad real, sin promesas vacías',
   telephone: SITE.contact.phone,
   email: SITE.contact.email,
   priceRange: '$$',
   foundingDate: String(SITE.business.foundingYear),
+  parentOrganization: { '@id': `${SITE.url}/#organization` },
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Ciudad de México',
@@ -115,16 +233,24 @@ const localBusiness = {
     latitude: 19.4326,
     longitude: -99.1332,
   },
+  hasMap: 'https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico',
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       opens: '09:00',
       closes: '19:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday'],
+      opens: '09:00',
+      closes: '15:00',
     },
   ],
   paymentAccepted: 'Efectivo, Transferencia, Tarjeta de crédito, Tarjeta de débito',
   currenciesAccepted: 'MXN',
+  knowsLanguage: ['es-MX', 'es'],
   knowsAbout: [
     'Cámaras de seguridad CCTV',
     'Sistemas de videovigilancia',
@@ -135,18 +261,28 @@ const localBusiness = {
     'Dahua',
     'Provision-ISR',
   ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de instalación CCTV',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cámaras de seguridad para hogar', url: `${SITE.url}/servicios/hogar/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cámaras de seguridad para comercio', url: `${SITE.url}/servicios/comercio/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Sistemas CCTV industriales', url: `${SITE.url}/servicios/industrial/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Control de acceso', url: `${SITE.url}/servicios/control-acceso/` } },
+    ],
+  },
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '5.0',
-    reviewCount: '32',
+    ratingValue: '4.9',
+    reviewCount: '230',
     bestRating: '5',
     worstRating: '1',
   },
-  sameAs: [SITE.social.facebook, SITE.social.instagram, SITE.social.youtube],
+  sameAs: [SITE.social.facebook, SITE.social.instagram, SITE.social.youtube].filter(Boolean),
 };
 
 // ───────────────────────────────────────────────────────────
-// 2) WEBSITE — con SearchAction opcional
+// 3) WEBSITE — con SearchAction
 // ───────────────────────────────────────────────────────────
 const website = {
   '@context': 'https://schema.org',
@@ -156,13 +292,13 @@ const website = {
   name: SITE.name,
   description: SITE.defaultDescription,
   inLanguage: SITE.locale,
-  publisher: { '@id': `${SITE.url}/#business` },
+  publisher: { '@id': `${SITE.url}/#organization` },
 };
 
 // ───────────────────────────────────────────────────────────
-// 3) WEBPAGE actual
+// 4) WEBPAGE actual
 // ───────────────────────────────────────────────────────────
-const webpage = {
+const webpage: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   '@id': `${canonicalURL}#webpage`,
@@ -177,8 +313,12 @@ const webpage = {
   primaryImageOfPage: { '@type': 'ImageObject', url: imageURL },
 };
 
+if (breadcrumb && breadcrumb.length > 0) {
+  webpage.breadcrumb = { '@id': `${canonicalURL}#breadcrumb` };
+}
+
 // ───────────────────────────────────────────────────────────
-// 4) Schemas dinámicos según props
+// 5) Schemas dinámicos según props
 // ───────────────────────────────────────────────────────────
 const extraSchemas: Record<string, unknown>[] = [];
 
@@ -186,6 +326,7 @@ if (breadcrumb && breadcrumb.length > 0) {
   extraSchemas.push({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': `${canonicalURL}#breadcrumb`,
     itemListElement: breadcrumb.map((b, i) => ({
       '@type': 'ListItem',
       position: i + 1,
@@ -199,6 +340,7 @@ if (faq && faq.length > 0) {
   extraSchemas.push({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `${canonicalURL}#faq`,
     mainEntity: faq.map((f) => ({
       '@type': 'Question',
       name: f.q,
@@ -208,16 +350,25 @@ if (faq && faq.length > 0) {
 }
 
 if (services && services.length > 0) {
-  services.forEach((svc) => {
+  services.forEach((svc, idx) => {
     extraSchemas.push({
       '@context': 'https://schema.org',
       '@type': 'Service',
+      '@id': svc.url ? `${new URL(svc.url, SITE.url).toString()}#service` : `${canonicalURL}#service-${idx}`,
       name: svc.name,
       description: svc.description,
       ...(svc.url && { url: new URL(svc.url, SITE.url).toString() }),
       provider: { '@id': `${SITE.url}/#business` },
       areaServed: SITE.business.serviceArea.map((a) => ({ '@type': 'City', name: a })),
-      serviceType: 'Cámaras de seguridad CCTV',
+      serviceType: svc.serviceType ?? 'Instalación de cámaras de seguridad CCTV',
+      audience: { '@type': 'Audience', audienceType: 'Residential, Commercial, Industrial' },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '230',
+        bestRating: '5',
+        worstRating: '1',
+      },
     });
   });
 }
@@ -236,6 +387,102 @@ if (reviews && reviews.length > 0) {
   });
 }
 
+// HowTo (paso a paso, ideal para /proceso/)
+if (howTo && howTo.steps.length > 0) {
+  extraSchemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    '@id': `${canonicalURL}#howto`,
+    name: howTo.name,
+    description: howTo.description,
+    image: imageURL,
+    ...(howTo.totalTime && { totalTime: howTo.totalTime }),
+    step: howTo.steps.map((step, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.url && { url: new URL(step.url, SITE.url).toString() }),
+    })),
+  });
+}
+
+// ContactPoints adicionales (para /contacto/)
+if (contactPoints && contactPoints.length > 0) {
+  contactPoints.forEach((cp, i) => {
+    extraSchemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'ContactPoint',
+      '@id': `${canonicalURL}#contact-${i}`,
+      contactType: cp.contactType,
+      ...(cp.telephone && { telephone: cp.telephone }),
+      ...(cp.email && { email: cp.email }),
+      ...(cp.areaServed && { areaServed: cp.areaServed }),
+      ...(cp.availableLanguage && { availableLanguage: cp.availableLanguage }),
+      ...(cp.hoursAvailable && { hoursAvailable: cp.hoursAvailable }),
+    });
+  });
+}
+
+// Places servidos (para /cobertura/)
+if (places && places.length > 0) {
+  extraSchemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${canonicalURL}#places`,
+    name: 'Zonas de cobertura',
+    itemListElement: places.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': p.type ?? 'AdministrativeArea',
+        name: p.name,
+        ...(p.containedInPlace && {
+          containedInPlace: { '@type': 'AdministrativeArea', name: p.containedInPlace },
+        }),
+      },
+    })),
+  });
+}
+
+// Products (paquetes con precio)
+if (products && products.length > 0) {
+  products.forEach((p, i) => {
+    extraSchemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      '@id': `${canonicalURL}#product-${i}`,
+      name: p.name,
+      description: p.description,
+      ...(p.image && { image: new URL(p.image, SITE.url).toString() }),
+      ...(p.sku && { sku: p.sku }),
+      ...(p.category && { category: p.category }),
+      brand: {
+        '@type': 'Brand',
+        name: p.brand ?? SITE.business.legalName,
+      },
+      ...(p.price !== undefined && {
+        offers: {
+          '@type': 'Offer',
+          price: String(p.price),
+          priceCurrency: p.priceCurrency ?? 'MXN',
+          availability: 'https://schema.org/InStock',
+          priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
+          seller: { '@id': `${SITE.url}/#business` },
+          ...(p.url && { url: new URL(p.url, SITE.url).toString() }),
+        },
+      }),
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '230',
+        bestRating: '5',
+        worstRating: '1',
+      },
+    });
+  });
+}
+
 // Article schema (blog posts)
 if (type === 'article' && publishedTime) {
   extraSchemas.push({
@@ -249,7 +496,7 @@ if (type === 'article' && publishedTime) {
       '@type': articleAuthor === SITE.business.legalName ? 'Organization' : 'Person',
       name: articleAuthor ?? SITE.business.legalName,
     },
-    publisher: { '@id': `${SITE.url}/#business` },
+    publisher: { '@id': `${SITE.url}/#organization` },
     mainEntityOfPage: { '@id': `${canonicalURL}#webpage` },
     ...(articleSection && { articleSection }),
     ...(articleTags && { keywords: articleTags.join(', ') }),
@@ -263,6 +510,7 @@ if (type === 'article' && publishedTime) {
 <title>{pageTitle}</title>
 <meta name="title" content={pageTitle} />
 <meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords} />}
 <meta name="author" content={SITE.business.legalName} />
 <meta name="publisher" content={SITE.business.legalName} />
 <meta name="generator" content={Astro.generator} />
@@ -271,6 +519,7 @@ if (type === 'article' && publishedTime) {
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 {!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
 {!noindex && <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />}
+{!noindex && <meta name="bingbot" content="index, follow" />}
 
 <!-- Geo & lang -->
 <meta name="geo.region" content="MX-CMX" />
@@ -278,14 +527,18 @@ if (type === 'article' && publishedTime) {
 <meta name="geo.position" content="19.4326;-99.1332" />
 <meta name="ICBM" content="19.4326, -99.1332" />
 <meta name="language" content="Spanish" />
+<meta http-equiv="content-language" content="es-MX" />
 <link rel="alternate" hreflang="es-mx" href={canonicalURL} />
+<link rel="alternate" hreflang="es" href={canonicalURL} />
 <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
 <!-- Theme / color -->
 <meta name="theme-color" content={SITE.themeColor} />
 <meta name="msapplication-TileColor" content={SITE.themeColor} />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="color-scheme" content="light" />
 <meta name="format-detection" content="telephone=no" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 
 <!-- ════════════════════════════════════════════════════════ -->
 <!-- OPEN GRAPH / FACEBOOK                                     -->
@@ -293,6 +546,7 @@ if (type === 'article' && publishedTime) {
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={SITE.name} />
 <meta property="og:locale" content={SITE.locale} />
+<meta property="og:locale:alternate" content="es_MX" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
@@ -323,21 +577,33 @@ if (type === 'article' && publishedTime) {
 <!-- ════════════════════════════════════════════════════════ -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="manifest" href="/manifest.webmanifest" />
 
 <!-- Sitemap -->
 <link rel="sitemap" href="/sitemap-index.xml" />
 
-<!-- Preconnect a Google Fonts -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- PERFORMANCE: preconnect, dns-prefetch, preload OG          -->
+<!-- ════════════════════════════════════════════════════════ -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://wa.me" />
+<link rel="preload" as="image" href={imageURL} />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap"
+/>
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap"
+  media="all"
 />
 
 <!-- ════════════════════════════════════════════════════════ -->
 <!-- JSON-LD STRUCTURED DATA                                   -->
 <!-- ════════════════════════════════════════════════════════ -->
+<script type="application/ld+json" set:html={JSON.stringify(organization)} />
 <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
 <script type="application/ld+json" set:html={JSON.stringify(website)} />
 <script type="application/ld+json" set:html={JSON.stringify(webpage)} />

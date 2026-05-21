@@ -10,6 +10,10 @@ import CoberturaSection from '@components/CoberturaSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
 import PorQueNosotrosSection from '@components/PorQueNosotrosSection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/'];
 
 // ───────────────────────────────────────────────────────────
 // Datos estructurados — single source of truth para JSON-LD
@@ -100,6 +104,10 @@ const reviews = [
 ---
 
 <BaseLayout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="/"
   faq={faq}
   services={services}
   reviews={reviews}
@@ -445,6 +453,14 @@ normales. Integración con CCTV, control de acceso y barrera incluida.`,
 
   <!-- 8. FAQ -->
   <FaqSection faqs={faq} />
+
+  <!-- 8.5 ENLAZADO INTERNO ESTRATÉGICO -->
+  <RelatedLinks
+    variant="cream"
+    eyebrow="Explora el sitio"
+    heading="Todo lo que necesitas para decidir con seguridad"
+    lead="Resume tus dudas, conoce los servicios, valida la cobertura en tu zona y descubre por qué somos la empresa líder en cámaras de seguridad CCTV de CDMX."
+  />
 
   <!-- 9. CTA -->
   <CTASection />

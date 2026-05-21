@@ -26,6 +26,42 @@ interface BreadcrumbEntry {
   url: string;
 }
 
+interface HowToStepEntry {
+  name: string;
+  text: string;
+  url?: string;
+}
+interface HowToEntry {
+  name: string;
+  description: string;
+  totalTime?: string;
+  steps: HowToStepEntry[];
+}
+interface ContactPointEntry {
+  contactType: string;
+  telephone?: string;
+  email?: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  hoursAvailable?: string;
+}
+interface PlaceEntry {
+  name: string;
+  type?: 'AdministrativeArea' | 'City' | 'State' | 'Country';
+  containedInPlace?: string;
+}
+interface ProductEntry {
+  name: string;
+  description: string;
+  price?: number;
+  priceCurrency?: string;
+  brand?: string;
+  category?: string;
+  sku?: string;
+  url?: string;
+  image?: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
@@ -35,12 +71,17 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: string;
   modifiedTime?: string;
+  keywords?: string;
   showWhatsApp?: boolean;
   // Schemas opcionales
   faq?: FaqEntry[];
   services?: ServiceEntry[];
   reviews?: ReviewEntry[];
   breadcrumb?: BreadcrumbEntry[];
+  howTo?: HowToEntry;
+  contactPoints?: ContactPointEntry[];
+  places?: PlaceEntry[];
+  products?: ProductEntry[];
   articleAuthor?: string;
   articleSection?: string;
   articleTags?: string[];
@@ -55,11 +96,16 @@ const {
   type,
   publishedTime,
   modifiedTime,
+  keywords,
   showWhatsApp = true,
   faq,
   services,
   reviews,
   breadcrumb,
+  howTo,
+  contactPoints,
+  places,
+  products,
   articleAuthor,
   articleSection,
   articleTags,
@@ -80,10 +126,15 @@ const {
       type={type}
       publishedTime={publishedTime}
       modifiedTime={modifiedTime}
+      keywords={keywords}
       faq={faq}
       services={services}
       reviews={reviews}
       breadcrumb={breadcrumb}
+      howTo={howTo}
+      contactPoints={contactPoints}
+      places={places}
+      products={products}
       articleAuthor={articleAuthor}
       articleSection={articleSection}
       articleTags={articleTags}

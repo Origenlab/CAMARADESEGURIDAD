@@ -1,0 +1,22 @@
+{
+  "name": "Cámara de Seguridad — Instalación CCTV Profesional CDMX",
+  "short_name": "CámaraDeSeguridad",
+  "description": "Empresa líder en cámaras de seguridad CCTV en México. Instalación profesional con garantía 2 años, técnicos certificados Hikvision y Dahua.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F1F5F9",
+  "theme_color": "#0A2540",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "categories": ["business", "utilities", "security"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

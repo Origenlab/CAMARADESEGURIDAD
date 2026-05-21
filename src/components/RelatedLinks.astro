@@ -1,0 +1,158 @@
+---
+import { getRelatedLinks, getPageContext, type RelatedLink } from '@/data/seo';
+
+interface Props {
+  /** Path actual — si se omite se lee de Astro.url.pathname */
+  currentPath?: string;
+  /** Máximo de links a mostrar */
+  maxLinks?: number;
+  /** Sobrescribir heading (default lo toma de PAGE_SEO) */
+  heading?: string;
+  /** Sobrescribir lead (default lo toma de PAGE_SEO) */
+  lead?: string;
+  /** Fondo del bloque */
+  variant?: 'cream' | 'white' | 'brand';
+  /** Eyebrow corto */
+  eyebrow?: string;
+}
+
+const {
+  currentPath = Astro.url.pathname,
+  maxLinks = 6,
+  heading,
+  lead,
+  variant = 'cream',
+  eyebrow = 'Enlaces relacionados',
+} = Astro.props;
+
+const links: RelatedLink[] = getRelatedLinks(currentPath, maxLinks);
+const ctx = getPageContext(currentPath);
+const finalHeading = heading ?? ctx.heading;
+const finalLead = lead ?? ctx.lead;
+
+const bgClass =
+  variant === 'brand'
+    ? 'section-brand'
+    : variant === 'white'
+    ? 'section-white'
+    : 'section-cream';
+
+const isDark = variant === 'brand';
+
+// SVG paths por icon
+const svgPaths: Record<string, string> = {
+  home: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  store: '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/><path d="M9 13a3 3 0 1 0 6 0"/>',
+  factory: '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/><path d="M7 17h2M11 17h2M15 17h2"/>',
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  camera: '<path d="M3 8a2 2 0 0 1 2-2h3l2-2h4l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="4"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+  eye: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  map: '<path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  help: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+  phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/>',
+  about: '<circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>',
+};
+---
+
+<section class={`${bgClass} relative overflow-hidden`} aria-labelledby="related-heading">
+  {isDark && (
+    <div class="absolute left-0 top-0 h-1 w-full bg-accent-500" aria-hidden="true"></div>
+  )}
+  <div class="container relative">
+
+    <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+      <div>
+        <span class={isDark ? 'eyebrow-light' : 'eyebrow'}>{eyebrow}</span>
+        <h2
+          id="related-heading"
+          class={`heading-md mt-4 text-balance ${isDark ? 'heading-light' : ''}`}
+        >
+          {finalHeading}
+          <span class={isDark ? 'text-accent-400' : 'text-accent-500'}>.</span>
+        </h2>
+        <span class="marker-line mt-5"></span>
+      </div>
+      <p class={isDark ? 'lead-light' : 'lead'}>
+        {finalLead}
+      </p>
+    </div>
+
+    <nav
+      class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+      aria-label="Páginas relacionadas"
+    >
+      {links.map((link) => {
+        const iconBg =
+          link.color === 'brand'
+            ? 'bg-brand-500 group-hover:bg-accent-500'
+            : 'bg-accent-500 group-hover:bg-brand-500';
+
+        const cardBase = isDark
+          ? 'border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/[0.08]'
+          : 'border-cream-200 bg-white hover:border-brand-500/30 hover:shadow-card';
+
+        const titleColor = isDark ? 'text-white group-hover:text-accent-300' : 'text-brand-500 group-hover:text-accent-500';
+        const descColor = isDark ? 'text-cream-300' : 'text-ink-600';
+        const eyebrowColor = isDark ? 'text-cream-400' : 'text-ink-400';
+
+        return (
+          <a
+            href={link.href}
+            class={`group flex items-start gap-4 rounded-2xl border p-5 transition-all hover:-translate-y-0.5 ${cardBase}`}
+            title={link.label}
+          >
+            <span
+              class={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-white transition-colors ${iconBg}`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-5 w-5"
+                aria-hidden="true"
+                set:html={svgPaths[link.icon] ?? svgPaths.camera}
+              />
+            </span>
+            <div class="min-w-0 flex-1">
+              <p
+                class={`text-[10.5px] font-bold uppercase tracking-[0.2em] ${eyebrowColor}`}
+              >
+                {link.eyebrow}
+              </p>
+              <p
+                class={`mt-1 font-display text-[15px] font-black leading-snug transition-colors ${titleColor}`}
+              >
+                {link.label}
+              </p>
+              <p class={`mt-1.5 text-[13px] leading-snug ${descColor}`}>
+                {link.description}
+              </p>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class={`mt-1 h-4 w-4 shrink-0 transition-all group-hover:translate-x-0.5 ${
+                isDark ? 'text-cream-400 group-hover:text-accent-300' : 'text-ink-300 group-hover:text-accent-500'
+              }`}
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</section>

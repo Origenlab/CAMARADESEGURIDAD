@@ -1,4 +1,24 @@
+# https://camara-de-seguridad.com — Empresa líder en instalación de cámaras CCTV en México
+# Permitimos a todos los bots indexar el sitio completo.
+
 User-agent: *
 Allow: /
+Disallow: /_research/
+Disallow: /*.json$
+Disallow: /api/
 
+# Bots maliciosos / scrapers comerciales (opcional, no bloquea SEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap principal
 Sitemap: https://camara-de-seguridad.com/sitemap-index.xml

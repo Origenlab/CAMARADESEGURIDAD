@@ -11,6 +11,10 @@ import ProcesoSection from '@components/ProcesoSection.astro';
 import CoberturaSection from '@components/CoberturaSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/servicios/'];
 
 // Servicios desde Content Collection — alimenta cards + schemas
 const servicios = await getCollection('servicios');
@@ -21,7 +25,24 @@ const servicesSchema = servicios
     name: s.data.title,
     description: s.data.description,
     url: `/servicios/${s.id.replace(/\.md$/, '')}/`,
+    serviceType: 'Instalación de cámaras de seguridad CCTV',
   }));
+
+// Products schema agregado para todos los paquetes con precio
+const productsSchema = servicios
+  .flatMap((s) =>
+    (s.data.paquetes ?? []).map((pkg) => ({
+      name: `${pkg.name} — ${s.data.title}`,
+      description: pkg.detail,
+      ...(pkg.precio !== undefined && { price: pkg.precio }),
+      priceCurrency: 'MXN',
+      brand: 'Cámara de Seguridad',
+      category: s.data.title,
+      url: `/servicios/${s.id.replace(/\.md$/, '')}/#paquetes`,
+    })),
+  )
+  .filter((p) => p.price !== undefined)
+  .slice(0, 12); // Limita a 12 productos top
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
@@ -66,11 +87,13 @@ const faq = [
 ---
 
 <BaseLayout
-  title="Servicios"
-  description="Servicios profesionales de cámaras de seguridad CCTV en CDMX y Estado de México: residencial, comercial, industrial y control de acceso. Garantía de 2 años por escrito, marcas Hikvision, Dahua y Provision-ISR."
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
   canonical="/servicios/"
   breadcrumb={breadcrumb}
   services={servicesSchema}
+  products={productsSchema}
   faq={faq}
 >
   <!-- 1. HERO — mismo del index, contenido adaptado a servicios -->
@@ -443,6 +466,9 @@ componentes sueltos. Visita técnica gratis para definir el alcance.`,
 
   <!-- 8. FAQ — específicos de servicios -->
   <FaqSection faqs={faq} />
+
+  <!-- 8.5 ENLAZADO INTERNO HACIA L2 DETALLE + RECURSOS -->
+  <RelatedLinks variant="cream" eyebrow="Servicios y recursos" />
 
   <!-- 9. CTA — reusado del index -->
   <CTASection />

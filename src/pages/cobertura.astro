@@ -3,7 +3,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/cobertura/'];
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
@@ -99,6 +103,25 @@ const ciudadesNacional: CiudadNacional[] = [
   },
 ];
 
+// Places schema — todas las zonas cubiertas
+const places = [
+  ...cdmxAlcaldias.map((z) => ({
+    name: z.nombre,
+    type: 'AdministrativeArea' as const,
+    containedInPlace: 'Ciudad de México',
+  })),
+  ...edomexMunicipios.map((z) => ({
+    name: z.nombre,
+    type: 'AdministrativeArea' as const,
+    containedInPlace: 'Estado de México',
+  })),
+  ...ciudadesNacional.map((c) => ({
+    name: c.ciudad,
+    type: 'City' as const,
+    containedInPlace: c.estado,
+  })),
+];
+
 const faq = [
   {
     q: '¿La visita técnica realmente es gratuita en toda la ZMVM?',
@@ -132,11 +155,13 @@ const faq = [
 ---
 
 <BaseLayout
-  title="Cobertura CDMX y Zona Metropolitana | Cámara de Seguridad — Visita Técnica Gratis"
-  description="Instalamos cámaras de seguridad en las 16 alcaldías de CDMX, 16+ municipios del Estado de México, Guadalajara y Monterrey. Visita técnica gratuita y sin compromiso."
-  canonical={`${SITE.url}/cobertura/`}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="/cobertura/"
   breadcrumb={breadcrumb}
   faq={faq}
+  places={places}
 >
 
   <!-- ── 1. HERO ──────────────────────────────────────────────── -->
@@ -502,6 +527,9 @@ con supervisión directa.`,
 
   <!-- ── 6. FAQ ─────────────────────────────────────────────────── -->
   <FaqSection faqs={faq} />
+
+  <!-- ── 6.5 ENLAZADO INTERNO ────────────────────────────────── -->
+  <RelatedLinks variant="cream" eyebrow="Más sobre nuestra propuesta" />
 
   <!-- ── 7. CTA ─────────────────────────────────────────────────── -->
   <CTASection />

@@ -4,7 +4,45 @@ import Hero from '@components/Hero.astro';
 import ProcesoSection from '@components/ProcesoSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/proceso/'];
+
+// HowTo schema — los 6 pasos del proceso
+const howTo = {
+  name: 'Cómo se instala un sistema de cámaras de seguridad CCTV profesional',
+  description:
+    'Proceso documentado de 6 pasos para instalar cámaras de seguridad CCTV con cableado oculto, app configurada y garantía 2 años por escrito.',
+  totalTime: 'P3D',
+  steps: [
+    {
+      name: 'Primer contacto y diagnóstico inicial',
+      text: 'Nos escribes por WhatsApp o llamada. Un técnico certificado lee tu caso y responde en menos de 15 minutos con preguntas concretas para entender alcance y zona.',
+    },
+    {
+      name: 'Visita técnica gratuita',
+      text: 'Agendamos la visita en 24-48 horas. Recorremos el espacio, evaluamos accesos, identificamos puntos ciegos y analizamos infraestructura eléctrica y de cableado.',
+    },
+    {
+      name: 'Propuesta y cotización por escrito',
+      text: 'El mismo día entregamos un documento formal con marca, modelo, precio unitario, mano de obra, tiempo estimado y condiciones de garantía. Sin letra chica.',
+    },
+    {
+      name: 'Programación e instalación profesional',
+      text: 'Coordinamos fecha conveniente. Instalamos con cableado oculto, configuramos NVR/DVR, conectamos a tu red y verificamos cada cámara con planos entregados.',
+    },
+    {
+      name: 'Configuración de app y capacitación',
+      text: 'Instalamos la app oficial (Hik-Connect o DMSS) en hasta 3 dispositivos. Te capacitamos en vivo: ver en vivo, revisar grabaciones, configurar alertas.',
+    },
+    {
+      name: 'Entrega formal y garantía firmada',
+      text: 'Firmamos acta de entrega y garantía por escrito de 2 años en equipo y mano de obra. Te damos el WhatsApp directo del técnico responsable para soporte futuro.',
+    },
+  ],
+};
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
@@ -52,11 +90,13 @@ const faq = [
 ---
 
 <BaseLayout
-  title="Cómo Trabajamos | Proceso de Instalación CCTV — Cámara de Seguridad"
-  description="Conoce el proceso completo de instalación de cámaras de seguridad: desde la asesoría gratuita hasta la entrega con app configurada. 6 pasos, tiempos reales, garantía 2 años."
-  canonical={`${SITE.url}/proceso/`}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="/proceso/"
   breadcrumb={breadcrumb}
   faq={faq}
+  howTo={howTo}
 >
 
   <!-- ── 1. HERO ──────────────────────────────────────────────── -->
@@ -253,6 +293,9 @@ y gestionar usuarios. Salimos cuando tú te sientes seguro — no cuando nosotro
 
   <!-- ── 6. FAQ ────────────────────────────────────────────────── -->
   <FaqSection faqs={faq} />
+
+  <!-- ── 6.5 ENLAZADO INTERNO ────────────────────────────────── -->
+  <RelatedLinks variant="cream" eyebrow="Profundiza en lo que ofrecemos" />
 
   <!-- ── 7. CTA ────────────────────────────────────────────────── -->
   <CTASection />

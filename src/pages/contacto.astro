@@ -1,7 +1,54 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
+import { PAGE_SEO } from '@/data/seo';
+
+const seo = PAGE_SEO['/contacto/'];
+
+// ContactPoint schema — 3 canales documentados
+const contactPoints = [
+  {
+    contactType: 'customer service',
+    telephone: SITE.contact.phone,
+    email: SITE.contact.email,
+    areaServed: ['MX-CMX', 'MX-MEX', 'MX-JAL', 'MX-NLE'],
+    availableLanguage: ['Spanish', 'es-MX'],
+    hoursAvailable: 'Mo-Fr 09:00-19:00, Sa 09:00-15:00',
+  },
+  {
+    contactType: 'sales',
+    telephone: SITE.contact.phone,
+    email: SITE.contact.email,
+    areaServed: 'MX',
+    availableLanguage: 'Spanish',
+    hoursAvailable: 'Mo-Sa 09:00-19:00',
+  },
+  {
+    contactType: 'emergency',
+    telephone: SITE.contact.phone,
+    areaServed: ['MX-CMX', 'MX-MEX'],
+    availableLanguage: 'Spanish',
+    hoursAvailable: 'Mo-Su 00:00-23:59',
+  },
+];
+
+// FAQ schema para las 3 dudas comunes
+const contactoFaq = [
+  {
+    q: '¿La visita técnica realmente es gratis?',
+    a: 'Sí, sin excepción. No cobramos costo de visita, no cobramos "gastos de desplazamiento" y no hay letra chica. La visita técnica incluye levantamiento físico, plano de distribución de cámaras y cotización formal por escrito — todo sin costo y sin compromiso de compra. Solo pagas si decides contratar.',
+  },
+  {
+    q: '¿Qué tan rápido me pueden instalar el sistema?',
+    a: 'Después de la visita técnica, una instalación residencial típica (4–8 cámaras) se completa en 1–2 días hábiles. Comercios medianos en 2–3 días. La fecha se define en la cotización. Para urgencias (post-robo, sistema caído) tenemos disponibilidad prioritaria.',
+  },
+  {
+    q: '¿Tienen cobertura en mi zona?',
+    a: 'Cobertura directa en las 16 alcaldías de CDMX y más de 16 municipios del Estado de México, sin cargo de desplazamiento. También en Guadalajara y Monterrey con técnicos certificados locales.',
+  },
+];
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
@@ -96,10 +143,13 @@ const siguiente = [
 ---
 
 <BaseLayout
-  title="Contacto | Cámaras de Seguridad CCTV CDMX — Cotización Gratis"
-  description="Contáctanos para instalar cámaras de seguridad en CDMX y zona metropolitana. Respuesta en menos de 15 minutos. Visita técnica gratuita. Técnicos certificados Hikvision y Dahua."
-  canonical={`${SITE.url}/contacto/`}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="/contacto/"
   breadcrumb={breadcrumb}
+  faq={contactoFaq}
+  contactPoints={contactPoints}
 >
 
   <!-- ── 1. HERO ──────────────────────────────────────────────── -->
@@ -647,6 +697,9 @@ sin "ese precio era sin cableado oculto".`,
       </div>
     </div>
   </section>
+
+  <!-- ── 6. ENLAZADO INTERNO ─────────────────────────────────── -->
+  <RelatedLinks variant="cream" eyebrow="Información complementaria" />
 
 </BaseLayout>
 
