@@ -1,66 +1,233 @@
 ---
-const pasos = [
+import { SITE } from '@/consts';
+
+const phone = SITE.contact.whatsapp;
+const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent('Hola, me gustaría iniciar el proceso de instalación de cámaras. ¿Pueden asesorarme?')}`;
+
+interface Paso {
+  n: string;
+  titulo: string;
+  desc: string;
+  tiempo: string;
+  incluye: string[];
+  icon: string;
+}
+
+const pasos: Paso[] = [
   {
     n: '01',
-    title: 'Asesoría sin costo',
-    description:
-      'Te contactamos por WhatsApp o llamada, entendemos tu necesidad y resolvemos dudas iniciales.',
+    titulo: 'Contacto y asesoría inicial',
+    desc: 'Nos escribes por WhatsApp o llenas el formulario. En menos de 15 minutos un asesor te responde, entiende tu caso y resuelve tus dudas sin ningún compromiso.',
+    tiempo: 'Mismo día',
+    incluye: ['Diagnóstico de necesidades', 'Recomendación de tipo de sistema', 'Sin costo ni compromiso'],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>`,
   },
   {
     n: '02',
-    title: 'Visita técnica',
-    description:
-      'Vamos a tu hogar o negocio, hacemos el levantamiento y proponemos la mejor distribución.',
+    titulo: 'Visita técnica gratuita',
+    desc: 'Un técnico certificado va a tu domicilio o negocio. Realiza el levantamiento físico, evalúa puntos ciegos, condiciones de luz y cableado existente para diseñar el sistema ideal.',
+    tiempo: '24 – 48 horas',
+    incluye: ['Evaluación de ángulos y zonas ciegas', 'Revisión de infraestructura eléctrica', 'Plano de distribución de cámaras'],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>`,
   },
   {
     n: '03',
-    title: 'Propuesta clara',
-    description:
-      'Recibes una cotización detallada por escrito: equipos, mano de obra, tiempos y garantía.',
+    titulo: 'Propuesta formal por escrito',
+    desc: 'Recibes una cotización detallada con marca y modelo de cada equipo, desglose de mano de obra, tiempo de instalación estimado y condiciones de garantía. Sin letras pequeñas.',
+    tiempo: 'Mismo día de visita',
+    incluye: ['Ficha técnica de equipos', 'Desglose de costos completo', 'Tiempo de instalación estimado', 'Condiciones de garantía'],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>`,
   },
   {
     n: '04',
-    title: 'Instalación y entrega',
-    description:
-      'Instalamos, configuramos tu app, te capacitamos y dejamos todo funcionando 100%.',
+    titulo: 'Instalación profesional certificada',
+    desc: 'Nuestros técnicos instalan el sistema con cableado organizado, fijaciones de calidad y configuración completa del NVR/DVR. Trabajamos con orden y respeto a tu espacio.',
+    tiempo: '1 – 2 días hábiles',
+    incluye: ['Cableado estructurado y oculto', 'Configuración de grabación y alertas', 'Prueba de todos los ángulos y calidades'],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" /></svg>`,
   },
+  {
+    n: '05',
+    titulo: 'Entrega, app y capacitación',
+    desc: 'Configuramos la app en tu celular, te mostramos cómo ver cámaras en vivo, revisar grabaciones y recibir alertas de movimiento. Salimos cuando tú te sientes seguro operándolo.',
+    tiempo: 'Mismo día de instalación',
+    incluye: ['App configurada en hasta 3 dispositivos', 'Acceso remoto desde cualquier lugar', 'Capacitación presencial paso a paso'],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3m-3 3h3m-3 3h3" /></svg>`,
+  },
+  {
+    n: '06',
+    titulo: 'Soporte y garantía post-instalación',
+    desc: 'No desaparecemos después de cobrar. Tienes 2 años de garantía en equipos y mano de obra, soporte técnico por WhatsApp y visitas de revisión incluidas en casos de falla.',
+    tiempo: '2 años incluidos',
+    incluye: ['Garantía en equipos y mano de obra', 'Soporte técnico por WhatsApp', 'Visitas de revisión por falla cubiertos'],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>`,
+  },
+];
+
+const garantias: string[] = [
+  '2 años de garantía en equipo y mano de obra',
+  'Técnicos certificados y con identificación',
+  'Cotización sin compromiso — sin presión de venta',
+  'Soporte técnico por WhatsApp incluido',
+  'App configurada antes de que salgamos',
+];
+
+interface Stat {
+  valor: string;
+  label: string;
+}
+
+const stats: Stat[] = [
+  { valor: '2,050+', label: 'Instalaciones realizadas' },
+  { valor: '2 años', label: 'Garantía incluida' },
+  { valor: '<15 min', label: 'Tiempo de respuesta' },
 ];
 ---
 
 <section id="proceso" class="section-brand relative overflow-hidden">
-  <!-- Línea decorativa ámbar superior -->
+  <!-- Línea ámbar superior -->
   <div class="absolute left-0 top-0 h-1 w-full bg-accent-500" aria-hidden="true"></div>
 
+  <!-- Patrón decorativo fondo -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.035]"
+    aria-hidden="true"
+    style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"
+  ></div>
+
   <div class="container relative">
+
+    <!-- Bicolumna header -->
     <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
       <div>
         <span class="eyebrow-light">Cómo trabajamos</span>
         <h2 class="heading-lg mt-4 heading-light text-balance">
-          Un proceso simple, transparente y
-          <span class="text-accent-400">a tu ritmo</span>.
+          Un proceso claro,<br />
+          de inicio a fin —
+          <span class="text-accent-400">sin sorpresas</span>.
         </h2>
         <span class="marker-line mt-5"></span>
       </div>
-      <p class="lead-light">
-        Desde el primer mensaje hasta el día que activamos tu sistema, sabes exactamente qué sigue.
-        Sin presión de venta, sin tecnicismos innecesarios.
-      </p>
+      <div class="space-y-4">
+        <p class="lead-light">
+          Desde el primer mensaje hasta que tu sistema queda activo, cada paso tiene un responsable, un tiempo estimado y un entregable concreto. No improvisamos.
+        </p>
+        <p class="text-[15.5px] leading-relaxed text-cream-300">
+          En promedio completamos una instalación residencial en 3 días hábiles y una comercial en 5. Y no nos vamos hasta que sepas usar cada función de tu sistema.
+        </p>
+      </div>
     </div>
 
-    <ol class="mt-14 grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        pasos.map((p, i) => (
-          <li
-            class={`relative p-7 lg:p-8 ${i < pasos.length - 1 ? 'lg:border-r-2 lg:border-brand-400/40' : ''} ${i % 2 === 0 ? 'border-b-2 border-brand-400/40 sm:border-b-0' : ''}`}
-          >
-            <span class="grid h-14 w-14 place-items-center rounded-md bg-accent-500 font-display text-xl font-black text-white">
-              {p.n}
-            </span>
-            <h3 class="mt-5 font-display text-xl font-black text-white">{p.title}</h3>
-            <p class="mt-2 text-[14.5px] leading-relaxed text-cream-200">{p.description}</p>
-          </li>
-        ))
-      }
-    </ol>
+    <!-- Contenido principal: sticky card + timeline -->
+    <div class="mt-14 grid gap-10 lg:grid-cols-[1fr_1.65fr] lg:gap-14 lg:items-start">
+
+      <!-- ── Columna izquierda: Sticky summary card ── -->
+      <div class="lg:sticky lg:top-28 lg:self-start space-y-5">
+
+        <!-- Stats mini strip -->
+        <div class="grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
+          {stats.map((s) => (
+            <div class="flex flex-col items-center gap-0.5 bg-brand-600/60 p-4 text-center">
+              <span class="font-display text-xl font-black text-accent-400 leading-none">{s.valor}</span>
+              <span class="mt-1 text-[11px] leading-tight text-cream-300 uppercase tracking-wide">{s.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- Guarantee card -->
+        <div class="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
+          <div class="bg-accent-600 px-6 py-4">
+            <p class="font-display text-sm font-bold uppercase tracking-widest text-white">Lo que garantizamos</p>
+          </div>
+          <ul class="divide-y divide-white/10 px-6 py-2">
+            {garantias.map((g) => (
+              <li class="flex items-start gap-3 py-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mt-0.5 h-5 w-5 shrink-0 text-accent-400">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-[14px] leading-snug text-cream-200">{g}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- CTA -->
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex w-full items-center justify-center gap-3 rounded-xl bg-accent-500 px-6 py-4 font-display text-[15px] font-bold text-white shadow-lg transition hover:bg-accent-600 active:scale-95"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+          Iniciar mi proceso ahora
+        </a>
+
+        <!-- Nota de confianza -->
+        <p class="text-center text-[12.5px] text-cream-400">
+          Sin compromiso · Respuesta en &lt;15 min · Visita gratuita
+        </p>
+      </div>
+
+      <!-- ── Columna derecha: Timeline vertical ── -->
+      <div>
+        <ol class="relative space-y-0">
+          {pasos.map((p, i) => (
+            <li class="relative flex gap-5 pb-8 last:pb-0">
+
+              <!-- Línea y dot connector -->
+              <div class="relative flex flex-col items-center">
+                <!-- Dot -->
+                <div class="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-500 font-display text-sm font-black text-white ring-4 ring-brand-500">
+                  {p.n}
+                </div>
+                <!-- Vertical line (except last) -->
+                {i < pasos.length - 1 && (
+                  <div class="absolute top-11 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-gradient-to-b from-accent-500/60 to-brand-400/20"></div>
+                )}
+              </div>
+
+              <!-- Paso card -->
+              <div class="mb-2 flex-1 rounded-xl border border-white/10 bg-white/5 overflow-hidden transition-colors hover:border-white/20 hover:bg-white/[0.07]">
+
+                <!-- Card header -->
+                <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-white/10">
+                  <div class="flex items-center gap-3">
+                    <!-- Icon badge -->
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-accent-400">
+                      <Fragment set:html={p.icon} />
+                    </span>
+                    <h3 class="font-display text-[16px] font-bold text-white leading-snug">{p.titulo}</h3>
+                  </div>
+                  <!-- Duration badge -->
+                  <span class="shrink-0 rounded-full bg-accent-500/15 px-3 py-1 text-[11.5px] font-semibold text-accent-300 border border-accent-500/25 whitespace-nowrap">
+                    {p.tiempo}
+                  </span>
+                </div>
+
+                <!-- Card body -->
+                <div class="px-6 py-4">
+                  <p class="text-[14.5px] leading-relaxed text-cream-200">{p.desc}</p>
+
+                  <!-- Incluye tags -->
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {p.incluye.map((tag) => (
+                      <span class="inline-flex items-center gap-1.5 rounded-md bg-white/[0.07] px-2.5 py-1 text-[12px] text-cream-300 border border-white/[0.08]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-3 w-3 shrink-0 text-accent-400">
+                          <path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
+                        </svg>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+
   </div>
 </section>
