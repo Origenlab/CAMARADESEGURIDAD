@@ -1,38 +1,24 @@
 ---
-const faqs = [
+interface FaqEntry {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  faqs?: FaqEntry[];
+}
+
+// Fallback de FAQs por default (si no se pasa via props).
+// El uso recomendado es pasar el mismo array desde la página
+// y reutilizarlo también para el JSON-LD del SEO.
+const defaultFaqs: FaqEntry[] = [
   {
     q: '¿Cuánto cuesta instalar cámaras de seguridad en mi casa?',
-    a: 'En CDMX y Estado de México, una instalación básica de 2 cámaras HD con todo incluido (equipo + DVR + disco duro + mano de obra) cuesta desde $3,490 MXN. Un paquete completo de 4 cámaras Full HD ronda los $5,490. Los precios exactos dependen del tipo de inmueble — la cotización por WhatsApp es gratis y te llega el mismo día.',
-  },
-  {
-    q: '¿Qué marcas de cámaras instalan?',
-    a: 'Trabajamos con Hikvision, Dahua, Provision-ISR, Ezviz y Ubiquiti — las mismas marcas que se usan en bancos, hoteles y aeropuertos. Para proyectos corporativos también ofrecemos Axis y Avigilon. Nunca instalamos equipos de marcas desconocidas: el ahorro inicial casi siempre termina en fallas a los pocos meses.',
-  },
-  {
-    q: '¿Cuánto tiempo tarda la instalación?',
-    a: 'Un paquete residencial de 2-4 cámaras se instala en 1 día. Un sistema de 6-8 cámaras (negocio mediano) toma 2-3 días. Proyectos industriales con 16+ cámaras o cableado estructurado complejo requieren entre 5 y 10 días hábiles según el diseño.',
-  },
-  {
-    q: '¿Cuál es la garantía?',
-    a: 'Garantía de 2 años por escrito en equipo y mano de obra — el doble de lo que ofrece la mayoría del mercado (1 año). Si algo falla durante el periodo de garantía lo resolvemos sin costo: equipo, refacciones y visita técnica incluidas.',
-  },
-  {
-    q: '¿Necesito firmar contrato o pagar mensualidad?',
-    a: 'No. Pagas una sola vez por la instalación y el sistema es tuyo — no hay contratos forzosos a 24 o 36 meses como otras empresas. Si quieres servicio de monitoreo opcional, lo ofrecemos desde $700/mes sin permanencia obligatoria.',
-  },
-  {
-    q: '¿Puedo ver las cámaras desde mi celular?',
-    a: 'Sí. Todas las instalaciones incluyen configuración de la app oficial de la marca (Hik-Connect, DMSS, etc.) en hasta 4 dispositivos. Te capacitamos en el uso antes de irnos: cómo ver en vivo, revisar grabaciones, recibir notificaciones de movimiento y compartir acceso con familia o socios.',
-  },
-  {
-    q: '¿La visita técnica tiene costo?',
-    a: 'Es completamente gratis en CDMX y zona metropolitana del Estado de México — incluye levantamiento, propuesta de distribución y cotización formal por escrito. Para proyectos foráneos en el Bajío o norte del país se calcula viático según distancia.',
-  },
-  {
-    q: '¿Qué pasa si se va la luz?',
-    a: 'Los paquetes Premium y Plus incluyen UPS (respaldo de batería) para mantener cámaras y NVR funcionando entre 2 y 4 horas durante un corte eléctrico. Si quieres respaldo total (24+ horas) instalamos sistema con batería + inversor adicional.',
+    a: 'En CDMX y Estado de México, una instalación básica de 2 cámaras HD con todo incluido cuesta desde $3,490 MXN. La cotización por WhatsApp es gratis y te llega el mismo día.',
   },
 ];
+
+const { faqs = defaultFaqs } = Astro.props;
 ---
 
 <section class="section-white">

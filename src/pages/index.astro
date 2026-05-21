@@ -9,33 +9,124 @@ import ProcesoSection from '@components/ProcesoSection.astro';
 import CoberturaSection from '@components/CoberturaSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
+
+// ───────────────────────────────────────────────────────────
+// Datos estructurados — single source of truth para JSON-LD
+// Los mismos arrays alimentan los componentes y los schemas SEO.
+// ───────────────────────────────────────────────────────────
+const faq = [
+  {
+    q: '¿Cuánto cuesta instalar cámaras de seguridad en mi casa?',
+    a: 'En CDMX y Estado de México, una instalación básica de 2 cámaras HD con todo incluido (equipo + DVR + disco duro + mano de obra) cuesta desde $3,490 MXN. Un paquete completo de 4 cámaras Full HD ronda los $5,490. Los precios exactos dependen del tipo de inmueble — la cotización por WhatsApp es gratis y te llega el mismo día.',
+  },
+  {
+    q: '¿Qué marcas de cámaras instalan?',
+    a: 'Trabajamos con Hikvision, Dahua, Provision-ISR, Ezviz y Ubiquiti — las mismas marcas que se usan en bancos, hoteles y aeropuertos. Para proyectos corporativos también ofrecemos Axis y Avigilon. Nunca instalamos equipos de marcas desconocidas: el ahorro inicial casi siempre termina en fallas a los pocos meses.',
+  },
+  {
+    q: '¿Cuánto tiempo tarda la instalación?',
+    a: 'Un paquete residencial de 2-4 cámaras se instala en 1 día. Un sistema de 6-8 cámaras (negocio mediano) toma 2-3 días. Proyectos industriales con 16+ cámaras o cableado estructurado complejo requieren entre 5 y 10 días hábiles según el diseño.',
+  },
+  {
+    q: '¿Cuál es la garantía?',
+    a: 'Garantía de 2 años por escrito en equipo y mano de obra — el doble de lo que ofrece la mayoría del mercado (1 año). Si algo falla durante el periodo de garantía lo resolvemos sin costo: equipo, refacciones y visita técnica incluidas.',
+  },
+  {
+    q: '¿Necesito firmar contrato o pagar mensualidad?',
+    a: 'No. Pagas una sola vez por la instalación y el sistema es tuyo — no hay contratos forzosos a 24 o 36 meses como otras empresas. Si quieres servicio de monitoreo opcional, lo ofrecemos desde $700/mes sin permanencia obligatoria.',
+  },
+  {
+    q: '¿Puedo ver las cámaras desde mi celular?',
+    a: 'Sí. Todas las instalaciones incluyen configuración de la app oficial de la marca (Hik-Connect, DMSS, etc.) en hasta 4 dispositivos. Te capacitamos en el uso antes de irnos: cómo ver en vivo, revisar grabaciones, recibir notificaciones de movimiento y compartir acceso con familia o socios.',
+  },
+  {
+    q: '¿La visita técnica tiene costo?',
+    a: 'Es completamente gratis en CDMX y zona metropolitana del Estado de México — incluye levantamiento, propuesta de distribución y cotización formal por escrito. Para proyectos foráneos en el Bajío o norte del país se calcula viático según distancia.',
+  },
+  {
+    q: '¿Qué pasa si se va la luz?',
+    a: 'Los paquetes Premium y Plus incluyen UPS (respaldo de batería) para mantener cámaras y NVR funcionando entre 2 y 4 horas durante un corte eléctrico. Si quieres respaldo total (24+ horas) instalamos sistema con batería + inversor adicional.',
+  },
+];
+
+const services = [
+  {
+    name: 'Cámaras de seguridad para hogar',
+    description:
+      'Sistemas CCTV residenciales con 2 a 16 cámaras HD/Full HD/4K, DVR o NVR, disco duro y app móvil. Instalación profesional con cableado oculto y garantía de 2 años.',
+    url: '/#servicios',
+  },
+  {
+    name: 'Cámaras de seguridad para comercio',
+    description:
+      'Soluciones CCTV para tiendas, oficinas y bodegas — de 4 a 16+ cámaras Full HD con NVR profesional y monitoreo remoto desde el celular.',
+    url: '/#servicios',
+  },
+  {
+    name: 'Sistemas CCTV industriales',
+    description:
+      'Proyectos industriales con cámaras térmicas, PTZ, control de acceso y centro de monitoreo. NVR de alta capacidad y arquitectura escalable.',
+    url: '/#servicios',
+  },
+  {
+    name: 'Control de acceso',
+    description:
+      'Videoporteros IP, cerraduras inteligentes, lectores biométricos y acceso vehicular con lectura de placas.',
+    url: '/#servicios',
+  },
+];
+
+const reviews = [
+  {
+    author: 'Laura M.',
+    rating: 5,
+    body: 'Llegaron puntuales, dejaron todo impecable y me enseñaron a usar la app paso a paso. Llevo casi un año con el sistema y nunca ha fallado.',
+    datePublished: '2026-03-12',
+  },
+  {
+    author: 'Roberto V.',
+    rating: 5,
+    body: 'Cotizamos con tres empresas. Ellos fueron los únicos que pidieron una visita técnica antes de mandar precio. La instalación quedó como diseñaron.',
+    datePublished: '2026-02-04',
+  },
+  {
+    author: 'María Fernanda H.',
+    rating: 5,
+    body: 'Después de un intento de robo decidimos contratarlos. El equipo Hikvision es de otro nivel comparado con lo que teníamos. La app funciona perfecto.',
+    datePublished: '2026-01-22',
+  },
+];
 ---
 
-<BaseLayout>
-  <!-- 1. HERO — fondo crema con bloque teal a la derecha + strip de quick-links -->
+<BaseLayout
+  faq={faq}
+  services={services}
+  reviews={reviews}
+>
+  <!-- 1. HERO -->
   <Hero />
 
-  <!-- 2. SERVICIOS PRINCIPALES — 4 segmentos (Hogar / Comercio / Industrial / Control Acceso) -->
+  <!-- 2. SERVICIOS PRINCIPALES -->
   <ServiciosSection />
 
-  <!-- 3. EQUIPOS PROFESIONALES — deep dive (IP 4K, PTZ, Térmicas, LPR) -->
+  <!-- 3. EQUIPOS PROFESIONALES -->
   <EquiposSection />
 
-  <!-- 4. BENEFICIOS — 4 diferenciadores con stat destacado -->
+  <!-- 4. BENEFICIOS -->
   <BeneficiosSection />
 
-  <!-- 5. TESTIMONIOS — 6 reseñas + stat bar -->
+  <!-- 5. TESTIMONIOS -->
   <TestimoniosSection />
 
-  <!-- 6. PROCESO — 4 pasos sobre fondo teal sólido -->
+  <!-- 6. PROCESO -->
   <ProcesoSection />
 
-  <!-- 7. COBERTURA — alcaldías CDMX + municipios Edomex -->
+  <!-- 7. COBERTURA -->
   <CoberturaSection />
 
-  <!-- 8. FAQ — 8 preguntas frecuentes en acordeón -->
-  <FaqSection />
+  <!-- 8. FAQ -->
+  <FaqSection faqs={faq} />
 
-  <!-- 9. CTA FINAL — caja split crema/teal con datos de contacto -->
+  <!-- 9. CTA -->
   <CTASection />
 </BaseLayout>
