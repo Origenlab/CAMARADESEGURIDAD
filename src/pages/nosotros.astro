@@ -1,0 +1,403 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import CTASection from '@components/CTASection.astro';
+import { SERVICE_LINKS, SITE } from '@/consts';
+
+// ── Datos JSON-LD ────────────────────────────────────────────
+const faq = [
+  {
+    q: '¿Cuántos años llevan instalando cámaras de seguridad?',
+    a: 'Más de 10 años. Desde 2014 hemos instalado más de 2,000 sistemas CCTV en CDMX, Estado de México, Guadalajara y Monterrey — para hogares, comercios, plantas industriales y proyectos gubernamentales.',
+  },
+  {
+    q: '¿Sus técnicos son certificados?',
+    a: 'Sí. Todo nuestro personal técnico tiene certificación oficial de Hikvision y Dahua. No subcontratamos: tú sabes exactamente quién entra a tu propiedad y qué credenciales tiene.',
+  },
+  {
+    q: '¿Trabajan en toda la República Mexicana?',
+    a: 'Tenemos cobertura directa en CDMX y zona metropolitana del Estado de México. Para proyectos fuera de esta área — Guadalajara, Monterrey, Bajío — operamos con coordinadores de proyecto y técnicos locales certificados.',
+  },
+];
+
+const breadcrumb = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Nosotros', url: '/nosotros/' },
+];
+
+// ── Datos de la página ───────────────────────────────────────
+const valores = [
+  {
+    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+    title: 'Honestidad ante todo',
+    desc: 'Cotizamos lo que necesitas, no lo más caro. Si con 4 cámaras es suficiente, te lo decimos — aunque podríamos venderte 8.',
+  },
+  {
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>',
+    title: 'Puntualidad y respeto',
+    desc: 'Llegamos en el horario acordado. Cuidamos tu espacio, trabajamos en orden y entregamos limpio.',
+  },
+  {
+    icon: '<path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/>',
+    title: 'Garantía por escrito',
+    desc: '2 años en equipos y mano de obra. Sin letra chica, sin excusas. Si algo falla, lo resolvemos sin costo.',
+  },
+  {
+    icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
+    title: 'Soporte real',
+    desc: 'WhatsApp directo con el técnico que instaló tu sistema. No hay call center ni ticket — hay una persona responsable.',
+  },
+  {
+    icon: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+    title: 'Soluciones a medida',
+    desc: 'Cada instalación tiene una visita técnica previa. Nunca mandamos presupuesto sin entender primero el espacio.',
+  },
+  {
+    icon: '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/>',
+    title: 'Solo marcas confiables',
+    desc: 'Hikvision, Dahua, Provision-ISR. Las mismas que usan bancos, aeropuertos y centros comerciales. Sin genéricos.',
+  },
+];
+
+const hitos = [
+  { año: '2014', evento: 'Fundación — primer sistema CCTV residencial en CDMX' },
+  { año: '2016', evento: 'Ampliamos a proyectos comerciales: tiendas y oficinas' },
+  { año: '2018', evento: 'Certificación oficial Hikvision y Dahua para todo el equipo técnico' },
+  { año: '2020', evento: 'Primer proyecto industrial: planta de manufactura, 32 cámaras' },
+  { año: '2022', evento: 'Apertura de cobertura en Guadalajara y Monterrey' },
+  { año: '2024', evento: '+2,000 sistemas instalados · Lanzamiento de monitoreo 24/7' },
+];
+
+const serviceIcons: Record<string, string> = {
+  '/servicios/hogar/':          '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  '/servicios/comercio/':       '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/>',
+  '/servicios/industrial/':     '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/>',
+  '/servicios/control-acceso/': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+};
+
+const serviceDescs: Record<string, string> = {
+  '/servicios/hogar/':          'Casas, departamentos y residenciales',
+  '/servicios/comercio/':       'Tiendas, oficinas y bodegas',
+  '/servicios/industrial/':     'Plantas, naves y operación 24/7',
+  '/servicios/control-acceso/': 'Videoporteros, biométricos y LPR',
+};
+
+const comparacion = [
+  { aspecto: 'Garantía', nosotros: '2 años por escrito', mercado: '6–12 meses (verbal)' },
+  { aspecto: 'Contrato', nosotros: 'Sin permanencia', mercado: '24–36 meses forzoso' },
+  { aspecto: 'Técnicos', nosotros: 'Certificados por fabricante', mercado: 'Subcontratistas' },
+  { aspecto: 'Marcas', nosotros: 'Hikvision · Dahua · Ubiquiti', mercado: 'Marcas desconocidas' },
+  { aspecto: 'Cotización', nosotros: 'Visita técnica gratis', mercado: 'Por llamada / sin visita' },
+  { aspecto: 'Soporte', nosotros: 'WhatsApp < 15 min', mercado: 'Ticket / call center' },
+];
+---
+
+<BaseLayout
+  title="Nosotros | Cámara de Seguridad — Expertos CCTV en México"
+  description="Más de 10 años instalando cámaras de seguridad en CDMX y México. Técnicos certificados Hikvision y Dahua, garantía de 2 años por escrito y soporte real post-instalación."
+  canonical={`${SITE.url}/nosotros/`}
+  breadcrumb={breadcrumb}
+  faq={faq}
+>
+
+  <!-- ── 1. HERO ─────────────────────────────────────────────── -->
+  <PageHero
+    eyebrow="SOBRE NOSOTROS"
+    title="Más de 10 años protegiendo lo que más importa"
+    highlight="protegiendo lo que más importa"
+    subtitle="Instalamos sistemas CCTV profesionales en hogares, comercios e industrias desde 2014. Técnicos certificados por Hikvision y Dahua, garantía de 2 años por escrito y sin contratos forzosos."
+    breadcrumb={[
+      { name: 'Inicio', url: '/' },
+      { name: 'Nosotros', url: '/nosotros/' },
+    ]}
+    showRecBadge={true}
+  />
+
+  <!-- ── 2. MISIÓN + HISTORIA ────────────────────────────────── -->
+  <section class="section-cream" id="historia">
+    <div class="container">
+      <div class="grid items-start gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+
+        <!-- Copy -->
+        <div>
+          <span class="eyebrow">Nuestra historia</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Nacimos para dar
+            <span class="text-accent-500">seguridad real</span>,
+            no promesas.
+          </h2>
+          <span class="marker-line mt-5"></span>
+
+          <div class="mt-6 space-y-4 text-[16px] leading-relaxed text-ink-700">
+            <p>
+              En 2014 instalamos nuestro primer sistema CCTV en una casa en Coyoacán. No era el trabajo
+              más grande ni el más complejo — pero quedó perfectamente configurado, con cableado oculto,
+              la app funcionando en el celular del cliente y garantía firmada. Eso se convirtió en nuestra
+              identidad.
+            </p>
+            <p>
+              Hoy tenemos más de <strong class="font-semibold text-brand-500">2,000 sistemas instalados</strong>
+              en CDMX, Estado de México, Guadalajara y Monterrey — desde departamentos hasta plantas
+              industriales con 64+ cámaras. Lo que no ha cambiado es el criterio: cada instalación pasa
+              por visita técnica, diseño formal y entrega documentada.
+            </p>
+            <p>
+              Trabajamos exclusivamente con <strong class="font-semibold text-brand-500">Hikvision, Dahua
+              y Provision-ISR</strong> — las mismas marcas que usan bancos, aeropuertos y centros
+              comerciales — porque sabemos que una cámara que falla a los seis meses no es seguridad.
+            </p>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/servicios/" class="btn-primary">
+              Ver nuestros servicios
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+            <a
+              href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent('Hola, quiero una cotización gratuita.')}`}
+              target="_blank"
+              rel="noopener"
+              class="btn-outline"
+            >
+              Cotizar gratis
+            </a>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="relative">
+          <!-- Línea vertical -->
+          <div class="absolute left-[19px] top-3 h-[calc(100%-24px)] w-0.5 bg-cream-200" aria-hidden="true"></div>
+
+          <ol class="space-y-8">
+            {hitos.map((h, i) => (
+              <li class="relative flex items-start gap-5">
+                <!-- Dot -->
+                <span class={`relative z-10 mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-[11px] font-black ${i === hitos.length - 1 ? 'bg-accent-500 text-white' : 'bg-brand-500 text-white'}`}>
+                  {h.año.slice(2)}
+                </span>
+                <div class="flex-1 pt-1.5">
+                  <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-accent-500">{h.año}</p>
+                  <p class="mt-1 text-[15px] leading-snug text-ink-700">{h.evento}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. STATS BAND ──────────────────────────────────────── -->
+  <section class="bg-brand-500 py-12 lg:py-14" aria-label="Cifras clave">
+    <div class="container">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6">
+        {[
+          { val: '10+', lbl: 'años en operación' },
+          { val: '+2,050', lbl: 'sistemas instalados' },
+          { val: '98%', lbl: 'clientes nos recomiendan' },
+          { val: '2 años', lbl: 'garantía por escrito' },
+        ].map((s) => (
+          <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-sm">
+            <p class="font-display text-3xl font-black leading-none text-white sm:text-4xl">{s.val}</p>
+            <p class="mt-2 text-[11.5px] font-semibold uppercase tracking-wider text-cream-300">{s.lbl}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. VALORES ─────────────────────────────────────────── -->
+  <section class="section-white" id="valores">
+    <div class="container">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="eyebrow">Nuestros valores</span>
+        <h2 class="heading-lg mt-4 text-balance">
+          Lo que guía cada
+          <span class="text-accent-500">instalación</span>
+        </h2>
+        <span class="marker-line mt-5 mx-auto block"></span>
+        <p class="lead mt-6">
+          Instalamos sistemas de seguridad. Pero detrás de cada cámara hay una decisión de diseño,
+          un técnico con nombre y una garantía firmada. Estos son los principios que no negociamos.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {valores.map((v) => (
+          <div class="card group relative overflow-hidden p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+            <!-- Acento rojo en hover -->
+            <div class="absolute left-0 top-0 h-1 w-0 rounded-t-2xl bg-accent-500 transition-all duration-300 group-hover:w-full" aria-hidden="true"></div>
+            <span class="grid h-12 w-12 place-items-center rounded-lg bg-brand-500/8 text-brand-500 transition-colors group-hover:bg-accent-500 group-hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true" set:html={v.icon}/>
+            </span>
+            <h3 class="mt-5 font-display text-[17px] font-black leading-snug text-brand-500">{v.title}</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink-700">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. POR QUÉ NOSOTROS (diferenciadores + tabla) ──────── -->
+  <section class="section bg-brand-500" id="diferenciadores">
+    <div class="container">
+
+      <div class="mx-auto max-w-3xl text-center">
+        <span class="eyebrow-light">La diferencia en números</span>
+        <h2 class="heading-lg heading-light mt-4 text-balance">
+          Nosotros vs. el mercado —
+          <span class="text-accent-400">sin letra chica</span>
+        </h2>
+        <span class="marker-line mt-5 mx-auto block" style="background-color:rgb(var(--color-accent))"></span>
+        <p class="lead-light mt-6">
+          Cualquier empresa de cámaras promete "calidad y garantía". Nosotros lo ponemos por escrito.
+          Compara y decide con información real.
+        </p>
+      </div>
+
+      <!-- Tabla comparativa -->
+      <div class="mt-14 overflow-hidden rounded-2xl border border-white/10">
+        <div class="grid grid-cols-[1fr_1fr_1fr] bg-white/10 text-[11px] font-bold uppercase tracking-[0.2em] text-cream-300">
+          <div class="px-6 py-4">Aspecto</div>
+          <div class="border-l border-white/10 px-6 py-4 text-accent-400">Cámara de Seguridad</div>
+          <div class="border-l border-white/10 px-6 py-4">Mercado general</div>
+        </div>
+        {comparacion.map((row, i) => (
+          <div class={`grid grid-cols-[1fr_1fr_1fr] border-t border-white/10 ${i % 2 === 0 ? 'bg-white/[0.03]' : ''}`}>
+            <div class="px-6 py-4 text-[13.5px] font-semibold text-cream-200">{row.aspecto}</div>
+            <div class="flex items-center gap-2 border-l border-white/10 px-6 py-4">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-accent-400" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span class="text-[13.5px] font-semibold text-white">{row.nosotros}</span>
+            </div>
+            <div class="flex items-center gap-2 border-l border-white/10 px-6 py-4">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-white/30" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              <span class="text-[13.5px] text-cream-400">{row.mercado}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center">
+        <a
+          href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent('Hola, quiero una cotización gratuita.')}`}
+          target="_blank"
+          rel="noopener"
+          class="btn-primary w-full sm:w-auto"
+        >
+          Cotización gratis por WhatsApp
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="/servicios/" class="btn-outline-light w-full sm:w-auto">
+          Ver todos los servicios
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. SERVICIOS QUE OFRECEMOS ────────────────────────── -->
+  <section class="section-cream" id="servicios-nosotros">
+    <div class="container">
+      <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.4fr]">
+
+        <div>
+          <span class="eyebrow">Lo que hacemos</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Soluciones para cada
+            <span class="text-accent-500">tipo de inmueble</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+          <p class="lead mt-6">
+            Diseñamos el sistema según el espacio, el presupuesto y el nivel de riesgo — no instalamos
+            lo mismo en una casa que en una planta industrial. Elige tu caso y revisa el detalle.
+          </p>
+          <a href="/servicios/" class="mt-6 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-600">
+            Ver catálogo completo de servicios
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Service cards -->
+        <div class="grid gap-3 sm:grid-cols-2">
+          {SERVICE_LINKS.map((link) => (
+            <a href={link.href} class="group card flex items-center gap-4 p-5 transition-all hover:-translate-y-0.5 hover:shadow-card">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-brand-500/8 text-brand-500 transition-colors group-hover:bg-brand-500 group-hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={serviceIcons[link.href]}/>
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="font-display text-[15px] font-black leading-tight text-brand-500 transition-colors group-hover:text-accent-500">{link.label}</p>
+                <p class="mt-0.5 text-[12px] text-ink-500">{serviceDescs[link.href]}</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-ink-200 transition-all group-hover:translate-x-0.5 group-hover:text-accent-500" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. FAQ NOSOTROS ────────────────────────────────────── -->
+  <section class="section-white" id="faq-nosotros">
+    <div class="container">
+      <div class="mx-auto max-w-3xl">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 class="heading-md mt-4 text-balance">
+          Lo que nos preguntan
+          <span class="text-accent-500">sobre nosotros</span>
+        </h2>
+        <span class="marker-line mt-5"></span>
+
+        <div class="mt-10 space-y-3">
+          {faq.map((item, i) => (
+            <details class="faq-item group overflow-hidden rounded-xl border border-cream-200 bg-cream-50 transition-all open:border-brand-200 open:bg-white open:shadow-card">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-display text-[15.5px] font-bold text-brand-500 marker:hidden [&::-webkit-details-marker]:hidden">
+                <span class="flex items-center gap-4">
+                  <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-500 font-display text-[12px] font-black text-white">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {item.q}
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4.5 w-4.5 shrink-0 text-accent-500 transition-transform duration-200 group-open:rotate-180" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-body px-6 pb-5 pt-0">
+                <p class="pl-11 text-[15px] leading-relaxed text-ink-700">{item.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <p class="mt-8 text-center text-[14px] text-ink-500">
+          ¿Más preguntas?
+          <a href="/#faq" class="font-semibold text-accent-500 hover:text-accent-600 transition-colors">
+            Revisa la sección FAQ completa
+          </a>
+          o escríbenos por WhatsApp.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 8. CTA ─────────────────────────────────────────────── -->
+  <CTASection />
+
+</BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+
+  .faq-body {
+    animation: slide-down 0.2s ease;
+  }
+
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

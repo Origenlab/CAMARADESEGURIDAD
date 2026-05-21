@@ -51,11 +51,11 @@ export const SERVICE_LINKS = [
   { href: '/servicios/control-acceso/', label: 'Control de Acceso' },
 ] as const;
 
-/** Secciones de la página de inicio — anchors para footer */
+/** Secciones y páginas de interés — usados en footer y accesos rápidos */
 export const SECTION_LINKS = [
-  { href: '/#servicios', label: 'Nuestros Servicios' },
+  { href: '/nosotros/', label: 'Quiénes somos' },
+  { href: '/servicios/', label: 'Todos los servicios' },
   { href: '/#equipos', label: 'Equipos Profesionales' },
-  { href: '/#porque-nosotros', label: 'Por qué nosotros' },
   { href: '/#proceso', label: 'Cómo trabajamos' },
   { href: '/#cobertura', label: 'Cobertura CDMX' },
   { href: '/#faq', label: 'Preguntas frecuentes' },
