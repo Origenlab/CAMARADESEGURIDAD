@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import ServiciosSection from '@components/ServiciosSection.astro';
+import ServicioDestacadoModule from '@components/ServicioDestacadoModule.astro';
 import EquiposSection from '@components/EquiposSection.astro';
 import BeneficiosSection from '@components/BeneficiosSection.astro';
 import TestimoniosSection from '@components/TestimoniosSection.astro';
@@ -109,8 +110,326 @@ const reviews = [
   <!-- 2. SERVICIOS PRINCIPALES -->
   <ServiciosSection />
 
+  <!-- 2.5 SERVICIO RESIDENCIAL DESTACADO (módulo 2 columnas) -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO RESIDENCIAL"
+    title="Cámaras para Hogar"
+    icon="home"
+    color="brand"
+    ctaDetalleUrl="/servicios/hogar/"
+    introHtml={`Protegemos casas, departamentos y residenciales con sistemas CCTV diseñados específicamente para uso familiar. Equipos
+<strong class="font-semibold text-white">Hikvision</strong>,
+<strong class="font-semibold text-white">Dahua</strong> y
+<strong class="font-semibold text-white">Provision-ISR</strong> con visita técnica
+gratis y garantía de 2 años por escrito. Sin contrato forzoso ni mensualidad obligatoria.`}
+    stats={[
+      { value: '+1,200', label: 'Casas instaladas' },
+      { value: '2 años', label: 'Garantía por escrito' },
+      { value: 'IP66/67', label: 'Resistente intemperie' },
+      { value: '<15 min', label: 'Respuesta WhatsApp' },
+    ]}
+    paragraphsTitle="Cuatro niveles según el tamaño y la complejidad de tu casa."
+    paragraphsHtml={[
+      `El paquete <strong class="font-bold text-brand-500">Básico</strong> cubre
+<strong class="font-bold text-brand-500">2 cámaras HD</strong> en el punto más crítico —
+entrada principal o cochera— y resulta ideal para departamentos y casas pequeñas que
+necesitan vigilancia puntual. El <strong class="font-bold text-brand-500">Estándar</strong>
+añade <strong class="font-bold text-brand-500">4 cámaras Full HD</strong> distribuidas
+para cubrir cochera, perímetro y zonas comunes, suficiente para una casa media con uso familiar.`,
+      `Para residencias grandes el <strong class="font-bold text-brand-500">Premium</strong>
+instala <strong class="font-bold text-brand-500">8 cámaras Full HD</strong> con audio bidireccional,
+NVR de mayor capacidad y respaldo UPS para mantener el sistema activo durante cortes eléctricos —
+cobertura total sin puntos ciegos. El <strong class="font-bold text-brand-500">Residencial Plus</strong>
+es para fraccionamientos, quintas y casas de campo con jardines extensos:
+<strong class="font-bold text-brand-500">16 o más cámaras 4K</strong> con visión nocturna extendida,
+Sky Tracker para perímetro y configuración para centro de monitoreo dedicado.`,
+      `Cada nivel incluye <strong class="font-bold text-brand-500">instalación profesional</strong>,
+cableado oculto, configuración de la app móvil en hasta cuatro dispositivos y
+<strong class="font-bold text-brand-500">garantía de 2 años por escrito</strong>.
+No hay contratos forzosos ni mensualidades — pagas una vez y el sistema es tuyo.`,
+    ]}
+  />
+
+  <!-- 2.6 SERVICIO COMERCIAL DESTACADO (módulo 2 columnas) -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO COMERCIAL"
+    title="Cámaras para Comercio"
+    icon="store"
+    color="accent"
+    ctaDetalleUrl="/servicios/comercio/"
+    introHtml={`Diseñamos sistemas CCTV comerciales que cubren los cuatro frentes de riesgo de un negocio:
+<strong class="font-semibold text-white">punto de venta, accesos, áreas comunes y perímetro</strong>.
+Instalamos en horarios sin afectar tu operación y entregamos planos profesionales de cableado.
+Cada elemento del equipo puede tener acceso diferenciado según su rol.`}
+    stats={[
+      { value: '+850', label: 'Comercios instalados' },
+      { value: '0 hrs', label: 'Operación afectada' },
+      { value: 'Multi-usuario', label: 'Acceso por roles' },
+      { value: 'Planos', label: 'Documentación entregada' },
+    ]}
+    paragraphsTitle="Cuatro niveles según el tipo y tamaño de tu negocio."
+    paragraphsHtml={[
+      `Para locales pequeños el paquete <strong class="font-bold text-brand-500">Tienda</strong>
+cubre <strong class="font-bold text-brand-500">4 cámaras Full HD</strong> enfocadas al punto
+de venta, entrada principal y áreas de exhibición — ideal para tiendas, cafeterías, salones y
+consultorios. El <strong class="font-bold text-brand-500">Oficina</strong> suma
+<strong class="font-bold text-brand-500">6 cámaras Full HD</strong> para cubrir áreas comunes,
+accesos, salas de juntas y áreas restringidas, con integración opcional a control de acceso
+por tarjeta o huella.`,
+      `El paquete <strong class="font-bold text-brand-500">Bodega</strong> instala
+<strong class="font-bold text-brand-500">8 cámaras Full HD</strong> distribuidas entre perímetro
+exterior, zonas de carga y descarga, pasillos de almacén y áreas de inventario, con NVR de
+mayor capacidad y respaldo UPS. Para cadenas y franquicias el paquete
+<strong class="font-bold text-brand-500">Multi-Sucursal</strong> lleva
+<strong class="font-bold text-brand-500">16+ cámaras por sucursal</strong> con visualización
+central desde un solo dashboard y roles diferenciados para corporativo, regional y sucursal.`,
+      `Todos los paquetes incluyen <strong class="font-bold text-brand-500">instalación en horario
+sin afectar tu operación</strong>, planos de cableado entregados al cliente, configuración
+multi-usuario por departamento y <strong class="font-bold text-brand-500">garantía de 2 años</strong>
+por escrito en equipo y mano de obra.`,
+    ]}
+  />
+
+  <!-- 2.7 SERVICIO INDUSTRIAL DESTACADO (módulo 2 columnas) -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO INDUSTRIAL"
+    title="Sistemas Industriales"
+    icon="factory"
+    color="brand"
+    ctaDetalleUrl="/servicios/industrial/"
+    introHtml={`Diseñamos sistemas CCTV industriales con visita técnica formal, proyecto ejecutivo
+documentado y equipos grado industrial (<strong class="font-semibold text-white">IK10</strong>
+antivandálico, <strong class="font-semibold text-white">IP67</strong> contra polvo y agua).
+Cumplimos normativa <strong class="font-semibold text-white">NOM-001-SEDE</strong> y entregamos
+planos profesionales para tu sistema de gestión.`}
+    stats={[
+      { value: '+120', label: 'Plantas instaladas' },
+      { value: 'NOM-001', label: 'Cumple normativa' },
+      { value: 'IK10/IP67', label: 'Grado industrial' },
+      { value: '24/7', label: 'Operación continua' },
+    ]}
+    paragraphsTitle="Cuatro niveles según la escala y complejidad de tu operación."
+    paragraphsHtml={[
+      `El paquete <strong class="font-bold text-brand-500">Nave</strong> instala
+<strong class="font-bold text-brand-500">8 cámaras Full HD</strong> distribuidas entre
+perímetro exterior, área de carga y descarga, accesos vehiculares y patios, con NVR profesional
+y respaldo UPS — ideal para naves comerciales y bodegas medianas. El paquete
+<strong class="font-bold text-brand-500">Planta</strong> lleva
+<strong class="font-bold text-brand-500">16 cámaras Full HD</strong> que cubren producción,
+accesos, patios y oficinas administrativas, con switches PoE+ certificados y cableado
+estructurado documentado.`,
+      `El paquete <strong class="font-bold text-brand-500">Industrial Premium</strong> integra
+<strong class="font-bold text-brand-500">cámaras térmicas perimetrales</strong> (detección de
+calor en oscuridad total), <strong class="font-bold text-brand-500">PTZ Speed Dome</strong>
+con auto-tracking para grandes superficies y control de acceso integrado con LPR para flotillas
+vehiculares. El <strong class="font-bold text-brand-500">Centro de Monitoreo</strong> es un
+cuarto de control dedicado con NVR de alta capacidad en RAID-1, software VMS para gestionar
+<strong class="font-bold text-brand-500">32-256+ cámaras</strong> desde una sola consola e
+integración con sistemas de alarma y seguridad existentes.`,
+      `Todos los proyectos industriales incluyen <strong class="font-bold text-brand-500">visita
+técnica con ingeniero</strong>, proyecto ejecutivo con plano de cobertura, cableado
+estructurado certificado, integración con tus sistemas existentes y
+<strong class="font-bold text-brand-500">garantía de 2 años por escrito</strong>. Podemos
+entregar documentación técnica para certificaciones ISO o auditorías HACCP cuando aplique.`,
+    ]}
+  />
+
+  <!-- 2.8 SERVICIO COMPLEMENTARIO — CONTROL DE ACCESO (módulo 2 columnas) -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO COMPLEMENTARIO"
+    title="Control de Acceso"
+    icon="lock"
+    color="accent"
+    ctaDetalleUrl="/servicios/control-acceso/"
+    introHtml={`<strong class="font-semibold text-white">Las cámaras te dicen quién entró — el control
+de acceso decide quién PUEDE entrar.</strong> Complementa cualquier sistema CCTV con gestión de
+usuarios, registro auditable, control remoto desde el celular y nada de copias de llaves perdidas.
+Cada solución se integra con tu sistema de cámaras nuevo o existente.`}
+    stats={[
+      { value: 'App + Huella', label: 'Multi-credencial' },
+      { value: '4 disp.', label: 'Acceso remoto' },
+      { value: 'Acceso temporal', label: 'Códigos con vigencia' },
+      { value: 'Integración', label: 'CCTV + alarmas' },
+    ]}
+    paragraphsTitle="Cuatro soluciones según cómo necesitas controlar el acceso."
+    paragraphsHtml={[
+      `El <strong class="font-bold text-brand-500">Videoportero IP</strong> instala unidad exterior
+con cámara Full HD, audio bidireccional confiable e integración con la chapa de la puerta
+principal, controlable desde pantalla interior o desde la app móvil. La
+<strong class="font-bold text-brand-500">Cerradura Inteligente</strong> reemplaza tu chapa actual
+por una con apertura por <strong class="font-bold text-brand-500">app, huella, código numérico,
+tarjeta NFC</strong> y llave física de respaldo — sin necesidad de hacer copias para empleados o
+visitas temporales.`,
+      `Para empresas con personal rotativo el <strong class="font-bold text-brand-500">Biométrico
+Empresarial</strong> gestiona usuarios por departamento con huella, rostro o tarjeta MIFARE/NFC,
+integrable con sistemas de tiempo y asistencia. Para fraccionamientos, hoteles y flotillas el
+<strong class="font-bold text-brand-500">Acceso Vehicular con LPR</strong> instala pluma automática
+con lectura de placas: listas blancas para autorizados, listas negras para bloquear, y registro
+completo de entrada-salida con timestamp y foto.`,
+      `Todos los sistemas de control de acceso se <strong class="font-bold text-brand-500">integran
+con tu sistema CCTV</strong> existente o nuevo — cuando alguien activa el acceso, las cámaras
+cercanas graban en alta calidad ese momento. Configuración sin costo, capacitación incluida y
+<strong class="font-bold text-brand-500">garantía de 2 años por escrito</strong>.`,
+    ]}
+  />
+
   <!-- 3. EQUIPOS PROFESIONALES -->
   <EquiposSection />
+
+  <!-- 3.1 CÁMARAS IP 4K — DESTACADO -->
+  <ServicioDestacadoModule
+    eyebrow="TECNOLOGÍA HIKVISION / DAHUA"
+    title="Cámaras IP 4K"
+    icon="camera"
+    color="brand"
+    ctaDetalleUrl="#contacto"
+    introHtml={`Las cámaras IP 4K (8 megapíxeles) son el estándar profesional actual. Resolución suficiente
+para identificar rostros, leer placas vehiculares a distancia y hacer zoom en grabaciones sin perder
+detalle. Trabajamos con líneas <strong class="font-semibold text-white">Hikvision</strong> y
+<strong class="font-semibold text-white">Dahua</strong> certificadas ONVIF, compatibles con cualquier
+sistema VMS profesional.`}
+    stats={[
+      { value: '8MP', label: 'Resolución 4K' },
+      { value: 'IP66/67', label: 'Intemperie total' },
+      { value: 'IR 30m', label: 'Visión nocturna' },
+      { value: 'ONVIF', label: 'Universal' },
+    ]}
+    paragraphsTitle="Cuatro modelos según el tipo de instalación que necesitas."
+    paragraphsHtml={[
+      `La <strong class="font-bold text-brand-500">4K Bullet Exterior</strong> es la opción flagship
+para perímetros: 8 MP de resolución con detalle suficiente para identificar rostros y placas,
+certificación <strong class="font-bold text-brand-500">IP67</strong> que aguanta lluvia y polvo, e
+infrarrojo activo hasta 30 metros. La <strong class="font-bold text-brand-500">4K Domo Vandálico</strong>
+es su contraparte para áreas con tránsito: misma resolución pero con carcasa antivandálica
+<strong class="font-bold text-brand-500">IK10</strong>, audio bidireccional integrado y ranura
+microSD para grabación local de respaldo.`,
+      `La <strong class="font-bold text-brand-500">4K Color Vu</strong> rompe con el infrarrojo
+tradicional: capta color real incluso en noche cerrada gracias a sensor de alta sensibilidad —
+útil cuando necesitas distinguir colores de ropa, vehículos o productos en penumbra. El
+<strong class="font-bold text-brand-500">Pack 4× IP 4K + NVR</strong> es la solución llave en mano:
+cuatro cámaras 4K seleccionables (bullet, domo o Color Vu) con NVR profesional de 8 canales y
+disco duro de 2 TB — instalación llave en mano para casas grandes o comercios medianos.`,
+      `Todas las cámaras IP 4K son <strong class="font-bold text-brand-500">ONVIF-compatibles</strong>,
+por lo que se integran con cualquier sistema VMS profesional. Garantía de 2 años en equipo y mano
+de obra, configuración de app móvil incluida y soporte técnico continuo.`,
+    ]}
+  />
+
+  <!-- 3.2 CÁMARAS PTZ — DESTACADO -->
+  <ServicioDestacadoModule
+    eyebrow="PATRULLAJE AUTOMÁTICO"
+    title="Cámaras PTZ"
+    icon="ptz"
+    color="accent"
+    ctaDetalleUrl="#contacto"
+    introHtml={`Las cámaras PTZ (Pan-Tilt-Zoom) sustituyen a 4-8 cámaras fijas con una sola unidad
+motorizada que rota <strong class="font-semibold text-white">360°</strong> y hace zoom óptico hasta
+<strong class="font-semibold text-white">25-30×</strong>. Ideales para perímetros amplios,
+estacionamientos, naves industriales y patios. Programables con rutinas automáticas o controlables
+manualmente desde la app.`}
+    stats={[
+      { value: '25×', label: 'Zoom óptico' },
+      { value: 'IR 100m', label: 'Alcance nocturno' },
+      { value: 'IA', label: 'Auto-tracking' },
+      { value: '360°', label: 'Rotación continua' },
+    ]}
+    paragraphsTitle="Cuatro configuraciones según el alcance y la automatización."
+    paragraphsHtml={[
+      `La <strong class="font-bold text-brand-500">PTZ Speed Dome 4MP</strong> es la base del
+catálogo: <strong class="font-bold text-brand-500">zoom óptico 25×</strong>, infrarrojo activo
+hasta 100 metros y rotación continua 360°. Ideal para vigilar grandes patios, estacionamientos o
+accesos múltiples desde un solo punto. La <strong class="font-bold text-brand-500">PTZ
+Auto-Tracking</strong> suma IA: detecta automáticamente personas o vehículos y sigue su recorrido
+sin intervención del operador.`,
+      `La <strong class="font-bold text-brand-500">PTZ Patrol 360°</strong> corre rutinas programadas
+con presets configurables — visita posiciones críticas en secuencia, repite el ciclo y registra
+cada posición con timestamp. Útil para perímetros amplios donde necesitas barrer múltiples zonas
+en orden. La <strong class="font-bold text-brand-500">PTZ Industrial Pro</strong> es para
+proyectos custom: zoom óptico extendido, infrarrojo de largo alcance y carcasa industrial para
+condiciones extremas — se cotiza por proyecto según especificaciones.`,
+      `Las PTZ se integran con sistemas <strong class="font-bold text-brand-500">VMS profesionales</strong>
+y permiten control manual desde la app móvil o desde un joystick dedicado en cuarto de monitoreo.
+Calibración inicial y rutinas programadas incluidas en la instalación.`,
+    ]}
+  />
+
+  <!-- 3.3 CÁMARAS TÉRMICAS — DESTACADO -->
+  <ServicioDestacadoModule
+    eyebrow="DETECCIÓN PERIMETRAL"
+    title="Cámaras Térmicas"
+    icon="thermal"
+    color="brand"
+    ctaDetalleUrl="#contacto"
+    introHtml={`Las cámaras térmicas funcionan donde las ópticas no — detectan
+<strong class="font-semibold text-white">calor humano</strong> en
+<strong class="font-semibold text-white">oscuridad total, niebla densa, humo o lluvia intensa</strong>.
+Son la solución más confiable para detección perimetral de alta seguridad y para mantenimiento
+predictivo en instalaciones industriales.`}
+    stats={[
+      { value: '256×192', label: 'Resolución térmica' },
+      { value: '50m', label: 'Distancia detección' },
+      { value: 'Bispectrum', label: 'Térmica + óptica' },
+      { value: 'IA', label: 'Análisis predictivo' },
+    ]}
+    paragraphsTitle="Cuatro soluciones según el caso de uso térmico."
+    paragraphsHtml={[
+      `La <strong class="font-bold text-brand-500">Térmica Bullet 256×192</strong> es la entrada al
+catálogo térmico: sensor que detecta calor humano a 50 metros incluso en oscuridad total, niebla
+densa o humo, con IA integrada para descartar falsos positivos (animales, vegetación). La
+<strong class="font-bold text-brand-500">Térmica Bispectrum</strong> combina sensor térmico +
+óptico Full HD en una sola carcasa: ves la firma de calor Y la imagen visible al mismo tiempo,
+ideal para verificación rápida de eventos.`,
+      `La <strong class="font-bold text-brand-500">Térmica Industrial</strong> está calibrada para
+mantenimiento predictivo: detecta sobrecalentamiento en maquinaria, fugas térmicas en
+instalaciones y puntos calientes en transformadores antes de que fallen. La
+<strong class="font-bold text-brand-500">Térmica + LPR Perímetro</strong> es nuestra solución de
+máxima seguridad: combina detección térmica perimetral con lectura de placas en accesos
+vehiculares para sitios industriales o gubernamentales con alto requerimiento.`,
+      `Las cámaras térmicas funcionan donde las ópticas no — niebla, humo, oscuridad total, lluvia
+intensa. Son la solución más confiable para
+<strong class="font-bold text-brand-500">detección perimetral en zonas críticas</strong>.
+Garantía de 2 años y proyecto ejecutivo incluido en propuesta.`,
+    ]}
+  />
+
+  <!-- 3.4 CÁMARAS LPR — DESTACADO -->
+  <ServicioDestacadoModule
+    eyebrow="CONTROL VEHICULAR"
+    title="Cámaras LPR · Placas"
+    icon="lpr"
+    color="accent"
+    ctaDetalleUrl="#contacto"
+    introHtml={`Las cámaras LPR (License Plate Recognition) leen automáticamente placas vehiculares
+con precisión superior al 95% en condiciones normales. Permiten control de acceso automatizado
+con <strong class="font-semibold text-white">listas blancas</strong> (autorizados) y
+<strong class="font-semibold text-white">listas negras</strong> (bloqueados), registro de
+entrada-salida con timestamp y foto, e integración con tu ERP o CRM existente.`}
+    stats={[
+      { value: '30 km/h', label: 'Velocidad lectura' },
+      { value: '1-2 carriles', label: 'Cobertura' },
+      { value: 'Listas blancas', label: 'Configurables' },
+      { value: 'ERP', label: 'Integración nativa' },
+    ]}
+    paragraphsTitle="Cuatro niveles según la escala del control vehicular."
+    paragraphsHtml={[
+      `El <strong class="font-bold text-brand-500">LPR Básico</strong> instala una cámara
+especializada para un carril de acceso con lectura de placas a velocidad de hasta 30 km/h. Útil
+para casas con cochera múltiple, comercios con estacionamiento y residencias con flotilla. El
+<strong class="font-bold text-brand-500">LPR Pro</strong> cubre 2 carriles simultáneos con
+listas blancas (vehículos autorizados) y listas negras (bloqueados) gestionables desde dashboard
+web — ideal para fraccionamientos medianos y centros comerciales.`,
+      `El <strong class="font-bold text-brand-500">LPR + Barrera Auto</strong> integra la lectura
+con apertura autónoma: el vehículo autorizado se acerca, la cámara lee la placa, valida contra
+la lista blanca y la pluma se abre — sin intervención humana. Ideal para flotillas,
+fraccionamientos premium y hoteles. El <strong class="font-bold text-brand-500">LPR
+Empresarial</strong> añade integración con tu ERP o CRM: registro de visitantes, control de
+proveedores, facturación automatizada y reportes en la nube.`,
+      `Los LPR funcionan tanto de día como de noche con iluminadores
+<strong class="font-bold text-brand-500">infrarrojos integrados</strong> que permiten lectura
+precisa incluso en oscuridad total o lluvia. La precisión típica supera el 95% en condiciones
+normales. Integración con CCTV, control de acceso y barrera incluida.`,
+    ]}
+  />
 
   <!-- 4. BENEFICIOS -->
   <BeneficiosSection />

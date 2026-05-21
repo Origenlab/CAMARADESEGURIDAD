@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
-import PilaresSection from '@components/PilaresSection.astro';
-import EquiposSection from '@components/EquiposSection.astro';
+import ServiciosListadoCardsSection from '@components/ServiciosListadoCardsSection.astro';
+import ServicioDestacadoModule from '@components/ServicioDestacadoModule.astro';
 import BeneficiosSection from '@components/BeneficiosSection.astro';
 import TestimoniosSection from '@components/TestimoniosSection.astro';
 import ProcesoSection from '@components/ProcesoSection.astro';
@@ -11,10 +11,9 @@ import CoberturaSection from '@components/CoberturaSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
 
-// Servicios desde Content Collection
+// Servicios desde Content Collection — alimenta cards + schemas
 const servicios = await getCollection('servicios');
 
-// Schemas Service[] derivados del mismo array
 const servicesSchema = servicios
   .sort((a, b) => a.data.orden - b.data.orden)
   .map((s) => ({
@@ -28,23 +27,19 @@ const breadcrumb = [
   { name: 'Servicios', url: '/servicios/' },
 ];
 
-// FAQ específicos de servicios (paquetes, precios, garantía)
+// FAQ específicos de servicios (diferentes a los del Home)
 const faq = [
   {
     q: '¿Cómo decido qué servicio aplica a mi caso?',
     a: 'Si tu necesidad es proteger una casa o departamento, ve a la línea residencial. Si es un local comercial, oficina o bodega pequeña, comercial. Si es una nave industrial, planta o centro logístico, industrial. Si lo que quieres es controlar quién PUEDE entrar (más allá de grabar quién entró), control de acceso. Si tienes dudas, mándanos foto del lugar por WhatsApp y te decimos en menos de 15 minutos qué aplica.',
   },
   {
-    q: '¿Los precios son cerrados o pueden variar?',
-    a: 'Los precios listados son punto de partida con todo incluido (equipo + instalación + mano de obra + garantía 2 años). Pueden variar al alza si el sitio tiene condiciones especiales (techos muy altos, distancias de cableado largas, necesidad de obra civil). Lo que NO hacemos es subir el precio durante la instalación: si después del levantamiento técnico te damos un precio, ese es el final salvo cambios de alcance autorizados por escrito.',
+    q: '¿Puedo combinar sub-servicios de líneas distintas?',
+    a: 'Sí, es lo más común. Una casa puede llevar cámaras IP residenciales + cerradura inteligente del paquete de control de acceso. Un comercio puede combinar CCTV comercial + LPR para acceso vehicular. Cuando combinas sub-servicios damos descuento por proyecto integral — pregúntanos.',
   },
   {
-    q: '¿Puedo combinar varios servicios?',
-    a: 'Sí, es común. Una casa puede llevar CCTV residencial + control de acceso (videoportero + cerradura inteligente). Un comercio puede llevar CCTV comercial + LPR para acceso vehicular del estacionamiento. Cuando combines servicios damos descuento por proyecto integral — pregúntanos.',
-  },
-  {
-    q: '¿Qué incluye exactamente el "todo incluido" del precio?',
-    a: 'Equipo: cámaras + DVR/NVR + disco duro + accesorios + cableado siamés/UTP estándar. Mano de obra: instalación, fijación, cableado oculto en muros/cielos, configuración del DVR/NVR, configuración de la app móvil hasta en 4 dispositivos, capacitación al cliente. Documentación: garantía firmada de 2 años. No incluye: obra civil mayor (rotura de losas, ductos especiales), UPS de gran capacidad, repetidores ópticos si las distancias son muy largas — esos se cotizan aparte si aplican.',
+    q: '¿Qué incluye exactamente el "todo incluido"?',
+    a: 'Equipo: cámaras + DVR/NVR + disco duro + accesorios + cableado siamés/UTP estándar. Mano de obra: instalación, fijación, cableado oculto en muros/cielos, configuración del DVR/NVR, configuración de la app móvil hasta en 4 dispositivos, capacitación al cliente. Documentación: garantía firmada de 2 años. No incluye: obra civil mayor, UPS de gran capacidad, repetidores ópticos para distancias muy largas — esos se cotizan aparte si aplican.',
   },
   {
     q: '¿La garantía de 2 años cubre qué exactamente?',
@@ -62,6 +57,10 @@ const faq = [
     q: '¿Trabajan fuera de CDMX y Estado de México?',
     a: 'Sí, para proyectos comerciales e industriales medianos a grandes. Cubrimos viáticos según distancia (lo presupuestamos antes). Para residencial sólo CDMX y zona conurbada — no es rentable cobrar viáticos altos para un sistema residencial.',
   },
+  {
+    q: '¿Atienden fines de semana o emergencias?',
+    a: 'Sí. Aceptamos instalaciones en sábado, domingo y horarios nocturnos cuando el cliente lo requiere (común en comercios para no afectar operación). Para emergencias post-instalación tenemos línea de atención por WhatsApp 24/7 — respuesta en menos de una hora en CDMX.',
+  },
 ];
 ---
 
@@ -73,20 +72,19 @@ const faq = [
   services={servicesSchema}
   faq={faq}
 >
-  <!-- 1. HERO — mismo componente del Home, contenido adaptado a /servicios/ -->
+  <!-- 1. HERO — mismo del index, contenido adaptado a servicios -->
   <Hero
     eyebrow="CATÁLOGO DE SERVICIOS · CDMX Y ZONA METROPOLITANA"
     preTitle="Servicios de"
     title1="Seguridad"
     title2="Profesional"
     subtitle="para hogar, comercio e industria."
-    descriptionHtml={`Cuatro especialidades, una sola filosofía:
-<strong class="font-bold text-brand-500">instalar lo que realmente necesitas</strong>,
-ni más ni menos. Cada servicio se diseña con
+    descriptionHtml={`Cuatro líneas de trabajo profesional, cada una con sus propias especialidades.
+Diseñamos, instalamos y damos soporte a sistemas CCTV con
 <strong class="font-bold text-brand-500">visita técnica gratuita</strong>,
 <strong class="font-bold text-brand-500">garantía de 2 años</strong> por escrito y
 respuesta WhatsApp en menos de 15 minutos. Sin contrato forzoso ni mensualidad obligatoria.`}
-    col2Eyebrow="Cómo elegimos lo que aplica a ti"
+    col2Eyebrow="Cómo elegir el servicio correcto"
     col2Title="Visita técnica + propuesta a la "
     col2TitleHighlight="medida"
     col2Paragraphs={[
@@ -97,20 +95,176 @@ accesos, zonas críticas, puntos ciegos y nivel de riesgo. De ahí sale la propu
 número exacto de cámaras, tipo, ubicación y costo total cerrado.`,
       },
       {
-        html: `<strong class="font-bold text-brand-500">Para residencial trabajamos con paquetes claros</strong>
-desde 2 cámaras. Para comercio diseñamos según giro. Para industrial entregamos
-proyecto ejecutivo con plano de cobertura. Para control de acceso integramos con tu
-sistema CCTV existente o nuevo — siempre con la misma garantía de 2 años por escrito.`,
+        html: `<strong class="font-bold text-brand-500">Cada línea tiene sub-servicios independientes.</strong>
+Puedes contratar solo cámaras IP, solo control de acceso, solo monitoreo o combinarlos.
+Cuando un proyecto integra varias líneas damos descuento por proyecto integral —
+y todo queda bajo la misma garantía de 2 años por escrito.`,
       },
     ]}
   />
 
-  <!-- 2. PILARES — 4 grandes bloques (residencial · comercial · industrial · acceso)
-       cada uno con intro + stats + CTA + 4 sub-servicios -->
-  <PilaresSection servicios={servicios} />
+  <!-- 2. CARDS DE LAS 4 LÍNEAS (con sub-servicios listados, no paquetes) -->
+  <ServiciosListadoCardsSection servicios={servicios} />
 
-  <!-- 3. EQUIPOS PROFESIONALES — reusado del index -->
-  <EquiposSection />
+  <!-- 3.1 RESIDENCIAL — Módulo destacado con prosa de sub-servicios -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO RESIDENCIAL"
+    title="Cámaras para Hogar"
+    icon="home"
+    color="brand"
+    ctaDetalleUrl="/servicios/hogar/"
+    introHtml={`La línea residencial agrupa cuatro especialidades que se combinan según lo que
+tu casa necesita: <strong class="font-semibold text-white">cámaras de video</strong>,
+<strong class="font-semibold text-white">videoporteros</strong>,
+<strong class="font-semibold text-white">alarmas</strong> y
+<strong class="font-semibold text-white">monitoreo móvil</strong>. Trabajamos con familias —
+no con corporativos disfrazados de residencial.`}
+    stats={[
+      { value: '4', label: 'Sub-servicios' },
+      { value: 'Combinables', label: 'En un solo proyecto' },
+      { value: '4 disp.', label: 'App por familia' },
+      { value: '2 años', label: 'Garantía total' },
+    ]}
+    paragraphsTitle="Cuatro especialidades residenciales que se combinan a medida."
+    paragraphsHtml={[
+      `Las <strong class="font-bold text-brand-500">Cámaras IP para Hogar</strong> son la base:
+Full HD o 4K con visión nocturna, audio bidireccional y app móvil, instaladas en accesos,
+perímetro y áreas críticas. Los <strong class="font-bold text-brand-500">Videoporteros
+Inteligentes</strong> complementan controlando quién toca antes de abrir — pantalla interior
+con audio Full HD e integración con la chapa, controlables desde el celular cuando no estás en casa.`,
+      `Las <strong class="font-bold text-brand-500">Alarmas Residenciales</strong> suman sensores
+de movimiento, contactos magnéticos en puertas y ventanas, botón de pánico y sirena disuasoria
+— disuasión activa con notificación push instantánea cuando se activa cualquier sensor. El
+<strong class="font-bold text-brand-500">Monitoreo desde tu App</strong> es lo que une todo:
+app oficial Hikvision o Dahua en hasta cuatro dispositivos, alertas inteligentes con IA y
+grabaciones consultables desde cualquier lugar con internet.`,
+      `Cada una de las cuatro especialidades residenciales puede
+<strong class="font-bold text-brand-500">contratarse por separado</strong> o combinarse para
+cobertura integral. Si traes proyecto completo (CCTV + videoportero + alarma + monitoreo)
+damos descuento por proyecto integral. Visita técnica gratis, garantía de 2 años por escrito,
+sin contrato forzoso.`,
+    ]}
+  />
+
+  <!-- 3.2 COMERCIAL — Módulo destacado con prosa de sub-servicios -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO COMERCIAL"
+    title="Cámaras para Comercio"
+    icon="store"
+    color="accent"
+    ctaDetalleUrl="/servicios/comercio/"
+    introHtml={`La línea comercial cubre los cuatro contextos típicos de un negocio:
+<strong class="font-semibold text-white">tienda</strong>,
+<strong class="font-semibold text-white">oficina</strong>,
+<strong class="font-semibold text-white">bodega</strong> y
+<strong class="font-semibold text-white">cadena multi-sucursal</strong>. Cada contexto tiene
+riesgos distintos y por eso cada uno tiene su propio sub-servicio diseñado a medida.`}
+    stats={[
+      { value: '4', label: 'Sub-servicios' },
+      { value: 'Por giro', label: 'Configuración específica' },
+      { value: 'Roles', label: 'Acceso diferenciado' },
+      { value: 'VMS', label: 'Multi-sucursal' },
+    ]}
+    paragraphsTitle="Cuatro especialidades comerciales según el tipo de negocio."
+    paragraphsHtml={[
+      `<strong class="font-bold text-brand-500">CCTV para Tiendas y Locales</strong> cubre punto
+de venta, entrada principal, áreas de exhibición y bodega de producto — cámaras discretas para
+ambiente comercial sin parecer una fortaleza. Los <strong class="font-bold text-brand-500">Sistemas
+para Oficinas</strong> agregan integración con control de acceso por tarjeta o huella, salas de
+juntas con visibilidad controlada y registro de entrada-salida del personal.`,
+      `Las <strong class="font-bold text-brand-500">Cámaras para Bodegas</strong> están diseñadas
+para perímetro exterior, zonas de carga y descarga, pasillos de almacén y zonas de inventario
+— con domos antivandálicos IK10 en accesos y PTZ para grandes superficies. El sistema
+<strong class="font-bold text-brand-500">Multi-Sucursal Centralizado</strong> permite a cadenas
+y franquicias ver todas las sucursales desde un solo dashboard con roles diferenciados para
+gerente regional, gerente de sucursal y corporativo.`,
+      `Todos los sub-servicios comerciales se instalan en
+<strong class="font-bold text-brand-500">horario sin afectar tu operación</strong> y se entregan
+con planos profesionales de cableado. La capacitación al personal y la configuración multi-usuario
+están incluidas — el sistema se entrega listo para producción.`,
+    ]}
+  />
+
+  <!-- 3.3 INDUSTRIAL — Módulo destacado con prosa de sub-servicios -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO INDUSTRIAL"
+    title="Sistemas Industriales"
+    icon="factory"
+    color="brand"
+    ctaDetalleUrl="/servicios/industrial/"
+    introHtml={`La línea industrial agrupa las cuatro tecnologías de alta seguridad:
+<strong class="font-semibold text-white">cámaras térmicas perimetrales</strong>,
+<strong class="font-semibold text-white">PTZ con auto-tracking</strong>,
+<strong class="font-semibold text-white">LPR vehicular</strong> y
+<strong class="font-semibold text-white">centros de monitoreo</strong>. Cada una resuelve un
+caso de uso industrial específico y puede integrarse en un solo sistema.`}
+    stats={[
+      { value: '4', label: 'Sub-servicios' },
+      { value: 'IK10/IP67', label: 'Grado industrial' },
+      { value: 'NOM-001', label: 'Normativa MX' },
+      { value: 'VMS', label: 'Software gestión' },
+    ]}
+    paragraphsTitle="Cuatro tecnologías industriales para diferentes capas de seguridad."
+    paragraphsHtml={[
+      `Las <strong class="font-bold text-brand-500">Cámaras Térmicas Perimetrales</strong>
+detectan presencia humana en oscuridad total, niebla densa o humo — son la primera línea de
+defensa perimetral en sitios críticos. Las <strong class="font-bold text-brand-500">PTZ con
+Auto-Tracking</strong> agregan inteligencia: detectan automáticamente personas o vehículos en
+movimiento y los siguen sin operador, cubriendo grandes patios o naves desde menos puntos.`,
+      `El sub-servicio <strong class="font-bold text-brand-500">LPR — Lectura de Placas</strong>
+controla acceso vehicular con barrera automática, listas blancas para flotilla autorizada y
+registro completo de entrada-salida con timestamp y foto. El
+<strong class="font-bold text-brand-500">Centro de Monitoreo</strong> es la capa de integración:
+cuarto de control con NVR de alta capacidad en RAID-1, software VMS para gestionar 32-256+
+cámaras desde una sola consola e integración con tus sistemas de alarma existentes.`,
+      `Los cuatro sub-servicios industriales se diseñan
+<strong class="font-bold text-brand-500">como un sistema integrado</strong>, no como piezas
+sueltas. Cada proyecto incluye visita técnica con ingeniero, proyecto ejecutivo documentado,
+cumplimiento NOM-001-SEDE y entrega de documentación técnica para certificaciones ISO o HACCP
+cuando aplique.`,
+    ]}
+  />
+
+  <!-- 3.4 CONTROL DE ACCESO — Módulo destacado con prosa de sub-servicios -->
+  <ServicioDestacadoModule
+    eyebrow="SERVICIO COMPLEMENTARIO"
+    title="Control de Acceso"
+    icon="lock"
+    color="accent"
+    ctaDetalleUrl="/servicios/control-acceso/"
+    introHtml={`Los cuatro sub-servicios de control de acceso resuelven cada uno una situación
+distinta: <strong class="font-semibold text-white">videoporteros</strong> para identificar
+visitas, <strong class="font-semibold text-white">cerraduras inteligentes</strong> para
+gestión doméstica, <strong class="font-semibold text-white">biométricos</strong> para empresas
+y <strong class="font-semibold text-white">acceso vehicular con LPR</strong> para flotillas.`}
+    stats={[
+      { value: '4', label: 'Sub-servicios' },
+      { value: 'Multi-credencial', label: 'App + huella + código' },
+      { value: 'Auditable', label: 'Registro con timestamp' },
+      { value: 'CCTV', label: 'Integración nativa' },
+    ]}
+    paragraphsTitle="Cuatro soluciones según cómo necesitas controlar el acceso."
+    paragraphsHtml={[
+      `Los <strong class="font-bold text-brand-500">Videoporteros IP</strong> identifican a quien
+toca antes de abrir — pantalla interior con cámara Full HD, audio bidireccional confiable e
+integración con la chapa, controlables desde la app móvil cuando no estás en casa. Las
+<strong class="font-bold text-brand-500">Cerraduras Inteligentes</strong> reemplazan tu chapa
+actual por una con apertura por app, huella, código numérico o tarjeta NFC — sin necesidad de
+copias para empleados, visitas o Airbnb.`,
+      `Para empresas con personal rotativo el sub-servicio
+<strong class="font-bold text-brand-500">Biométrico Empresarial</strong> gestiona usuarios por
+departamento con lectores de huella, rostro o tarjeta, integrable con sistemas de tiempo y
+asistencia. Para fraccionamientos, hoteles y flotillas el
+<strong class="font-bold text-brand-500">Acceso Vehicular con LPR</strong> instala pluma
+automática con lectura de placas: listas blancas para autorizados, listas negras para bloquear
+y registro completo con timestamp y foto.`,
+      `Los cuatro sub-servicios se integran nativamente con
+<strong class="font-bold text-brand-500">tu sistema CCTV</strong> — cuando alguien activa el
+acceso, las cámaras cercanas graban en alta calidad ese momento. Si se intenta un acceso no
+autorizado, recibes notificación instantánea. Configuración y capacitación incluidas, garantía
+de 2 años por escrito.`,
+    ]}
+  />
 
   <!-- 4. BENEFICIOS — reusado del index -->
   <BeneficiosSection />
@@ -118,13 +272,13 @@ sistema CCTV existente o nuevo — siempre con la misma garantía de 2 años por
   <!-- 5. TESTIMONIOS — reusado del index -->
   <TestimoniosSection />
 
-  <!-- 6. PROCESO — reusado del index (interrupción visual marino) -->
+  <!-- 6. PROCESO — reusado del index -->
   <ProcesoSection />
 
   <!-- 7. COBERTURA — reusado del index -->
   <CoberturaSection />
 
-  <!-- 8. FAQ — preguntas específicas de servicios/precios -->
+  <!-- 8. FAQ — específicos de servicios -->
   <FaqSection faqs={faq} />
 
   <!-- 9. CTA — reusado del index -->
