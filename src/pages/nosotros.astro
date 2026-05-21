@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PageHero from '@components/PageHero.astro';
+import Hero from '@components/Hero.astro';
 import CTASection from '@components/CTASection.astro';
 import { SITE } from '@/consts';
 
@@ -115,16 +115,36 @@ const comparacion = [
 >
 
   <!-- ── 1. HERO ─────────────────────────────────────────────── -->
-  <PageHero
-    eyebrow="SOBRE NOSOTROS"
-    title="Más de 10 años protegiendo lo que más importa"
-    highlight="protegiendo lo que más importa"
-    subtitle="Instalamos sistemas CCTV profesionales en hogares, comercios e industrias desde 2014. Técnicos certificados por Hikvision y Dahua, garantía de 2 años por escrito y sin contratos forzosos."
-    breadcrumb={[
-      { name: 'Inicio', url: '/' },
-      { name: 'Nosotros', url: '/nosotros/' },
+  <Hero
+    eyebrow="SOBRE NOSOTROS · CDMX Y ZONA METROPOLITANA"
+    preTitle="Quiénes somos"
+    title1="10 años de"
+    title2="Seguridad Real"
+    subtitle="instalada en hogares, comercios e industrias."
+    descriptionHtml={`Desde 2014 hemos instalado más de <strong class="font-bold text-brand-500">2,050 sistemas CCTV</strong>
+en Ciudad de México y Estado de México. Todo nuestro equipo técnico tiene
+<strong class="font-bold text-brand-500">certificación oficial Hikvision y Dahua</strong> —
+las mismas marcas que usan bancos, aeropuertos y centros comerciales.
+Sin subcontratistas. Sin letra chica.`}
+    col2Eyebrow="Nuestra misión"
+    col2Title="Seguridad de verdad, "
+    col2TitleHighlight="sin promesas vacías"
+    col2Paragraphs={[
+      {
+        html: `<strong class="font-bold text-brand-500">No vendemos cámaras — instalamos tranquilidad.</strong>
+Cada proyecto comienza con una visita técnica gratuita donde evaluamos accesos, zonas críticas
+y puntos ciegos. Te entregamos una propuesta con equipos, cableado, número exacto de cámaras y
+costo total antes de empezar. Sin cobros sorpresa.`,
+      },
+      {
+        html: `<strong class="font-bold text-brand-500">Garantía de 2 años por escrito</strong>
+en equipo y mano de obra — el doble de lo que ofrece el mercado. Si algo falla durante el
+periodo, lo resolvemos sin costo: refacciones, equipo y visita técnica incluidas. Y respondemos
+por WhatsApp en menos de 15 minutos en horario hábil.`,
+      },
     ]}
     showRecBadge={true}
+    showQuickLinks={true}
   />
 
   <!-- ── 2. MISIÓN + HISTORIA ────────────────────────────────── -->
