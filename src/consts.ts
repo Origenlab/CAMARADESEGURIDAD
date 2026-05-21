@@ -37,9 +37,28 @@ export const SITE = {
 export const NAV_LINKS = [
   { href: '/', label: 'Inicio' },
   { href: '/servicios/', label: 'Servicios' },
-  { href: '/#beneficios', label: 'Por qué nosotros' },
+  { href: '/#porque-nosotros', label: 'Por qué nosotros' },
   { href: '/#proceso', label: 'Cómo trabajamos' },
+  { href: '/#faq', label: 'Preguntas frecuentes' },
   { href: '/#contacto', label: 'Contacto' },
+] as const;
+
+/** Links de servicios — usados en footer y mega-menú */
+export const SERVICE_LINKS = [
+  { href: '/servicios/hogar/', label: 'Cámaras para Hogar' },
+  { href: '/servicios/comercio/', label: 'Cámaras para Comercio' },
+  { href: '/servicios/industrial/', label: 'Sistemas Industriales' },
+  { href: '/servicios/control-acceso/', label: 'Control de Acceso' },
+] as const;
+
+/** Secciones de la página de inicio — anchors para footer */
+export const SECTION_LINKS = [
+  { href: '/#servicios', label: 'Nuestros Servicios' },
+  { href: '/#equipos', label: 'Equipos Profesionales' },
+  { href: '/#porque-nosotros', label: 'Por qué nosotros' },
+  { href: '/#proceso', label: 'Cómo trabajamos' },
+  { href: '/#cobertura', label: 'Cobertura CDMX' },
+  { href: '/#faq', label: 'Preguntas frecuentes' },
 ] as const;
 
 export type NavLink = (typeof NAV_LINKS)[number];

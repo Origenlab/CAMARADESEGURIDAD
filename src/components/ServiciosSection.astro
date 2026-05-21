@@ -5,11 +5,12 @@ const servicios = [
     eyebrow: 'SERVICIO RESIDENCIAL',
     color: 'brand',
     icon: 'home',
+    href: '/servicios/hogar/',
     paquetes: [
-      { name: 'Básico — 2 cámaras', detail: 'Casas pequeñas · 1 zona crítica' },
-      { name: 'Estándar — 4 cámaras', detail: 'Casa media · cochera + perímetro' },
-      { name: 'Premium — 8 cámaras', detail: 'Casa grande · cobertura total' },
-      { name: 'Residencial Plus — 16+', detail: 'Residenciales · jardín y patios' },
+      { name: 'Básico — 2 cámaras',      detail: 'Casas pequeñas · 1 zona crítica' },
+      { name: 'Estándar — 4 cámaras',    detail: 'Casa media · cochera + perímetro' },
+      { name: 'Premium — 8 cámaras',     detail: 'Casa grande · cobertura total' },
+      { name: 'Residencial Plus — 16+',  detail: 'Residenciales · jardín y patios' },
     ],
   },
   {
@@ -17,11 +18,12 @@ const servicios = [
     eyebrow: 'SERVICIO COMERCIAL',
     color: 'accent',
     icon: 'store',
+    href: '/servicios/comercio/',
     paquetes: [
-      { name: 'Tienda — 4 cámaras', detail: 'Punto de venta + entrada' },
-      { name: 'Oficina — 6 cámaras', detail: 'Áreas comunes + accesos' },
-      { name: 'Bodega — 8 cámaras', detail: 'Perímetro + interior' },
-      { name: 'Cadena — 16+ cámaras', detail: 'Multi-sucursal con monitoreo' },
+      { name: 'Tienda — 4 cámaras',      detail: 'Punto de venta + entrada' },
+      { name: 'Oficina — 6 cámaras',     detail: 'Áreas comunes + accesos' },
+      { name: 'Bodega — 8 cámaras',      detail: 'Perímetro + interior' },
+      { name: 'Cadena — 16+ cámaras',    detail: 'Multi-sucursal con monitoreo' },
     ],
   },
   {
@@ -29,11 +31,12 @@ const servicios = [
     eyebrow: 'SERVICIO INDUSTRIAL',
     color: 'brand',
     icon: 'factory',
+    href: '/servicios/industrial/',
     paquetes: [
-      { name: 'Nave — 8 cámaras', detail: 'Perímetro + área de carga' },
-      { name: 'Planta — 16 cámaras', detail: 'Producción + accesos + patios' },
-      { name: 'Industrial Premium', detail: 'Térmicas + PTZ + control acceso' },
-      { name: 'Centro de monitoreo', detail: 'Cuarto de control y NVR de alta capacidad' },
+      { name: 'Nave — 8 cámaras',        detail: 'Perímetro + área de carga' },
+      { name: 'Planta — 16 cámaras',     detail: 'Producción + accesos + patios' },
+      { name: 'Industrial Premium',      detail: 'Térmicas + PTZ + control acceso' },
+      { name: 'Centro de monitoreo',     detail: 'Cuarto de control y NVR de alta capacidad' },
     ],
   },
   {
@@ -41,22 +44,21 @@ const servicios = [
     eyebrow: 'SERVICIO COMPLEMENTARIO',
     color: 'accent',
     icon: 'lock',
+    href: '/servicios/control-acceso/',
     paquetes: [
-      { name: 'Videoportero IP', detail: 'Pantalla + audio bidireccional' },
-      { name: 'Cerradura inteligente', detail: 'App + huella + código' },
-      { name: 'Biométrico', detail: 'Huella, rostro o tarjeta' },
-      { name: 'Acceso vehicular', detail: 'Pluma + lector de placas' },
+      { name: 'Videoportero IP',         detail: 'Pantalla + audio bidireccional' },
+      { name: 'Cerradura inteligente',   detail: 'App + huella + código' },
+      { name: 'Biométrico',              detail: 'Huella, rostro o tarjeta' },
+      { name: 'Acceso vehicular',        detail: 'Pluma + lector de placas' },
     ],
   },
 ];
 
 const icons: Record<string, string> = {
-  home: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
-  store:
-    '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/><path d="M9 13a3 3 0 1 0 6 0"/>',
-  factory:
-    '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/><path d="M7 17h2M11 17h2M15 17h2"/>',
-  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  home:    '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  store:   '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/><path d="M9 13a3 3 0 1 0 6 0"/>',
+  factory: '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/><path d="M7 17h2M11 17h2M15 17h2"/>',
+  lock:    '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
 };
 ---
 
@@ -81,13 +83,15 @@ const icons: Record<string, string> = {
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         servicios.map((s) => {
-          const isBrand = s.color === 'brand';
+          const isBrand  = s.color === 'brand';
           const headerBg = isBrand ? 'bg-brand-500' : 'bg-accent-500';
+          const btnClass = isBrand ? 'btn-brand' : 'btn-primary';
           return (
             <article class="card group flex flex-col">
-              {/* Header sólido con icono grande */}
-              <div class={`${headerBg} relative px-6 py-7`}>
-                <span class="grid h-14 w-14 place-items-center rounded-lg bg-white/15">
+
+              {/* Header — clickable hacia la página de servicio */}
+              <a href={s.href} class={`${headerBg} relative block px-6 py-7 transition-opacity hover:opacity-90`}>
+                <span class="grid h-14 w-14 place-items-center rounded-xl bg-white/15">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -101,21 +105,36 @@ const icons: Record<string, string> = {
                     set:html={icons[s.icon]}
                   />
                 </span>
-                <p class="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/80">
+                <p class="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/75">
                   {s.eyebrow}
                 </p>
                 <h3 class="mt-2 font-display text-xl font-black leading-tight text-white">
                   {s.title}
                 </h3>
-              </div>
+                {/* Flecha indicadora */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="absolute right-5 top-5 h-4 w-4 text-white/40"
+                  aria-hidden="true"
+                >
+                  <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                </svg>
+              </a>
 
+              {/* Lista de paquetes — cada item enlaza a la página */}
               <ul class="flex-1">
                 {s.paquetes.map((p) => (
                   <li>
-                    <a href="#contacto" class="pkg-item">
-                      <div>
-                        <p class="text-[14px] font-bold text-brand-500">{p.name}</p>
-                        <p class="text-xs text-ink-600">{p.detail}</p>
+                    <a href={s.href} class="pkg-item group/pkg">
+                      <div class="min-w-0">
+                        <p class="text-[13.5px] font-bold text-brand-500 transition-colors group-hover/pkg:text-accent-500">{p.name}</p>
+                        <p class="text-[12px] text-ink-500">{p.detail}</p>
                       </div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +144,7 @@ const icons: Record<string, string> = {
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="h-4 w-4 shrink-0 text-cream-400 transition-all group-hover:text-accent-500"
+                        class="h-4 w-4 shrink-0 text-cream-300 transition-all duration-150 group-hover/pkg:translate-x-0.5 group-hover/pkg:text-accent-500"
                         aria-hidden="true"
                       >
                         <path d="M5 12h14" />
@@ -136,9 +155,10 @@ const icons: Record<string, string> = {
                 ))}
               </ul>
 
+              {/* CTA a la página del servicio */}
               <div class="px-5 pb-5 pt-3">
-                <a href="#contacto" class="btn-brand w-full uppercase tracking-wider text-xs">
-                  Ver todos los paquetes
+                <a href={s.href} class={`${btnClass} w-full`}>
+                  Ver detalles y paquetes
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -159,6 +179,16 @@ const icons: Record<string, string> = {
           );
         })
       }
+    </div>
+
+    <!-- Link "Ver todos" -->
+    <div class="mt-8 text-center">
+      <a href="/servicios/" class="btn-outline inline-flex items-center gap-2">
+        Ver todos los servicios
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

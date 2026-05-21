@@ -1,0 +1,162 @@
+---
+const razones = [
+  {
+    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+    title: 'Técnicos certificados por fabricante',
+    desc: 'Nuestro personal tiene certificación oficial de Hikvision y Dahua — no somos revendedores que subacontratamos. Tú sabes exactamente quién entra a tu propiedad.',
+  },
+  {
+    icon: '<path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/>',
+    title: 'Garantía de 2 años por escrito',
+    desc: 'El doble de lo que ofrece el mercado. Equipos, mano de obra y visita técnica sin costo durante el periodo. No hay letra chica.',
+  },
+  {
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    title: 'Sin contrato forzoso ni mensualidades',
+    desc: 'Pagas una vez y el sistema es tuyo. Sin permanencias de 24 o 36 meses. Si quieres monitoreo remoto, es opcional y sin compromiso de continuidad.',
+  },
+  {
+    icon: '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/><path d="M9 13a3 3 0 1 0 6 0"/>',
+    title: 'Solo marcas profesionales',
+    desc: 'Hikvision, Dahua, Provision-ISR, Ezviz y Ubiquiti — las mismas que usan bancos y aeropuertos. Nunca instalamos equipos sin reputación: el ahorro inicial casi siempre termina en fallas.',
+  },
+  {
+    icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
+    title: 'Cotización gratis el mismo día',
+    desc: 'Visita técnica sin costo en CDMX y zona metro. Levantamiento en sitio, propuesta de distribución y precio formal por escrito — todo antes de comprometerte.',
+  },
+  {
+    icon: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.15 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.26 9.91A16 16 0 0 0 14.09 16.74l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/>',
+    title: 'Soporte real post-instalación',
+    desc: 'WhatsApp, llamada o visita técnica cuando lo necesitas. No desaparecemos al cobrar. Respuesta en menos de 15 minutos en horario hábil.',
+  },
+];
+
+const comparacion = [
+  { aspecto: 'Garantía', nosotros: '2 años por escrito', mercado: '6–12 meses (verbal)' },
+  { aspecto: 'Contrato', nosotros: 'Sin permanencia', mercado: '24–36 meses forzoso' },
+  { aspecto: 'Técnicos', nosotros: 'Certificados por fabricante', mercado: 'Subcontratistas' },
+  { aspecto: 'Marcas', nosotros: 'Hikvision · Dahua · Ubiquiti', mercado: 'Marcas desconocidas' },
+  { aspecto: 'Cotización', nosotros: 'Visita técnica gratis', mercado: 'Por llamada / sin visita' },
+  { aspecto: 'Soporte', nosotros: 'WhatsApp < 15 min', mercado: 'Ticket / call center' },
+];
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- POR QUÉ NOSOTROS — Fondo navy, diferenciadores + comparador -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="porque-nosotros" class="section bg-brand-500">
+  <div class="container">
+
+    <!-- ── CABECERA ──────────────────────────────────────────── -->
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="eyebrow-light">Por qué nosotros</span>
+      <h2 class="heading-lg heading-light mt-4 text-balance">
+        Instalamos seguridad.<br />
+        <span class="text-accent-400">No vendemos promesas.</span>
+      </h2>
+      <span class="marker-line mt-5 mx-auto block" style="background-color:rgb(var(--color-accent))"></span>
+      <p class="lead-light mt-6">
+        En 10 años hemos instalado más de 2,000 sistemas en CDMX y zona metro.
+        Lo que nos diferencia no es el equipo — son las decisiones que tomamos antes, durante y después de cada instalación.
+      </p>
+    </div>
+
+    <!-- ── STATS ─────────────────────────────────────────────── -->
+    <div class="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6">
+      {[
+        { val: '10+', lbl: 'años en operación' },
+        { val: '+2,050', lbl: 'sistemas instalados' },
+        { val: '98%', lbl: 'clientes nos recomiendan' },
+        { val: '2 años', lbl: 'garantía por escrito' },
+      ].map((s) => (
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur">
+          <p class="font-display text-3xl font-black leading-none text-white sm:text-4xl">{s.val}</p>
+          <p class="mt-2 text-[11.5px] font-semibold uppercase tracking-wider text-cream-300">{s.lbl}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- ── RAZONES — grid 2×3 ───────────────────────────────── -->
+    <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+      {razones.map((r) => (
+        <div class="rounded-xl border border-white/10 bg-white/5 p-7 backdrop-blur transition-colors hover:bg-white/10">
+          <span class="grid h-12 w-12 place-items-center rounded-lg bg-accent-500/20 text-accent-400">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-6 w-6"
+              aria-hidden="true"
+              set:html={r.icon}
+            />
+          </span>
+          <h3 class="mt-5 font-display text-[17px] font-black leading-snug text-white">{r.title}</h3>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-cream-300">{r.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- ── TABLA COMPARATIVA ─────────────────────────────────── -->
+    <div class="mt-20">
+      <h3 class="text-center font-display text-xl font-black text-white sm:text-2xl">
+        Nosotros vs. el mercado — en números claros
+      </h3>
+      <p class="mt-2 text-center text-[14px] text-cream-400">
+        La diferencia que importa cuando algo falla.
+      </p>
+
+      <div class="mt-8 overflow-hidden rounded-2xl border border-white/10">
+        <!-- Header -->
+        <div class="grid grid-cols-[1fr_1fr_1fr] bg-white/10 text-[11px] font-bold uppercase tracking-[0.2em] text-cream-300">
+          <div class="px-6 py-4">Aspecto</div>
+          <div class="border-l border-white/10 px-6 py-4 text-accent-400">Cámara de Seguridad</div>
+          <div class="border-l border-white/10 px-6 py-4">Mercado general</div>
+        </div>
+        <!-- Filas -->
+        {comparacion.map((row, i) => (
+          <div class={`grid grid-cols-[1fr_1fr_1fr] border-t border-white/10 ${i % 2 === 0 ? 'bg-white/[0.03]' : ''}`}>
+            <div class="px-6 py-4 text-[13.5px] font-semibold text-cream-200">{row.aspecto}</div>
+            <div class="flex items-center gap-2 border-l border-white/10 px-6 py-4">
+              <!-- check icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-accent-400" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              <span class="text-[13.5px] font-semibold text-white">{row.nosotros}</span>
+            </div>
+            <div class="flex items-center gap-2 border-l border-white/10 px-6 py-4">
+              <!-- x icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-white/30" aria-hidden="true">
+                <path d="M18 6 6 18M6 6l12 12"/>
+              </svg>
+              <span class="text-[13.5px] text-cream-400">{row.mercado}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── CTA BOTTOM ─────────────────────────────────────────── -->
+    <div class="mt-14 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center">
+      <a
+        href="https://wa.me/5215512345678?text=Hola%2C%20quiero%20una%20cotizaci%C3%B3n%20gratuita"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary w-full sm:w-auto"
+      >
+        Cotización gratis por WhatsApp
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="/servicios/" class="btn-outline-light w-full sm:w-auto">
+        Ver todos los servicios
+      </a>
+    </div>
+
+  </div>
+</section>
