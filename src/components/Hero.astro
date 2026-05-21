@@ -1,5 +1,79 @@
 ---
-import { SITE } from '@/consts';
+/**
+ * Hero principal del sitio — parametrizado.
+ * Por default renderiza el contenido del Home (L1).
+ * Páginas internas (L2+) lo reusan con props personalizados.
+ *
+ * Estructura siempre igual:
+ * - REC badge flotante (opcional)
+ * - Línea decorativa vertical
+ * - Bicolumna: col1 eyebrow + título + descripción · col2 título + 2 párrafos
+ * - Strip inferior con quick-links sobre marino (opcional)
+ */
+
+interface ParagraphEntry {
+  html: string;
+}
+
+interface Props {
+  // Columna 1
+  eyebrow?: string;
+  preTitle?: string;
+  title1?: string;
+  title2?: string;
+  subtitle?: string;
+  descriptionHtml?: string;
+
+  // Columna 2
+  col2Eyebrow?: string;
+  col2Title?: string;
+  col2TitleHighlight?: string;
+  col2Paragraphs?: ParagraphEntry[];
+
+  // Opciones
+  showRecBadge?: boolean;
+  showQuickLinks?: boolean;
+}
+
+const {
+  eyebrow = 'CCTV PROFESIONAL · CDMX Y ZONA METROPOLITANA',
+  preTitle = 'Sistemas de',
+  title1 = 'Cámaras de',
+  title2 = 'Seguridad',
+  subtitle = 'para tu hogar, comercio e industria.',
+  descriptionHtml = `Llevamos más de <strong class="font-bold text-brand-500">10 años</strong>
+instalando sistemas CCTV en la Ciudad de México y Estado de México. Más de
+<strong class="font-bold text-brand-500">1,200 proyectos</strong> con equipo
+<strong class="font-bold text-brand-500">Hikvision</strong>,
+<strong class="font-bold text-brand-500">Dahua</strong> y
+<strong class="font-bold text-brand-500">Provision-ISR</strong> — las mismas marcas
+que usan bancos, hoteles y aeropuertos.`,
+
+  col2Eyebrow = 'Qué hacemos',
+  col2Title = 'Diseño, instalación y soporte de sistemas CCTV ',
+  col2TitleHighlight = 'profesionales',
+  col2Paragraphs = [
+    {
+      html: `<strong class="font-bold text-brand-500">Diseñamos e instalamos sistemas CCTV</strong>
+adaptados a tu espacio, tu nivel de riesgo y tu presupuesto. Cada proyecto inicia
+con una visita técnica gratuita en la que evaluamos accesos, zonas críticas y
+puntos ciegos. Te entregamos una propuesta clara — equipos, cableado, número
+exacto de cámaras y costo total — antes de tocar un solo cable. Nada de cobros
+sorpresa, nada de venta agresiva.`,
+    },
+    {
+      html: `<strong class="font-bold text-brand-500">Nuestro servicio no termina con la instalación.</strong>
+Configuramos la aplicación móvil en hasta cuatro dispositivos, te capacitamos en
+el uso y respondemos por WhatsApp en menos de 15 minutos. Ofrecemos
+<strong class="font-bold text-brand-500">garantía de 2 años por escrito</strong>
+en equipo y mano de obra, y opcionalmente mantenimiento preventivo o monitoreo
+24/7 — sin contrato forzoso ni mensualidad obligatoria.`,
+    },
+  ],
+
+  showRecBadge = true,
+  showQuickLinks = true,
+} = Astro.props;
 
 const icons: Record<string, string> = {
   home: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
@@ -24,12 +98,15 @@ const quickLinks = [
   class="relative overflow-hidden bg-cream-100"
   aria-labelledby="hero-title"
 >
-  <!-- Badge REC flotante esquina superior derecha -->
-  <div class="absolute right-4 top-4 z-20 lg:right-8 lg:top-8">
-    <span class="rec-badge">REC · Sistema activo</span>
-  </div>
+  {
+    showRecBadge && (
+      <div class="absolute right-4 top-4 z-20 lg:right-8 lg:top-8">
+        <span class="rec-badge">REC · Sistema activo</span>
+      </div>
+    )
+  }
 
-  <!-- Línea roja vertical decorativa al centro entre columnas -->
+  <!-- Línea vertical decorativa al centro entre columnas -->
   <div
     class="absolute left-1/2 top-0 -z-0 hidden h-full w-px bg-cream-300 lg:block"
     aria-hidden="true"
@@ -37,128 +114,99 @@ const quickLinks = [
 
   <div class="container relative py-16 sm:py-20 lg:py-28">
     <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
-      <!-- ═══════════════════════════════════════════════════ -->
-      <!-- COLUMNA 1: Título principal + descripción + stats + CTA -->
-      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- COLUMNA 1 -->
       <div class="animate-fade-up">
-        <span class="eyebrow">
-          CCTV PROFESIONAL · CDMX Y ZONA METROPOLITANA
-        </span>
+        <span class="eyebrow">{eyebrow}</span>
 
         <p
           class="mt-7 font-display text-base font-bold uppercase tracking-[0.18em] text-ink-600"
         >
-          Sistemas de
+          {preTitle}
         </p>
 
         <h1 id="hero-title" class="heading-xl mt-3 text-balance">
-          Cámaras de
-          <br /><span class="text-accent-500">Seguridad</span>
+          {title1}
+          <br /><span class="text-accent-500">{title2}</span>
         </h1>
 
         <p
           class="mt-4 font-display text-xl font-bold leading-tight text-brand-500 sm:text-2xl lg:text-3xl"
         >
-          para tu hogar, comercio e industria.
+          {subtitle}
         </p>
 
         <span class="marker-line mt-8"></span>
 
-        <p class="mt-6 text-[16px] leading-relaxed text-ink-700">
-          Llevamos más de <strong class="font-bold text-brand-500">10 años</strong>
-          instalando sistemas CCTV en la Ciudad de México y Estado de México. Más de
-          <strong class="font-bold text-brand-500">1,200 proyectos</strong> con equipo
-          <strong class="font-bold text-brand-500">Hikvision</strong>,
-          <strong class="font-bold text-brand-500">Dahua</strong> y
-          <strong class="font-bold text-brand-500">Provision-ISR</strong> — las mismas marcas
-          que usan bancos, hoteles y aeropuertos.
-        </p>
-
+        <p
+          class="mt-6 text-[16px] leading-relaxed text-ink-700"
+          set:html={descriptionHtml}
+        />
       </div>
 
-      <!-- ═══════════════════════════════════════════════════ -->
-      <!-- COLUMNA 2: Qué hacemos · dos párrafos de servicios -->
-      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- COLUMNA 2 -->
       <div class="animate-fade-up lg:[animation-delay:120ms] lg:pt-2">
-        <span class="eyebrow">Qué hacemos</span>
+        <span class="eyebrow">{col2Eyebrow}</span>
 
         <h2 class="mt-6 font-display text-2xl font-black leading-tight text-brand-500 sm:text-3xl">
-          Diseño, instalación y soporte de sistemas CCTV
-          <span class="text-accent-500">profesionales</span>.
+          {col2Title}<span class="text-accent-500">{col2TitleHighlight}</span>.
         </h2>
 
         <span class="marker-line mt-6"></span>
 
         <div class="mt-7 space-y-6 text-[16px] leading-[1.75] text-ink-700">
-          <p>
-            <strong class="font-bold text-brand-500">Diseñamos e instalamos sistemas CCTV</strong>
-            adaptados a tu espacio, tu nivel de riesgo y tu presupuesto. Cada proyecto inicia
-            con una visita técnica gratuita en la que evaluamos accesos, zonas críticas y
-            puntos ciegos. Te entregamos una propuesta clara — equipos, cableado, número
-            exacto de cámaras y costo total — antes de tocar un solo cable. Nada de cobros
-            sorpresa, nada de venta agresiva.
-          </p>
-
-          <p>
-            <strong class="font-bold text-brand-500">Nuestro servicio no termina con la instalación.</strong>
-            Configuramos la aplicación móvil en hasta cuatro dispositivos, te capacitamos en
-            el uso y respondemos por WhatsApp en menos de 15 minutos. Ofrecemos
-            <strong class="font-bold text-brand-500">garantía de 2 años por escrito</strong>
-            en equipo y mano de obra, y opcionalmente mantenimiento preventivo o monitoreo
-            24/7 — sin contrato forzoso ni mensualidad obligatoria.
-          </p>
+          {col2Paragraphs.map((p) => <p set:html={p.html} />)}
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- Strip de quick-links sobre marino sólido -->
-  <div class="relative z-10 bg-brand-600">
-    <div class="container grid grid-cols-2 divide-y divide-brand-500 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
-      {
-        quickLinks.map((s) => (
-          <a
-            href="#servicios"
-            class="group flex items-center justify-between gap-3 px-4 py-5 transition-colors hover:bg-brand-500"
-          >
-            <div class="flex items-center gap-3">
-              <span class="grid h-10 w-10 place-items-center rounded-md bg-accent-500 text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                  set:html={icons[s.icon]}
-                />
-              </span>
-              <div>
-                <p class="text-sm font-black text-white">{s.title}</p>
-                <p class="text-[11px] text-white/70">{s.sub}</p>
-              </div>
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-accent-500"
-              aria-hidden="true"
+  {
+    showQuickLinks && (
+      <div class="relative z-10 bg-brand-600">
+        <div class="container grid grid-cols-2 divide-y divide-brand-500 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
+          {quickLinks.map((s) => (
+            <a
+              href="/servicios/"
+              class="group flex items-center justify-between gap-3 px-4 py-5 transition-colors hover:bg-brand-500"
             >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
-        ))
-      }
-    </div>
-  </div>
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 place-items-center rounded-md bg-accent-500 text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-5 w-5"
+                    aria-hidden="true"
+                    set:html={icons[s.icon]}
+                  />
+                </span>
+                <div>
+                  <p class="text-sm font-black text-white">{s.title}</p>
+                  <p class="text-[11px] text-white/70">{s.sub}</p>
+                </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-accent-500"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
 </section>

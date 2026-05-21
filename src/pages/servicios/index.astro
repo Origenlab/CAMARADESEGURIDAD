@@ -1,19 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PageHero from '@components/PageHero.astro';
+import Hero from '@components/Hero.astro';
 import ServiciosListadoSection from '@components/ServiciosListadoSection.astro';
+import EquiposSection from '@components/EquiposSection.astro';
 import BeneficiosSection from '@components/BeneficiosSection.astro';
+import TestimoniosSection from '@components/TestimoniosSection.astro';
 import ProcesoSection from '@components/ProcesoSection.astro';
+import CoberturaSection from '@components/CoberturaSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
 
-// ───────────────────────────────────────────────────────────
-// Cargar servicios desde la Content Collection
-// ───────────────────────────────────────────────────────────
+// Servicios desde Content Collection
 const servicios = await getCollection('servicios');
 
-// Schemas para SEO — derivados del mismo array de servicios
+// Schemas Service[] derivados del mismo array
 const servicesSchema = servicios
   .sort((a, b) => a.data.orden - b.data.orden)
   .map((s) => ({
@@ -22,13 +23,12 @@ const servicesSchema = servicios
     url: `/servicios/${s.id.replace(/\.md$/, '')}/`,
   }));
 
-// Breadcrumb
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
   { name: 'Servicios', url: '/servicios/' },
 ];
 
-// FAQ específicos de servicios (distintos a los del home, enfocados en precios/paquetes)
+// FAQ específicos de servicios (paquetes, precios, garantía)
 const faq = [
   {
     q: '¿Cómo decido qué servicio aplica a mi caso?',
@@ -73,27 +73,59 @@ const faq = [
   services={servicesSchema}
   faq={faq}
 >
-  <!-- 1. Hero secundario con breadcrumb -->
-  <PageHero
-    eyebrow="Catálogo de servicios"
-    title="Cuatro especialidades, una misma filosofía."
-    highlight="filosofía"
-    subtitle="Desde 2 cámaras para una casa hasta proyectos industriales con LPR, cámaras térmicas y centro de monitoreo. Cada servicio se diseña con el mismo principio: lo que necesitas, ni más ni menos."
-    breadcrumb={breadcrumb}
+  <!-- 1. HERO — mismo componente del Home, contenido adaptado a /servicios/ -->
+  <Hero
+    eyebrow="CATÁLOGO DE SERVICIOS · CDMX Y ZONA METROPOLITANA"
+    preTitle="Servicios de"
+    title1="Seguridad"
+    title2="Profesional"
+    subtitle="para hogar, comercio e industria."
+    descriptionHtml={`Cuatro especialidades, una sola filosofía:
+<strong class="font-bold text-brand-500">instalar lo que realmente necesitas</strong>,
+ni más ni menos. Cada servicio se diseña con
+<strong class="font-bold text-brand-500">visita técnica gratuita</strong>,
+<strong class="font-bold text-brand-500">garantía de 2 años</strong> por escrito y
+respuesta WhatsApp en menos de 15 minutos. Sin contrato forzoso ni mensualidad obligatoria.`}
+    col2Eyebrow="Cómo elegimos lo que aplica a ti"
+    col2Title="Visita técnica + propuesta a la "
+    col2TitleHighlight="medida"
+    col2Paragraphs={[
+      {
+        html: `<strong class="font-bold text-brand-500">Cada inmueble tiene riesgos específicos.</strong>
+Antes de cualquier cotización, hacemos una visita técnica sin costo en la que evaluamos
+accesos, zonas críticas, puntos ciegos y nivel de riesgo. De ahí sale la propuesta —
+número exacto de cámaras, tipo, ubicación y costo total cerrado.`,
+      },
+      {
+        html: `<strong class="font-bold text-brand-500">Para residencial trabajamos con paquetes claros</strong>
+desde 2 cámaras. Para comercio diseñamos según giro. Para industrial entregamos
+proyecto ejecutivo con plano de cobertura. Para control de acceso integramos con tu
+sistema CCTV existente o nuevo — siempre con la misma garantía de 2 años por escrito.`,
+      },
+    ]}
   />
 
-  <!-- 2. Listado expandido con paquetes y precios -->
+  <!-- 2. LISTADO DE SERVICIOS — meat de la página: 4 cards detalladas con paquetes -->
   <ServiciosListadoSection servicios={servicios} />
 
-  <!-- 3. Beneficios (reusado del Home) -->
+  <!-- 3. EQUIPOS PROFESIONALES — reusado del index -->
+  <EquiposSection />
+
+  <!-- 4. BENEFICIOS — reusado del index -->
   <BeneficiosSection />
 
-  <!-- 4. Proceso (reusado del Home) -->
+  <!-- 5. TESTIMONIOS — reusado del index -->
+  <TestimoniosSection />
+
+  <!-- 6. PROCESO — reusado del index (interrupción visual marino) -->
   <ProcesoSection />
 
-  <!-- 5. FAQ específicos de servicios -->
+  <!-- 7. COBERTURA — reusado del index -->
+  <CoberturaSection />
+
+  <!-- 8. FAQ — preguntas específicas de servicios/precios -->
   <FaqSection faqs={faq} />
 
-  <!-- 6. CTA -->
+  <!-- 9. CTA — reusado del index -->
   <CTASection />
 </BaseLayout>
