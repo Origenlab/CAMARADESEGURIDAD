@@ -247,14 +247,16 @@ por WhatsApp en menos de 15 minutos en horario hábil.`,
   <!-- ── 4. VALORES ─────────────────────────────────────────── -->
   <section class="section-white" id="valores">
     <div class="container">
-      <div class="mx-auto max-w-2xl text-center">
-        <span class="eyebrow">Nuestros valores</span>
-        <h2 class="heading-lg mt-4 text-balance">
-          Lo que guía cada
-          <span class="text-accent-500">instalación</span>
-        </h2>
-        <span class="marker-line mt-5 mx-auto block"></span>
-        <p class="lead mt-6">
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">Nuestros valores</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Lo que guía cada
+            <span class="text-accent-500">instalación</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <p class="lead">
           Instalamos sistemas de seguridad. Pero detrás de cada cámara hay una decisión de diseño,
           un técnico con nombre y una garantía firmada. Estos son los principios que no negociamos.
         </p>
@@ -296,14 +298,16 @@ por WhatsApp en menos de 15 minutos en horario hábil.`,
   <section class="section bg-brand-500" id="diferenciadores">
     <div class="container">
 
-      <div class="mx-auto max-w-3xl text-center">
-        <span class="eyebrow-light">La diferencia en números</span>
-        <h2 class="heading-lg heading-light mt-4 text-balance">
-          Nosotros vs. el mercado —
-          <span class="text-accent-400">sin letra chica</span>
-        </h2>
-        <span class="marker-line mt-5 mx-auto block" style="background-color:rgb(var(--color-accent))"></span>
-        <p class="lead-light mt-6">
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow-light">La diferencia en números</span>
+          <h2 class="heading-lg heading-light mt-4 text-balance">
+            Nosotros vs. el mercado —
+            <span class="text-accent-400">sin letra chica</span>
+          </h2>
+          <span class="marker-line mt-5" style="background-color:rgb(var(--color-accent))"></span>
+        </div>
+        <p class="lead-light">
           Cualquier empresa de cámaras promete "calidad y garantía". Nosotros lo ponemos por escrito.
           Compara y decide con información real.
         </p>
@@ -394,15 +398,22 @@ por WhatsApp en menos de 15 minutos en horario hábil.`,
   <!-- ── 7. FAQ NOSOTROS ────────────────────────────────────── -->
   <section class="section-white" id="faq-nosotros">
     <div class="container">
-      <div class="mx-auto max-w-3xl">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2 class="heading-md mt-4 text-balance">
-          Lo que nos preguntan
-          <span class="text-accent-500">sobre nosotros</span>
-        </h2>
-        <span class="marker-line mt-5"></span>
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Lo que nos preguntan
+            <span class="text-accent-500">sobre nosotros</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <p class="lead">
+          Resolvemos las dudas más comunes sobre nuestra empresa, equipo técnico y zona de cobertura.
+          Si no encuentras tu respuesta, escríbenos por WhatsApp.
+        </p>
+      </div>
 
-        <div class="mt-10 space-y-3">
+      <div class="mt-10 space-y-3">
           {faq.map((item, i) => (
             <details class="faq-item group overflow-hidden rounded-xl border border-cream-200 bg-cream-50 transition-all open:border-brand-200 open:bg-white open:shadow-card">
               <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-display text-[15.5px] font-bold text-brand-500 marker:hidden [&::-webkit-details-marker]:hidden">
@@ -430,7 +441,6 @@ por WhatsApp en menos de 15 minutos en horario hábil.`,
           </a>
           o escríbenos por WhatsApp.
         </p>
-      </div>
     </div>
   </section>
 
