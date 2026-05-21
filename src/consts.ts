@@ -36,7 +36,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: '/', label: 'Inicio' },
-  { href: '/#servicios', label: 'Servicios' },
+  { href: '/servicios/', label: 'Servicios' },
   { href: '/#beneficios', label: 'Por qué nosotros' },
   { href: '/#proceso', label: 'Cómo trabajamos' },
   { href: '/#contacto', label: 'Contacto' },

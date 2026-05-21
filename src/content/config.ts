@@ -80,17 +80,53 @@ const blog = defineCollection({
 
 /**
  * Collection: servicios
- * Páginas detalladas de servicios (instalación, monitoreo, etc.).
+ * Páginas detalladas de servicios (residencial, comercial, industrial, etc.).
+ *
+ * Cada servicio puede renderizarse:
+ * - En el listado /servicios/ (campos: shortTitle, subtitle, eyebrow, icon, color, features, idealPara)
+ * - En su página propia /servicios/[slug]/ (campos: paquetes, faq, descripcionLarga)
  */
 const servicios = defineCollection({
   loader: glob({ pattern: '**/[^_]*.md', base: './src/content/servicios' }),
   schema: ({ image }) =>
     z.object({
+      // Básicos
       title: z.string(),
+      shortTitle: z.string().optional(),
+      eyebrow: z.string(),
+      subtitle: z.string(),
       description: z.string(),
+      descripcionLarga: z.string().optional(),
+
+      // Visual
+      icon: z.enum(['home', 'store', 'factory', 'lock', 'camera', 'shield']),
+      color: z.enum(['brand', 'accent']).default('brand'),
       orden: z.number().default(0),
-      icono: z.string().optional(),
       heroImage: image().optional(),
+
+      // Contenido funcional
+      idealPara: z.array(z.string()).default([]),
+      features: z.array(z.string()).default([]),
+      paquetes: z
+        .array(
+          z.object({
+            name: z.string(),
+            detail: z.string(),
+            precio: z.number().optional(),
+            popular: z.boolean().default(false),
+          }),
+        )
+        .default([]),
+      faq: z
+        .array(
+          z.object({
+            q: z.string(),
+            a: z.string(),
+          }),
+        )
+        .default([]),
+
+      // Meta
       destacado: z.boolean().default(false),
       seo: z
         .object({

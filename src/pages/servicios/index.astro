@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import ServiciosListadoSection from '@components/ServiciosListadoSection.astro';
+import BeneficiosSection from '@components/BeneficiosSection.astro';
+import ProcesoSection from '@components/ProcesoSection.astro';
+import FaqSection from '@components/FaqSection.astro';
+import CTASection from '@components/CTASection.astro';
+
+// ───────────────────────────────────────────────────────────
+// Cargar servicios desde la Content Collection
+// ───────────────────────────────────────────────────────────
+const servicios = await getCollection('servicios');
+
+// Schemas para SEO — derivados del mismo array de servicios
+const servicesSchema = servicios
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .map((s) => ({
+    name: s.data.title,
+    description: s.data.description,
+    url: `/servicios/${s.id.replace(/\.md$/, '')}/`,
+  }));
+
+// Breadcrumb
+const breadcrumb = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Servicios', url: '/servicios/' },
+];
+
+// FAQ específicos de servicios (distintos a los del home, enfocados en precios/paquetes)
+const faq = [
+  {
+    q: '¿Cómo decido qué servicio aplica a mi caso?',
+    a: 'Si tu necesidad es proteger una casa o departamento, ve a la línea residencial. Si es un local comercial, oficina o bodega pequeña, comercial. Si es una nave industrial, planta o centro logístico, industrial. Si lo que quieres es controlar quién PUEDE entrar (más allá de grabar quién entró), control de acceso. Si tienes dudas, mándanos foto del lugar por WhatsApp y te decimos en menos de 15 minutos qué aplica.',
+  },
+  {
+    q: '¿Los precios son cerrados o pueden variar?',
+    a: 'Los precios listados son punto de partida con todo incluido (equipo + instalación + mano de obra + garantía 2 años). Pueden variar al alza si el sitio tiene condiciones especiales (techos muy altos, distancias de cableado largas, necesidad de obra civil). Lo que NO hacemos es subir el precio durante la instalación: si después del levantamiento técnico te damos un precio, ese es el final salvo cambios de alcance autorizados por escrito.',
+  },
+  {
+    q: '¿Puedo combinar varios servicios?',
+    a: 'Sí, es común. Una casa puede llevar CCTV residencial + control de acceso (videoportero + cerradura inteligente). Un comercio puede llevar CCTV comercial + LPR para acceso vehicular del estacionamiento. Cuando combines servicios damos descuento por proyecto integral — pregúntanos.',
+  },
+  {
+    q: '¿Qué incluye exactamente el "todo incluido" del precio?',
+    a: 'Equipo: cámaras + DVR/NVR + disco duro + accesorios + cableado siamés/UTP estándar. Mano de obra: instalación, fijación, cableado oculto en muros/cielos, configuración del DVR/NVR, configuración de la app móvil hasta en 4 dispositivos, capacitación al cliente. Documentación: garantía firmada de 2 años. No incluye: obra civil mayor (rotura de losas, ductos especiales), UPS de gran capacidad, repetidores ópticos si las distancias son muy largas — esos se cotizan aparte si aplican.',
+  },
+  {
+    q: '¿La garantía de 2 años cubre qué exactamente?',
+    a: 'Cubre falla del equipo (cámara, DVR, fuente de poder) y de la mano de obra (instalación). Si una cámara falla durante el periodo, te la reemplazamos sin costo: equipo nuevo, refacciones, mano de obra y visita técnica incluida. NO cubre daños por descargas eléctricas (sí hay UPS instalado), vandalismo intencional, mal uso del equipo por terceros sin autorización.',
+  },
+  {
+    q: '¿Pueden migrar mi sistema viejo a uno nuevo?',
+    a: 'Sí. Hacemos auditoría del equipo existente, evaluamos qué se puede reutilizar (cableado, ductería, fuentes de poder, ciertas cámaras compatibles) y qué conviene reemplazar. La propuesta de migración llega con justificación técnica para cada decisión — no te empujamos a comprar todo nuevo si no es necesario.',
+  },
+  {
+    q: '¿Qué pasa si mi proyecto es muy específico (algo industrial raro)?',
+    a: 'Los proyectos no convencionales (cámaras a prueba de explosión, ambientes corrosivos, alturas extremas, integraciones con SCADA, etc.) son nuestra especialidad. Para esos casos hacemos visita técnica con ingeniero, propuesta ejecutiva con plano, y cotización cerrada antes de tocar nada. La visita técnica industrial es gratis en CDMX y Edomex.',
+  },
+  {
+    q: '¿Trabajan fuera de CDMX y Estado de México?',
+    a: 'Sí, para proyectos comerciales e industriales medianos a grandes. Cubrimos viáticos según distancia (lo presupuestamos antes). Para residencial sólo CDMX y zona conurbada — no es rentable cobrar viáticos altos para un sistema residencial.',
+  },
+];
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Servicios profesionales de cámaras de seguridad CCTV en CDMX y Estado de México: residencial, comercial, industrial y control de acceso. Garantía de 2 años por escrito, marcas Hikvision, Dahua y Provision-ISR."
+  canonical="/servicios/"
+  breadcrumb={breadcrumb}
+  services={servicesSchema}
+  faq={faq}
+>
+  <!-- 1. Hero secundario con breadcrumb -->
+  <PageHero
+    eyebrow="Catálogo de servicios"
+    title="Cuatro especialidades, una misma filosofía."
+    highlight="filosofía"
+    subtitle="Desde 2 cámaras para una casa hasta proyectos industriales con LPR, cámaras térmicas y centro de monitoreo. Cada servicio se diseña con el mismo principio: lo que necesitas, ni más ni menos."
+    breadcrumb={breadcrumb}
+  />
+
+  <!-- 2. Listado expandido con paquetes y precios -->
+  <ServiciosListadoSection servicios={servicios} />
+
+  <!-- 3. Beneficios (reusado del Home) -->
+  <BeneficiosSection />
+
+  <!-- 4. Proceso (reusado del Home) -->
+  <ProcesoSection />
+
+  <!-- 5. FAQ específicos de servicios -->
+  <FaqSection faqs={faq} />
+
+  <!-- 6. CTA -->
+  <CTASection />
+</BaseLayout>
