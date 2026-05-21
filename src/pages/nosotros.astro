@@ -261,16 +261,32 @@ por WhatsApp en menos de 15 minutos en horario hábil.`,
       </div>
 
       <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {valores.map((v) => (
-          <div class="card group relative overflow-hidden p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
-            <!-- Acento rojo en hover -->
-            <div class="absolute left-0 top-0 h-1 w-0 rounded-t-2xl bg-accent-500 transition-all duration-300 group-hover:w-full" aria-hidden="true"></div>
-            <span class="grid h-12 w-12 place-items-center rounded-lg bg-brand-500/8 text-brand-500 transition-colors group-hover:bg-accent-500 group-hover:text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true" set:html={v.icon}/>
-            </span>
-            <h3 class="mt-5 font-display text-[17px] font-black leading-snug text-brand-500">{v.title}</h3>
-            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink-700">{v.desc}</p>
-          </div>
+        {valores.map((v, i) => (
+          <article class="card group flex flex-col overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg">
+
+            <!-- ── Placeholder header ───────────────────────── -->
+            <div class="relative flex h-40 items-center justify-center bg-brand-500 transition-colors duration-300 group-hover:bg-brand-600">
+              <!-- Número de fondo decorativo -->
+              <span class="absolute right-4 top-3 font-display text-[64px] font-black leading-none text-white/8 select-none" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <!-- Icono centrado grande -->
+              <span class="relative z-10 grid h-20 w-20 place-items-center rounded-2xl bg-white/10 backdrop-blur-sm ring-1 ring-white/15 transition-all duration-300 group-hover:bg-accent-500/80 group-hover:ring-accent-400">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-10 w-10 text-white" aria-hidden="true" set:html={v.icon}/>
+              </span>
+              <!-- Barra roja inferior en hover -->
+              <div class="absolute bottom-0 left-0 h-1 w-0 bg-accent-500 transition-all duration-300 group-hover:w-full" aria-hidden="true"></div>
+            </div>
+
+            <!-- ── Cuerpo ─────────────────────────────────── -->
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="font-display text-[17px] font-black leading-snug text-brand-500 transition-colors group-hover:text-accent-500">
+                {v.title}
+              </h3>
+              <p class="mt-3 flex-1 text-[14.5px] leading-relaxed text-ink-700">{v.desc}</p>
+            </div>
+
+          </article>
         ))}
       </div>
     </div>
