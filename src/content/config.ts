@@ -104,7 +104,24 @@ const servicios = defineCollection({
       orden: z.number().default(0),
       heroImage: image().optional(),
 
-      // Contenido funcional
+      // Pilar (estructura tipo SEPRICO)
+      pilar: z.number().optional(),
+      pilarIntro: z.string().optional(),
+      stats: z
+        .array(z.object({ value: z.string(), label: z.string() }))
+        .default([]),
+      subServicios: z
+        .array(
+          z.object({
+            name: z.string(),
+            description: z.string(),
+            url: z.string(),
+            icon: z.enum(['camera', 'eye', 'shield', 'lock', 'tool', 'bell', 'wifi', 'monitor', 'car', 'fingerprint']).optional(),
+          }),
+        )
+        .default([]),
+
+      // Contenido funcional (para L3 detalle)
       idealPara: z.array(z.string()).default([]),
       features: z.array(z.string()).default([]),
       paquetes: z

@@ -11,6 +11,37 @@ color: brand
 orden: 1
 destacado: true
 
+pilar: 1
+pilarIntro: "No instalamos cámaras: construimos un sistema que protege a tu familia con discreción profesional. Cada proyecto residencial inicia con visita técnica gratuita para definir cobertura sin puntos ciegos, equipo Hikvision/Dahua de grado profesional y configuración de app en hasta 4 dispositivos. Sin contrato forzoso, sin mensualidad: pagas una vez y el sistema es tuyo."
+
+stats:
+  - value: "+1,200"
+    label: "Casas instaladas"
+  - value: "2 años"
+    label: "Garantía por escrito"
+  - value: "IP66/67"
+    label: "Resistente intemperie"
+  - value: "<15 min"
+    label: "Respuesta WhatsApp"
+
+subServicios:
+  - name: "Cámaras IP para Hogar"
+    description: "Cámaras Full HD y 4K con visión nocturna IR, audio bidireccional y app móvil. Las mismas marcas Hikvision y Dahua que usan bancos — adaptadas al uso residencial con discreción y precio justo."
+    url: "/servicios/hogar/camaras-ip/"
+    icon: camera
+  - name: "Videoporteros Inteligentes"
+    description: "Identifica quién toca antes de abrir desde tu pantalla interior o desde el celular. Audio bidireccional Full HD, integración con la chapa y registro de visitas. Útil sin importar si estás en casa o no."
+    url: "/servicios/hogar/videoporteros/"
+    icon: bell
+  - name: "Alarmas Residenciales"
+    description: "Sensores de movimiento, contactos magnéticos en ventanas y puertas, botón de pánico y sirena disuasoria. Notificación push al celular en cuanto se activa cualquier sensor — opcional sin contrato."
+    url: "/servicios/hogar/alarmas/"
+    icon: shield
+  - name: "Monitoreo desde tu App"
+    description: "Configuramos la aplicación oficial de la marca en hasta 4 dispositivos y te capacitamos antes de irnos. Ver en vivo, revisar grabaciones, compartir acceso con la familia y recibir alertas inteligentes desde cualquier lugar."
+    url: "/servicios/hogar/monitoreo/"
+    icon: monitor
+
 idealPara:
   - "Casas con cochera o patio"
   - "Departamentos en planta baja o con acceso vulnerable"

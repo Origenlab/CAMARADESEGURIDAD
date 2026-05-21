@@ -1,0 +1,210 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  servicios: CollectionEntry<'servicios'>[];
+}
+
+const { servicios } = Astro.props;
+
+// Iconos para pilares (header del bloque)
+const pilarIcons: Record<string, string> = {
+  home: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  store:
+    '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/><path d="M9 13a3 3 0 1 0 6 0"/>',
+  factory:
+    '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/><path d="M7 17h2M11 17h2M15 17h2"/>',
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  camera:
+    '<path d="M3 8a2 2 0 0 1 2-2h3l2-2h4l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="4"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+};
+
+// Iconos para sub-servicios
+const subIcons: Record<string, string> = {
+  camera:
+    '<path d="M3 8a2 2 0 0 1 2-2h3l2-2h4l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="4"/>',
+  eye: '<path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  tool: '<path d="M14.7 6.3a4 4 0 0 1 5 5L9.5 21.5a2 2 0 1 1-2.8-2.8L17 8.3"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  wifi: '<path d="M5 12.55a11 11 0 0 1 14 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M8.5 16.43a6 6 0 0 1 7 0"/><circle cx="12" cy="20" r="1"/>',
+  monitor: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  car: '<path d="M5 13l2-5h10l2 5M5 13v5h2v-2h10v2h2v-5M5 13h14"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/>',
+  fingerprint:
+    '<path d="M12 11c0-1.1.9-2 2-2s2 .9 2 2"/><path d="M12 11v6"/><path d="M8 11c0-2.2 1.8-4 4-4s4 1.8 4 4v2"/><path d="M5 14V11a7 7 0 0 1 14 0v2"/>',
+};
+---
+
+<section id="pilares" class="bg-cream-100">
+  <div class="container py-16 lg:py-24">
+    {
+      servicios
+        .sort((a, b) => a.data.orden - b.data.orden)
+        .map((s, idx) => {
+          const isBrand = s.data.color === 'brand';
+          const headerBg = isBrand ? 'bg-brand-500' : 'bg-accent-500';
+          const accentHover = isBrand ? 'hover:border-brand-500' : 'hover:border-accent-500';
+          const slug = s.id.replace(/\.md$/, '');
+          return (
+            <article class={`${idx > 0 ? 'mt-16 lg:mt-24' : ''}`}>
+              {/* ═══════════════════════════════════════════════ */}
+              {/* BLOQUE DEL PILAR — Intro + stats + CTA           */}
+              {/* ═══════════════════════════════════════════════ */}
+              <div class={`${headerBg} relative overflow-hidden rounded-2xl text-white shadow-card`}>
+                {/* Decoración geométrica esquina */}
+                <div
+                  class="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/5"
+                  aria-hidden="true"
+                />
+                <div
+                  class="absolute right-20 top-32 h-32 w-32 rounded-full bg-white/5"
+                  aria-hidden="true"
+                />
+
+                <div class="relative grid gap-8 p-8 sm:p-12 lg:grid-cols-[1.4fr_1fr] lg:gap-12 lg:p-16">
+                  {/* Lado izquierdo: pilar + título + intro */}
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <span class="grid h-12 w-12 place-items-center rounded-lg bg-white/15">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="h-6 w-6 text-white"
+                          aria-hidden="true"
+                          set:html={pilarIcons[s.data.icon]}
+                        />
+                      </span>
+                      {s.data.pilar && (
+                        <div>
+                          <p class="text-[10px] font-bold uppercase tracking-[0.32em] text-white/70">
+                            Pilar {s.data.pilar}
+                          </p>
+                          <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-white/85">
+                            {s.data.eyebrow}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    <h2 class="mt-6 font-display text-3xl font-black leading-[1.05] text-white sm:text-4xl lg:text-5xl">
+                      {s.data.title}
+                    </h2>
+
+                    <span class="mt-5 block h-[3px] w-12 rounded-full bg-white/40"></span>
+
+                    {s.data.pilarIntro && (
+                      <p class="mt-6 max-w-2xl text-[15.5px] leading-relaxed text-white/90">
+                        {s.data.pilarIntro}
+                      </p>
+                    )}
+
+                    <a
+                      href={`/servicios/${slug}/`}
+                      class="mt-8 inline-flex items-center gap-2 rounded-md bg-white px-6 py-3 text-[14.5px] font-bold text-brand-500 transition-all hover:bg-cream-50 hover:shadow-card"
+                    >
+                      Ver servicio completo
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="h-4 w-4"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  {/* Lado derecho: 4 stats */}
+                  {s.data.stats.length > 0 && (
+                    <div class="grid grid-cols-2 gap-3 self-center sm:gap-4">
+                      {s.data.stats.slice(0, 4).map((stat) => (
+                        <div class="rounded-lg border border-white/15 bg-white/5 p-4 backdrop-blur sm:p-5">
+                          <p class="font-display text-2xl font-black leading-none text-white sm:text-3xl">
+                            {stat.value}
+                          </p>
+                          <p class="mt-2 text-[11px] font-bold uppercase tracking-wider text-white/70">
+                            {stat.label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* ═══════════════════════════════════════════════ */}
+              {/* GRID DE SUB-SERVICIOS                            */}
+              {/* ═══════════════════════════════════════════════ */}
+              {s.data.subServicios.length > 0 && (
+                <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:gap-6">
+                  {s.data.subServicios.map((sub) => (
+                    <a
+                      href={sub.url}
+                      class={`card group block p-7 ${accentHover}`}
+                    >
+                      <div class="flex items-start gap-4">
+                        <span
+                          class={`grid h-12 w-12 shrink-0 place-items-center rounded-lg ${isBrand ? 'bg-brand-50 text-brand-500' : 'bg-accent-50 text-accent-500'} transition-colors group-hover:bg-${isBrand ? 'brand' : 'accent'}-500 group-hover:text-white`}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="h-6 w-6"
+                            aria-hidden="true"
+                            set:html={subIcons[sub.icon ?? 'camera']}
+                          />
+                        </span>
+                        <div class="min-w-0 flex-1">
+                          <h3 class="font-display text-lg font-black text-brand-500 transition-colors group-hover:text-accent-500">
+                            {sub.name}
+                          </h3>
+                          <p class="mt-2 text-[14.5px] leading-relaxed text-ink-700">
+                            {sub.description}
+                          </p>
+                          <div class="mt-4 inline-flex items-center gap-2 text-[13px] font-bold text-accent-500">
+                            Ver más
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+                              aria-hidden="true"
+                            >
+                              <path d="M5 12h14" />
+                              <path d="m12 5 7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </article>
+          );
+        })
+    }
+  </div>
+</section>

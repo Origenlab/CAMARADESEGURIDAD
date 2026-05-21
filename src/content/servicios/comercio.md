@@ -11,6 +11,37 @@ color: accent
 orden: 2
 destacado: true
 
+pilar: 2
+pilarIntro: "Tu negocio tiene cuatro frentes de riesgo simultáneos: punto de venta, accesos, áreas comunes y perímetro. Diseñamos el sistema para cubrirlos todos sin afectar tu operación — instalamos en horarios cerrados y entregamos planos profesionales. Cada elemento de tu equipo puede tener acceso diferenciado según su rol."
+
+stats:
+  - value: "+850"
+    label: "Comercios instalados"
+  - value: "0 hrs"
+    label: "Operación afectada"
+  - value: "Multi-usuario"
+    label: "Acceso por roles"
+  - value: "Planos"
+    label: "Documentación entregada"
+
+subServicios:
+  - name: "CCTV para Tiendas y Locales"
+    description: "Cobertura completa de punto de venta, entradas, áreas de exhibición y bodega de producto. Cámaras discretas para ambiente comercial — calidad de imagen para identificar incidentes sin parecer una fortaleza."
+    url: "/servicios/comercio/tiendas/"
+    icon: camera
+  - name: "Sistemas para Oficinas"
+    description: "Áreas comunes, accesos, salas de juntas y áreas restringidas con control de visibilidad según privacidad. Integración con control de acceso por tarjeta o huella para registrar entradas y salidas del personal."
+    url: "/servicios/comercio/oficinas/"
+    icon: shield
+  - name: "Cámaras para Bodegas"
+    description: "Perímetro exterior, áreas de carga y descarga, pasillos de almacén y zonas de inventario. Cámaras IK10 antivandálicas en accesos y PTZ para vigilar grandes superficies con menos puntos."
+    url: "/servicios/comercio/bodegas/"
+    icon: monitor
+  - name: "Multi-Sucursal Centralizado"
+    description: "Cadenas y franquicias con visualización central de todas las sucursales desde un solo dashboard. Roles diferenciados para gerente regional, sucursal y corporativo. Reportes consolidados de eventos."
+    url: "/servicios/comercio/multi-sucursal/"
+    icon: wifi
+
 idealPara:
   - "Tiendas y locales comerciales"
   - "Restaurantes, cafeterías y bares"

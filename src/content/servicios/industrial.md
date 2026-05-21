@@ -10,6 +10,37 @@ icon: factory
 color: brand
 orden: 3
 
+pilar: 3
+pilarIntro: "Las cámaras industriales no son las residenciales más grandes — son una categoría con requisitos propios: equipos IK10/IP67, cableado estructurado certificado, software VMS de gestión multi-cámara y arquitectura escalable. Diseñamos cada proyecto con visita técnica formal, proyecto ejecutivo documentado y cumplimos normativa NOM-001."
+
+stats:
+  - value: "+120"
+    label: "Plantas instaladas"
+  - value: "NOM-001"
+    label: "Cumple normativa"
+  - value: "IK10/IP67"
+    label: "Grado industrial"
+  - value: "24/7"
+    label: "Operación continua"
+
+subServicios:
+  - name: "Cámaras Térmicas Perimetrales"
+    description: "Detección de calor que distingue personas y vehículos incluso en oscuridad total. Útil para perímetros largos y para mantenimiento predictivo de maquinaria. Bispectrum (térmica + óptica) en un solo equipo."
+    url: "/servicios/industrial/camaras-termicas/"
+    icon: eye
+  - name: "PTZ con Auto-Tracking"
+    description: "Cámaras Speed Dome con zoom óptico 25-30× y seguimiento automático por IA. Ideales para vigilar grandes patios, perímetros o naves desde menos puntos. Rondas programadas con presets configurables."
+    url: "/servicios/industrial/ptz/"
+    icon: monitor
+  - name: "LPR — Lectura de Placas"
+    description: "Cámaras especializadas que leen placas vehiculares con barrera automatizada. Listas blancas para flotilla autorizada, listas negras para vehículos no permitidos y registro completo de entrada-salida con timestamp."
+    url: "/servicios/industrial/lpr/"
+    icon: car
+  - name: "Centro de Monitoreo"
+    description: "Cuarto de control con NVR profesional de alta capacidad, redundancia en RAID-1, UPS de respaldo y software VMS para gestionar 32-256+ cámaras desde una sola consola. Integración con control de acceso y alarmas."
+    url: "/servicios/industrial/centro-monitoreo/"
+    icon: wifi
+
 idealPara:
   - "Naves industriales y bodegas grandes"
   - "Parques industriales con varias empresas"

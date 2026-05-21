@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
-import ServiciosListadoSection from '@components/ServiciosListadoSection.astro';
+import PilaresSection from '@components/PilaresSection.astro';
 import EquiposSection from '@components/EquiposSection.astro';
 import BeneficiosSection from '@components/BeneficiosSection.astro';
 import TestimoniosSection from '@components/TestimoniosSection.astro';
@@ -105,8 +105,9 @@ sistema CCTV existente o nuevo — siempre con la misma garantía de 2 años por
     ]}
   />
 
-  <!-- 2. LISTADO DE SERVICIOS — meat de la página: 4 cards detalladas con paquetes -->
-  <ServiciosListadoSection servicios={servicios} />
+  <!-- 2. PILARES — 4 grandes bloques (residencial · comercial · industrial · acceso)
+       cada uno con intro + stats + CTA + 4 sub-servicios -->
+  <PilaresSection servicios={servicios} />
 
   <!-- 3. EQUIPOS PROFESIONALES — reusado del index -->
   <EquiposSection />

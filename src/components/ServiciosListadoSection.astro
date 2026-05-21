@@ -31,23 +31,7 @@ const fmtPrecio = (n?: number) =>
 
 <section id="listado" class="section-cream">
   <div class="container">
-    <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-      <div>
-        <span class="eyebrow">Nuestros servicios</span>
-        <h2 class="heading-lg mt-4 text-balance">
-          Cuatro líneas de
-          <span class="text-accent-500">trabajo profesional</span>.
-        </h2>
-        <span class="marker-line mt-5"></span>
-      </div>
-      <p class="lead">
-        Cada servicio está pensado para un contexto específico — no es el mismo sistema para una
-        casa que para una nave industrial. Selecciona el que aplica a tu caso para ver paquetes,
-        precios de referencia y especificaciones.
-      </p>
-    </div>
-
-    <div class="mt-14 grid gap-8 lg:gap-10">
+    <div class="grid gap-8 lg:gap-10">
       {
         servicios
           .sort((a, b) => a.data.orden - b.data.orden)
