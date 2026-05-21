@@ -96,16 +96,16 @@ const mainNavLinks = [
 
       <!-- Servicios — mega-dropdown -->
       <div class="group relative">
-        <button
+        <a
+          href="/servicios/"
           class="nav-link flex items-center gap-1.5"
           aria-haspopup="true"
-          aria-expanded="false"
         >
           Servicios
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" aria-hidden="true">
             <path d="m6 9 6 6 6-6"/>
           </svg>
-        </button>
+        </a>
 
         <!-- Dropdown panel -->
         <div class="dropdown-panel w-[260px]">
@@ -196,10 +196,12 @@ const mainNavLinks = [
 
       <!-- Servicios acordeón -->
       <div class="border-t border-cream-100">
-        <button id="mobile-servicios-toggle" class="mobile-link w-full" aria-expanded="false">
-          <span>Servicios</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-ink-300 transition-transform duration-200" id="servicios-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
+        <div class="flex items-center">
+          <a href="/servicios/" class="mobile-link flex-1">Servicios</a>
+          <button id="mobile-servicios-toggle" class="grid h-10 w-10 shrink-0 place-items-center rounded-md text-ink-400 transition-colors hover:text-accent-500" aria-expanded="false" aria-label="Ver sub-servicios">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-200" id="servicios-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
 
         <div id="mobile-servicios-panel" class="hidden pb-2">
           <!-- Sub-links servicios -->
