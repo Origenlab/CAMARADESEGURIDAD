@@ -86,11 +86,11 @@ const icons: Record<string, string> = {
 };
 
 const quickLinks = [
-  { title: 'Hogar', sub: 'Casas · Departamentos · Cocheras', icon: 'home' },
-  { title: 'Comercio', sub: 'Tiendas · Oficinas · Bodegas', icon: 'store' },
-  { title: 'Industrial', sub: 'Fábricas · Naves · Patios', icon: 'factory' },
-  { title: 'Monitoreo', sub: 'Visualización 24/7 desde tu app', icon: 'eye' },
-  { title: 'Mantenimiento', sub: 'Soporte y servicio continuo', icon: 'wrench' },
+  { href: '/servicios/hogar/',         title: 'Hogar',        sub: 'Casas · Departamentos · Cocheras', icon: 'home'    },
+  { href: '/servicios/comercio/',      title: 'Comercio',     sub: 'Tiendas · Oficinas · Bodegas',     icon: 'store'   },
+  { href: '/servicios/industrial/',    title: 'Industrial',   sub: 'Fábricas · Naves · Patios',        icon: 'factory' },
+  { href: '/servicios/control-acceso/', title: 'Monitoreo',   sub: 'Visualización 24/7 desde tu app',  icon: 'eye'     },
+  { href: '/servicios/',               title: 'Mantenimiento', sub: 'Soporte y servicio continuo',     icon: 'wrench'  },
 ];
 ---
 
@@ -166,7 +166,7 @@ const quickLinks = [
         <div class="container grid grid-cols-2 divide-y divide-brand-500 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
           {quickLinks.map((s) => (
             <a
-              href="/servicios/"
+              href={s.href}
               class="group flex items-center justify-between gap-3 px-4 py-5 transition-colors hover:bg-brand-500"
             >
               <div class="flex items-center gap-3">
