@@ -2,7 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHero from '@components/PageHero.astro';
 import CTASection from '@components/CTASection.astro';
-import { SERVICE_LINKS, SITE } from '@/consts';
+import { SITE } from '@/consts';
 
 // ── Datos JSON-LD ────────────────────────────────────────────
 const faq = [
@@ -68,19 +68,33 @@ const hitos = [
   { año: '2024', evento: '+2,000 sistemas instalados · Lanzamiento de monitoreo 24/7' },
 ];
 
-const serviceIcons: Record<string, string> = {
-  '/servicios/hogar/':          '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
-  '/servicios/comercio/':       '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/>',
-  '/servicios/industrial/':     '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/>',
-  '/servicios/control-acceso/': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
-};
-
-const serviceDescs: Record<string, string> = {
-  '/servicios/hogar/':          'Casas, departamentos y residenciales',
-  '/servicios/comercio/':       'Tiendas, oficinas y bodegas',
-  '/servicios/industrial/':     'Plantas, naves y operación 24/7',
-  '/servicios/control-acceso/': 'Videoporteros, biométricos y LPR',
-};
+// Cards de servicios en /nosotros/ — texto diferente, links al index (/#servicios)
+const nosotrosServices = [
+  {
+    href: '/#servicios',
+    label: 'Cámaras para Hogar',
+    desc: '+1,200 casas instaladas con cableado oculto y garantía de 2 años. Sin mensualidad.',
+    icon: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  },
+  {
+    href: '/#servicios',
+    label: 'Cámaras para Comercio',
+    desc: '+850 negocios asegurados. Instalamos sin afectar tu operación y entregamos planos.',
+    icon: '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/>',
+  },
+  {
+    href: '/#servicios',
+    label: 'Sistemas Industriales',
+    desc: '+120 plantas equipadas con PTZ, cámaras térmicas y centro de monitoreo dedicado.',
+    icon: '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/>',
+  },
+  {
+    href: '/#servicios',
+    label: 'Control de Acceso',
+    desc: 'Videoporteros IP, biométricos y LPR. Integrados con tu CCTV existente o nuevo.',
+    icon: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  },
+];
 
 const comparacion = [
   { aspecto: 'Garantía', nosotros: '2 años por escrito', mercado: '6–12 meses (verbal)' },
@@ -323,14 +337,14 @@ const comparacion = [
 
         <!-- Service cards -->
         <div class="grid gap-3 sm:grid-cols-2">
-          {SERVICE_LINKS.map((link) => (
-            <a href={link.href} class="group card flex items-center gap-4 p-5 transition-all hover:-translate-y-0.5 hover:shadow-card">
+          {nosotrosServices.map((svc) => (
+            <a href={svc.href} class="group card flex items-center gap-4 p-5 transition-all hover:-translate-y-0.5 hover:shadow-card">
               <span class="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-brand-500/8 text-brand-500 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={serviceIcons[link.href]}/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={svc.icon}/>
               </span>
               <div class="min-w-0 flex-1">
-                <p class="font-display text-[15px] font-black leading-tight text-brand-500 transition-colors group-hover:text-accent-500">{link.label}</p>
-                <p class="mt-0.5 text-[12px] text-ink-500">{serviceDescs[link.href]}</p>
+                <p class="font-display text-[15px] font-black leading-tight text-brand-500 transition-colors group-hover:text-accent-500">{svc.label}</p>
+                <p class="mt-0.5 text-[12px] text-ink-500">{svc.desc}</p>
               </div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-ink-200 transition-all group-hover:translate-x-0.5 group-hover:text-accent-500" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
