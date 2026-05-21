@@ -1,0 +1,723 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import { SITE } from '@/consts';
+
+const breadcrumb = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Contacto', url: '/contacto/' },
+];
+
+const phone    = SITE.contact.whatsapp;
+const waBase   = `https://wa.me/${phone}`;
+const waCotiza = `${waBase}?text=${encodeURIComponent('Hola, quiero solicitar una cotización gratuita para instalación de cámaras de seguridad.')}`;
+const waUrgent = `${waBase}?text=${encodeURIComponent('Hola, tengo una urgencia con mi sistema de cámaras, ¿me pueden atender?')}`;
+
+const canales = [
+  {
+    id: 'whatsapp',
+    label: 'WhatsApp',
+    valor: SITE.contact.whatsappDisplay,
+    respuesta: 'Respuesta en < 15 minutos',
+    desc: 'Canal principal. Envía fotos del espacio, recibe cotización con imágenes de equipos y coordina la visita técnica todo desde un solo chat.',
+    badge: 'Recomendado',
+    href: waCotiza,
+    cta: 'Abrir WhatsApp',
+    icon: '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>',
+    fill: true,
+  },
+  {
+    id: 'telefono',
+    label: 'Teléfono',
+    valor: SITE.contact.phone,
+    respuesta: 'Atención inmediata en horario hábil',
+    desc: 'Para consultas rápidas o si prefieres hablar directamente. Lunes a sábado de 9:00 a 19:00. Para urgencias fuera de horario usa WhatsApp.',
+    badge: 'Urgencias',
+    href: `tel:${SITE.contact.phone.replace(/\s/g, '')}`,
+    cta: 'Llamar ahora',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />',
+    fill: false,
+  },
+  {
+    id: 'email',
+    label: 'Correo electrónico',
+    valor: SITE.contact.email,
+    respuesta: 'Respuesta en menos de 4 horas hábiles',
+    desc: 'Para solicitudes formales, envío de documentos, contratos o proyectos corporativos que requieren seguimiento por escrito.',
+    badge: 'Proyectos formales',
+    href: `mailto:${SITE.contact.email}?subject=Cotización cámaras de seguridad`,
+    cta: 'Enviar correo',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />',
+    fill: false,
+  },
+];
+
+const testimonios = [
+  {
+    nombre: 'Roberto M.',
+    tipo: 'Casa · Coyoacán',
+    estrellas: 5,
+    texto: 'Llegaron a tiempo, cableado perfectamente oculto y la app funcionando desde el primer día. La cotización fue exactamente lo que pagué — sin cobros extra.',
+  },
+  {
+    nombre: 'Fernanda L.',
+    tipo: 'Negocio · Naucalpan',
+    estrellas: 5,
+    texto: 'Instalaron 12 cámaras en mi local en un solo día sin interrumpir la operación. El soporte post-venta es real: me respondieron un sábado a las 8pm en menos de 10 minutos.',
+  },
+  {
+    nombre: 'Ing. Pacheco',
+    tipo: 'Industrial · Tlalnepantla',
+    estrellas: 5,
+    texto: 'Proyecto de 32 cámaras en planta. La visita técnica fue muy profesional, el plano de distribución fue exacto y el sistema lleva 2 años sin una sola falla.',
+  },
+];
+
+const siguiente = [
+  {
+    n: '01',
+    titulo: 'Recibimos tu mensaje',
+    desc: 'Un asesor real lee tu caso y te responde en menos de 15 minutos con preguntas concretas o con una propuesta preliminar.',
+    tiempo: '< 15 min',
+  },
+  {
+    n: '02',
+    titulo: 'Agendamos la visita técnica',
+    desc: 'Si el proyecto lo requiere, un técnico certificado va a tu espacio en 24–48 horas. Totalmente gratis, sin compromiso de compra.',
+    tiempo: '24 – 48 h',
+  },
+  {
+    n: '03',
+    titulo: 'Recibes la cotización por escrito',
+    desc: 'Marca, modelo, precio por equipo, mano de obra, tiempo estimado y condiciones de garantía — todo el mismo día de la visita.',
+    tiempo: 'Mismo día',
+  },
+];
+---
+
+<BaseLayout
+  title="Contacto | Cámaras de Seguridad CCTV CDMX — Cotización Gratis"
+  description="Contáctanos para instalar cámaras de seguridad en CDMX y zona metropolitana. Respuesta en menos de 15 minutos. Visita técnica gratuita. Técnicos certificados Hikvision y Dahua."
+  canonical={`${SITE.url}/contacto/`}
+  breadcrumb={breadcrumb}
+>
+
+  <!-- ── 1. HERO ──────────────────────────────────────────────── -->
+  <Hero
+    eyebrow="ATENCIÓN DIRECTA · SIN CALL CENTER · SIN BOT"
+    preTitle="Hablemos de"
+    title1="Tu Proyecto"
+    title2="de Seguridad"
+    subtitle="respuesta real en menos de 15 minutos."
+    descriptionHtml={`Cuando nos escribes, responde un
+<strong class="font-bold text-brand-500">técnico certificado que conoce el producto</strong>
+— no un agente de ventas leyendo un guión. Cuéntanos qué necesitas proteger y en cuántas horas
+tendrás un precio estimado y la visita técnica agendada.`}
+    col2Eyebrow="Lo que nos compromete"
+    col2Title="Sin esperas, "
+    col2TitleHighlight="sin rodeos"
+    col2Paragraphs={[
+      {
+        html: `<strong class="font-bold text-brand-500">15 minutos o menos</strong>
+para la primera respuesta en horario hábil (lun–sáb 9–19h). No es un tiempo prometido
+en letra chica — es el estándar que mantenemos desde 2014 y el motivo por el que el
+73% de quienes nos contactan terminan contratando.`,
+      },
+      {
+        html: `<strong class="font-bold text-brand-500">La visita técnica es gratis</strong>
+aunque no contrates. La cotización es por escrito y válida 30 días. El precio
+que acordamos es el que pagas — sin cargos de última hora, sin "olvidé incluir el IVA",
+sin "ese precio era sin cableado oculto".`,
+      },
+    ]}
+    showRecBadge={false}
+    showQuickLinks={true}
+  />
+
+  <!-- ── 2. CANALES DE CONTACTO ──────────────────────────────── -->
+  <section class="section-brand relative overflow-hidden" id="canales">
+    <div class="absolute left-0 top-0 h-1 w-full bg-accent-500" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 opacity-[0.03]" aria-hidden="true"
+      style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 28px 28px;"></div>
+
+    <div class="container relative">
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow-light">Canales de atención</span>
+          <h2 class="heading-lg heading-light mt-4 text-balance">
+            Elige cómo
+            <span class="text-accent-400">preferes contactarnos</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <div class="space-y-4">
+          <p class="lead-light">
+            Tres canales directos, cada uno con un tiempo de respuesta diferente y un propósito
+            específico. Sin formularios que se pierden, sin operadores que transfieren la llamada,
+            sin tickets sin número de seguimiento.
+          </p>
+          <p class="text-[15.5px] leading-relaxed text-cream-300">
+            En horario hábil, el tiempo real de primera respuesta por WhatsApp ha sido de
+            <strong class="font-semibold text-white">8 minutos en promedio</strong>
+            en los últimos 6 meses. Para proyectos urgentes, tenemos un número de emergencias.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tarjetas de canal -->
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {canales.map((c) => (
+          <article class={`group relative flex flex-col overflow-hidden rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-2xl ${c.id === 'whatsapp' ? 'border-accent-500/50 bg-white/10' : 'border-white/10 bg-white/5 hover:border-white/20'}`}>
+
+            {c.id === 'whatsapp' && (
+              <div class="absolute inset-0 opacity-[0.06] pointer-events-none" aria-hidden="true"
+                style="background: radial-gradient(ellipse at top left, #DC2626, transparent 60%)"></div>
+            )}
+
+            <!-- Header canal -->
+            <div class="relative px-7 pt-7 pb-5">
+              <div class="flex items-start justify-between gap-3">
+                <span class={`flex h-12 w-12 items-center justify-center rounded-xl ${c.id === 'whatsapp' ? 'bg-accent-500' : 'bg-white/10'}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill={c.fill ? 'currentColor' : 'none'}
+                    stroke={c.fill ? 'none' : 'currentColor'}
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-6 w-6 text-white"
+                    aria-hidden="true"
+                    set:html={c.icon}
+                  />
+                </span>
+                <span class={`mt-1 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${c.id === 'whatsapp' ? 'bg-accent-500/20 text-accent-300 border border-accent-500/30' : 'bg-white/10 text-cream-300 border border-white/10'}`}>
+                  {c.badge}
+                </span>
+              </div>
+
+              <h3 class="mt-4 font-display text-[13px] font-bold uppercase tracking-[0.18em] text-cream-300">
+                {c.label}
+              </h3>
+              <p class="mt-1 font-display text-xl font-black text-white">{c.valor}</p>
+
+              <div class="mt-3 flex items-center gap-2">
+                <span class={`h-2 w-2 rounded-full ${c.id === 'whatsapp' ? 'bg-emerald-400 shadow-[0_0_6px_#34d399]' : 'bg-amber-400'}`} aria-hidden="true"></span>
+                <span class="text-[12px] font-semibold text-cream-300">{c.respuesta}</span>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="flex flex-1 flex-col px-7 pb-7">
+              <p class="flex-1 text-[13.5px] leading-relaxed text-cream-300">{c.desc}</p>
+
+              <a
+                href={c.href}
+                target={c.id !== 'telefono' ? '_blank' : undefined}
+                rel={c.id !== 'telefono' ? 'noopener' : undefined}
+                class={`mt-6 flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-display text-[14px] font-bold transition-all active:scale-95 ${c.id === 'whatsapp' ? 'bg-accent-500 text-white hover:bg-accent-600 shadow-lg shadow-accent-500/25' : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'}`}
+              >
+                {c.cta}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Horario + disponibilidad -->
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { label: 'Lunes – Viernes', val: '9:00 – 19:00', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />' },
+          { label: 'Sábado', val: '9:00 – 15:00', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />' },
+          { label: 'Urgencias WA', val: 'Fuera de horario', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />' },
+          { label: 'Tiempo de respuesta', val: '< 15 min promedio', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' },
+        ].map((item) => (
+          <div class="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 px-5 py-4">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-accent-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+                <Fragment set:html={item.icon} />
+              </svg>
+            </span>
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-wide text-cream-400">{item.label}</p>
+              <p class="mt-0.5 font-display text-[14.5px] font-black text-white">{item.val}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Disponibilidad en tiempo real -->
+      <div id="availability-bar" class="mt-5 flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 px-6 py-4">
+        <div class="flex items-center gap-3">
+          <span id="avail-dot" class="h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" aria-hidden="true"></span>
+          <span id="avail-text" class="font-display text-[14px] font-bold text-white">Verificando disponibilidad…</span>
+        </div>
+        <a href={waUrgent} target="_blank" rel="noopener"
+          class="shrink-0 rounded-lg bg-accent-500/20 border border-accent-500/30 px-4 py-2 text-[12.5px] font-bold text-accent-300 transition hover:bg-accent-500/30">
+          ¿Urgencia? Escríbenos →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 3. FORMULARIO PRINCIPAL ─────────────────────────────── -->
+  <section class="section-cream" id="formulario">
+    <div class="container">
+
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">Solicitar cotización</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Cuéntanos tu
+            <span class="text-accent-500">proyecto</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <div class="space-y-4">
+          <p class="lead">
+            Entre más detalle nos des, más preciso será el presupuesto preliminar que te
+            enviamos por WhatsApp. Si no sabes algún dato, déjalo en blanco — lo resolvemos
+            en la visita técnica gratuita.
+          </p>
+          <p class="text-[15.5px] leading-relaxed text-ink-600">
+            No almacenamos ni compartimos tu información. Los datos van directo al chat de
+            WhatsApp de un asesor certificado — no a un CRM, no a una base de leads, no a
+            un equipo de telemarketing.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14 lg:items-start">
+
+        <!-- ── FORMULARIO ─────────────────────────────────────── -->
+        <div class="overflow-hidden rounded-2xl border border-cream-200 bg-white shadow-sm">
+
+          <!-- Header form -->
+          <div class="border-b border-cream-100 bg-brand-500 px-8 py-6">
+            <p class="text-[10.5px] font-bold uppercase tracking-[0.22em] text-accent-400">⚡ Formulario de cotización</p>
+            <h3 class="mt-1.5 font-display text-2xl font-black text-white">Solicitud de visita técnica gratuita</h3>
+            <p class="mt-1 text-[13px] text-cream-300">Llena los campos — abrimos WhatsApp con tu mensaje completo y listo para enviar.</p>
+          </div>
+
+          <form id="contact-form" class="space-y-0" onsubmit="return false">
+
+            <!-- Bloque 1: Datos personales -->
+            <fieldset class="border-b border-cream-100 px-8 py-6">
+              <legend class="mb-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-ink-400">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-[10px] font-black text-white">1</span>
+                Sobre ti
+              </legend>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="ct-nombre" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Nombre <span class="text-accent-500">*</span></label>
+                  <input type="text" id="ct-nombre" placeholder="Tu nombre completo" autocomplete="name" required
+                    class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 placeholder:text-ink-300 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20" />
+                </div>
+                <div>
+                  <label for="ct-empresa" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Empresa <span class="font-normal text-ink-400">(opcional)</span></label>
+                  <input type="text" id="ct-empresa" placeholder="Si aplica" autocomplete="organization"
+                    class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 placeholder:text-ink-300 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20" />
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Bloque 2: El proyecto -->
+            <fieldset class="border-b border-cream-100 px-8 py-6">
+              <legend class="mb-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-ink-400">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-[10px] font-black text-white">2</span>
+                Tu proyecto
+              </legend>
+              <div class="grid gap-4">
+                <div>
+                  <label for="ct-tipo" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Tipo de propiedad <span class="text-accent-500">*</span></label>
+                  <select id="ct-tipo" required
+                    class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+                    <option value="">Selecciona una opción…</option>
+                    <option>Casa o departamento</option>
+                    <option>Edificio residencial o condominio</option>
+                    <option>Local comercial o tienda</option>
+                    <option>Restaurante o bar</option>
+                    <option>Oficina o corporativo</option>
+                    <option>Bodega o nave industrial</option>
+                    <option>Planta de manufactura</option>
+                    <option>Escuela o institución educativa</option>
+                    <option>Control de acceso únicamente</option>
+                    <option>Mantenimiento o reparación de sistema existente</option>
+                  </select>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="ct-camaras" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Cámaras aproximadas</label>
+                    <select id="ct-camaras"
+                      class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+                      <option>No lo sé aún</option>
+                      <option>2 – 4 cámaras</option>
+                      <option>5 – 8 cámaras</option>
+                      <option>9 – 16 cámaras</option>
+                      <option>17 – 32 cámaras</option>
+                      <option>Más de 32 cámaras</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="ct-presupuesto" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Presupuesto orientativo</label>
+                    <select id="ct-presupuesto"
+                      class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+                      <option>No definido</option>
+                      <option>Hasta $10,000 MXN</option>
+                      <option>$10,000 – $25,000 MXN</option>
+                      <option>$25,000 – $50,000 MXN</option>
+                      <option>$50,000 – $100,000 MXN</option>
+                      <option>Más de $100,000 MXN</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Bloque 3: Ubicación -->
+            <fieldset class="border-b border-cream-100 px-8 py-6">
+              <legend class="mb-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-ink-400">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-[10px] font-black text-white">3</span>
+                Ubicación
+              </legend>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="ct-colonia" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Colonia <span class="text-accent-500">*</span></label>
+                  <input type="text" id="ct-colonia" placeholder="Ej. Del Valle, Roma Norte…" required
+                    class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 placeholder:text-ink-300 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20" />
+                </div>
+                <div>
+                  <label for="ct-alcaldia" class="mb-1.5 block text-[12px] font-semibold text-ink-600">Alcaldía o Municipio</label>
+                  <input type="text" id="ct-alcaldia" placeholder="Ej. Benito Juárez, Naucalpan…"
+                    class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 placeholder:text-ink-300 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20" />
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Bloque 4: Mensaje -->
+            <fieldset class="px-8 py-6">
+              <legend class="mb-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-ink-400">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-[10px] font-black text-white">4</span>
+                Cuéntanos más
+              </legend>
+              <div class="grid gap-4">
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="ct-urgencia" class="mb-1.5 block text-[12px] font-semibold text-ink-600">¿Cuándo lo necesitas?</label>
+                    <select id="ct-urgencia"
+                      class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+                      <option>Lo antes posible</option>
+                      <option>Esta semana</option>
+                      <option>Este mes</option>
+                      <option>Estoy cotizando, sin prisa</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="ct-fuente" class="mb-1.5 block text-[12px] font-semibold text-ink-600">¿Cómo nos encontraste? <span class="font-normal text-ink-400">(opcional)</span></label>
+                    <select id="ct-fuente"
+                      class="w-full rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20">
+                      <option value="">Prefiero no decir</option>
+                      <option>Google</option>
+                      <option>Recomendación de alguien</option>
+                      <option>Facebook o Instagram</option>
+                      <option>Ya soy cliente</option>
+                      <option>Otro</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <label for="ct-msg" class="text-[12px] font-semibold text-ink-600">Mensaje <span class="font-normal text-ink-400">(opcional)</span></label>
+                    <span id="ct-counter" class="text-[11px] text-ink-300">0 / 300</span>
+                  </div>
+                  <textarea id="ct-msg" rows="4" maxlength="300"
+                    placeholder="Ej. Tengo una casa de 2 pisos con cochera, quiero cámaras interiores y exteriores con acceso remoto desde el celular…"
+                    class="w-full resize-none rounded-lg border border-cream-200 bg-cream-50 px-4 py-3 text-[14px] text-ink-700 placeholder:text-ink-300 transition focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"></textarea>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Submit -->
+            <div class="border-t border-cream-100 bg-cream-50 px-8 py-6">
+              <button type="button" id="ct-send"
+                class="group flex w-full items-center justify-center gap-3 rounded-xl bg-accent-500 px-6 py-4 font-display text-[15px] font-black text-white shadow-lg shadow-accent-500/20 transition-all hover:bg-accent-600 hover:shadow-xl active:scale-[0.98]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                </svg>
+                Enviar cotización por WhatsApp
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+              <p class="mt-3 text-center text-[12px] text-ink-400">
+                No almacenamos ni compartimos tus datos · Solo van a nuestro WhatsApp directo
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- ── SIDEBAR STICKY ─────────────────────────────────── -->
+        <div class="lg:sticky lg:top-28 lg:self-start space-y-5">
+
+          <!-- Qué pasa después -->
+          <div class="overflow-hidden rounded-2xl border border-cream-200 bg-white shadow-sm">
+            <div class="bg-brand-500 px-6 py-4">
+              <p class="font-display text-[14px] font-black text-white">¿Qué pasa después de enviar?</p>
+              <p class="mt-0.5 text-[12px] text-cream-300">Proceso en 3 pasos automáticos</p>
+            </div>
+            <div class="divide-y divide-cream-100 px-6 py-2">
+              {siguiente.map((s) => (
+                <div class="flex gap-4 py-4">
+                  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 font-display text-xs font-black text-white">{s.n}</span>
+                  <div class="min-w-0 flex-1">
+                    <p class="font-display text-[13.5px] font-black text-brand-500">{s.titulo}</p>
+                    <p class="mt-0.5 text-[12.5px] leading-relaxed text-ink-600">{s.desc}</p>
+                    <span class="mt-1.5 inline-block rounded-full bg-accent-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-accent-600 border border-accent-500/20">{s.tiempo}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Trust badges -->
+          <div class="rounded-2xl border border-cream-200 bg-white p-5">
+            <div class="space-y-3">
+              {[
+                { icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />', text: '2 años de garantía por escrito' },
+                { icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />', text: 'Cotización sin compromiso' },
+                { icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />', text: 'Técnicos certificados Hikvision y Dahua' },
+                { icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />', text: 'Sin contrato de permanencia' },
+              ].map((b) => (
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-5 w-5 shrink-0 text-accent-500" aria-hidden="true">
+                    <Fragment set:html={b.icon} />
+                  </svg>
+                  <span class="text-[13.5px] text-ink-700">{b.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Stats rápidos -->
+          <div class="grid grid-cols-2 gap-3">
+            {[
+              { val: '2,050+', lbl: 'proyectos entregados' },
+              { val: '4.9 ★', lbl: '230+ reseñas' },
+              { val: '10+', lbl: 'años en operación' },
+              { val: '98%', lbl: 'nos recomiendan' },
+            ].map((s) => (
+              <div class="rounded-xl border border-cream-200 bg-white p-4 text-center">
+                <p class="font-display text-xl font-black text-brand-500 leading-none">{s.val}</p>
+                <p class="mt-1 text-[11px] text-ink-400">{s.lbl}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. TESTIMONIOS ──────────────────────────────────────── -->
+  <section class="section-brand relative overflow-hidden" id="testimonios">
+    <div class="pointer-events-none absolute inset-0 opacity-[0.03]" aria-hidden="true"
+      style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 28px 28px;"></div>
+    <div class="container relative">
+
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow-light">Lo que dicen nuestros clientes</span>
+          <h2 class="heading-lg heading-light mt-4 text-balance">
+            Más de 2,050 proyectos
+            <span class="text-accent-400">hablan por nosotros</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <div class="space-y-4">
+          <p class="lead-light">
+            No somos los únicos que lo decimos — nuestros clientes llevan 10 años recomendándonos
+            a familiares, vecinos y socios de negocio. El 73% de nuestros proyectos nuevos llegan
+            por recomendación directa.
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="flex">
+              {[1,2,3,4,5].map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-amber-400" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                </svg>
+              ))}
+            </div>
+            <span class="font-display text-2xl font-black text-white">4.9</span>
+            <span class="text-[13px] text-cream-300">· 230+ reseñas verificadas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {testimonios.map((t) => (
+          <article class="flex flex-col gap-5 rounded-2xl border border-white/10 bg-white/5 p-7 transition-colors hover:border-white/20 hover:bg-white/[0.07]">
+            <div class="flex">
+              {[1,2,3,4,5].map((_, si) => (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class={`h-4 w-4 ${si < t.estrellas ? 'text-amber-400' : 'text-white/20'}`} aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                </svg>
+              ))}
+            </div>
+            <blockquote>
+              <p class="text-[14px] leading-relaxed text-cream-200 italic">"{t.texto}"</p>
+            </blockquote>
+            <div class="mt-auto flex items-center gap-3 border-t border-white/10 pt-5">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 font-display text-base font-black text-accent-400">
+                {t.nombre.charAt(0)}
+              </span>
+              <div>
+                <p class="font-display text-[14px] font-black text-white">{t.nombre}</p>
+                <p class="text-[12px] text-cream-400">{t.tipo}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. PREGUNTAS PRE-CONTACTO ───────────────────────────── -->
+  <section class="section-white" id="antes-de-contactar">
+    <div class="container">
+
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">Antes de escribirnos</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Las 3 dudas más
+            <span class="text-accent-500">comunes</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <p class="lead">
+          Estas son las preguntas que nos hacen antes de decidirse a contactar.
+          Si tienes más, visita la página de <a href="/faq/" class="font-semibold text-accent-500 hover:text-accent-600 transition-colors">preguntas frecuentes</a>
+          con 31 respuestas categorizadas.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {[
+          {
+            q: '¿La visita técnica realmente es gratis?',
+            a: 'Sí, sin excepción. No cobramos costo de visita, no cobramos "gastos de desplazamiento" y no hay letra chica. La visita técnica incluye levantamiento físico, plano de distribución de cámaras y cotización formal por escrito — todo sin costo y sin compromiso de compra. Solo pagas si decides contratar.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />',
+          },
+          {
+            q: '¿Qué tan rápido me pueden instalar el sistema?',
+            a: 'Después de la visita técnica, una instalación residencial típica (4–8 cámaras) se completa en 1–2 días hábiles. Comercios medianos en 2–3 días. La fecha se define en la cotización. Para urgencias (post-robo, sistema caído) tenemos disponibilidad prioritaria — contáctanos directamente.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />',
+          },
+          {
+            q: '¿Tienen cobertura en mi zona?',
+            a: 'Cobertura directa en las 16 alcaldías de CDMX y más de 16 municipios del Estado de México, sin cargo de desplazamiento. También en Guadalajara y Monterrey con técnicos certificados locales. Escríbenos con tu colonia y te confirmamos disponibilidad en minutos.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />',
+          },
+        ].map((item) => (
+          <article class="card group flex flex-col gap-5 p-7 transition-all hover:-translate-y-0.5 hover:shadow-card">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/8 text-brand-500 transition-colors group-hover:bg-brand-500 group-hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-6 w-6" aria-hidden="true">
+                <Fragment set:html={item.icon} />
+              </svg>
+            </span>
+            <div>
+              <h3 class="font-display text-[16px] font-black text-brand-500 transition-colors group-hover:text-accent-500">{item.q}</h3>
+              <p class="mt-3 text-[13.5px] leading-relaxed text-ink-600">{item.a}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-10 flex items-center justify-between gap-6 rounded-2xl border border-brand-500/15 bg-brand-500/5 px-7 py-5">
+        <p class="text-[14px] text-ink-700">
+          ¿Tienes otra pregunta?
+          <a href="/faq/" class="ml-1 font-semibold text-accent-500 hover:text-accent-600 transition-colors">
+            Ver las 31 preguntas frecuentes →
+          </a>
+        </p>
+        <a href={waCotiza} target="_blank" rel="noopener"
+          class="shrink-0 btn-primary hidden sm:inline-flex">
+          Cotizar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Input focus-within ring correction */
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+  }
+</style>
+
+<script define:vars={{ phone }}>
+  // ── Availability indicator ────────────────────────────────────
+  function checkAvailability() {
+    const now  = new Date();
+    const day  = now.getDay();   // 0=Dom, 1=Lun…6=Sab
+    const hour = now.getHours();
+    const dot  = document.getElementById('avail-dot');
+    const text = document.getElementById('avail-text');
+    if (!dot || !text) return;
+
+    const isWeekday = day >= 1 && day <= 5;
+    const isSaturday = day === 6;
+    const inHours = (isWeekday && hour >= 9 && hour < 19) || (isSaturday && hour >= 9 && hour < 15);
+
+    if (inHours) {
+      dot.className  = 'h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]';
+      text.textContent = '✓ Estamos disponibles ahora — respondemos en menos de 15 minutos';
+      text.className = 'font-display text-[14px] font-bold text-emerald-400';
+    } else {
+      const nextDay = isSaturday ? 'el lunes' : day === 0 ? 'mañana (lunes)' : 'mañana';
+      dot.className  = 'h-3 w-3 rounded-full bg-amber-400';
+      text.textContent = `Fuera de horario — respondemos ${nextDay} a las 9:00 AM. Para urgencias escríbenos igual.`;
+      text.className = 'font-display text-[14px] font-bold text-amber-300';
+    }
+  }
+  checkAvailability();
+
+  // ── Character counter ─────────────────────────────────────────
+  const msgField   = document.getElementById('ct-msg');
+  const msgCounter = document.getElementById('ct-counter');
+  if (msgField && msgCounter) {
+    msgField.addEventListener('input', () => {
+      const len = msgField.value.length;
+      msgCounter.textContent = `${len} / 300`;
+      msgCounter.className = len > 250 ? 'text-[11px] text-amber-500 font-semibold' : 'text-[11px] text-ink-300';
+    });
+  }
+
+  // ── WhatsApp form submit ──────────────────────────────────────
+  document.getElementById('ct-send')?.addEventListener('click', () => {
+    const nombre     = document.getElementById('ct-nombre').value.trim() || 'un cliente';
+    const empresa    = document.getElementById('ct-empresa').value.trim();
+    const tipo       = document.getElementById('ct-tipo').value || 'instalación de cámaras';
+    const camaras    = document.getElementById('ct-camaras').value;
+    const presupuesto = document.getElementById('ct-presupuesto').value;
+    const colonia    = document.getElementById('ct-colonia').value.trim();
+    const alcaldia   = document.getElementById('ct-alcaldia').value.trim();
+    const urgencia   = document.getElementById('ct-urgencia').value;
+    const msg        = document.getElementById('ct-msg').value.trim();
+
+    let texto = `Hola, soy ${nombre}`;
+    if (empresa) texto += ` de ${empresa}`;
+    texto += `. Solicito cotización para ${tipo}`;
+    if (camaras && camaras !== 'No lo sé aún') texto += `, ${camaras}`;
+    if (colonia) texto += `, en ${colonia}`;
+    if (alcaldia) texto += `, ${alcaldia}`;
+    texto += '.';
+    if (presupuesto && presupuesto !== 'No definido') texto += ` Presupuesto aprox: ${presupuesto}.`;
+    if (urgencia) texto += ` Tiempo: ${urgencia}.`;
+    if (msg) texto += ` ${msg}`;
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(texto)}`, '_blank');
+  });
+</script>
