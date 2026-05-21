@@ -1,0 +1,542 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import FaqSection from '@components/FaqSection.astro';
+import CTASection from '@components/CTASection.astro';
+import { SITE } from '@/consts';
+
+const breadcrumb = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Cobertura', url: '/cobertura/' },
+];
+
+interface Zona {
+  nombre: string;
+  tiempo: string;
+  tipo: 'alta' | 'media' | 'normal';
+}
+
+const cdmxAlcaldias: Zona[] = [
+  { nombre: 'Benito Juárez',        tiempo: '2–4 h',  tipo: 'alta'   },
+  { nombre: 'Cuauhtémoc',           tiempo: '2–4 h',  tipo: 'alta'   },
+  { nombre: 'Miguel Hidalgo',       tiempo: '2–4 h',  tipo: 'alta'   },
+  { nombre: 'Álvaro Obregón',       tiempo: '3–5 h',  tipo: 'alta'   },
+  { nombre: 'Coyoacán',             tiempo: '3–5 h',  tipo: 'alta'   },
+  { nombre: 'Iztacalco',            tiempo: '3–5 h',  tipo: 'alta'   },
+  { nombre: 'Venustiano Carranza',  tiempo: '3–5 h',  tipo: 'alta'   },
+  { nombre: 'Azcapotzalco',         tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Cuajimalpa',           tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Gustavo A. Madero',    tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Iztapalapa',           tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Xochimilco',           tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Magdalena Contreras',  tiempo: '6–24 h', tipo: 'normal' },
+  { nombre: 'Milpa Alta',           tiempo: '6–24 h', tipo: 'normal' },
+  { nombre: 'Tláhuac',              tiempo: '6–24 h', tipo: 'normal' },
+  { nombre: 'Tlalpan',              tiempo: '6–24 h', tipo: 'normal' },
+];
+
+interface MunicipioEdomex {
+  nombre: string;
+  tiempo: string;
+  tipo: 'alta' | 'media' | 'normal';
+}
+
+const edomexMunicipios: MunicipioEdomex[] = [
+  { nombre: 'Naucalpan',            tiempo: '2–4 h',  tipo: 'alta'   },
+  { nombre: 'Tlalnepantla',         tiempo: '2–4 h',  tipo: 'alta'   },
+  { nombre: 'Ecatepec',             tiempo: '3–5 h',  tipo: 'alta'   },
+  { nombre: 'Nezahualcóyotl',       tiempo: '3–5 h',  tipo: 'alta'   },
+  { nombre: 'Atizapán',             tiempo: '3–5 h',  tipo: 'media'  },
+  { nombre: 'Coacalco',             tiempo: '3–5 h',  tipo: 'media'  },
+  { nombre: 'Cuautitlán Izcalli',   tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Huixquilucan',         tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Tultitlán',            tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Chimalhuacán',         tiempo: '4–6 h',  tipo: 'media'  },
+  { nombre: 'Cuautitlán',           tiempo: '5–8 h',  tipo: 'normal' },
+  { nombre: 'Ixtapaluca',           tiempo: '5–8 h',  tipo: 'normal' },
+  { nombre: 'Metepec',              tiempo: '6–12 h', tipo: 'normal' },
+  { nombre: 'Tecámac',              tiempo: '5–8 h',  tipo: 'normal' },
+  { nombre: 'Toluca',               tiempo: '6–12 h', tipo: 'normal' },
+  { nombre: 'Valle de Chalco',      tiempo: '5–8 h',  tipo: 'normal' },
+];
+
+interface CiudadNacional {
+  ciudad: string;
+  estado: string;
+  modelo: string;
+  desc: string;
+  icon: string;
+}
+
+const ciudadesNacional: CiudadNacional[] = [
+  {
+    ciudad: 'Guadalajara',
+    estado: 'Jalisco',
+    modelo: 'Coordinador + técnico local',
+    desc: 'Contamos con coordinadores de proyecto y técnicos certificados locales. Mismos estándares de instalación y garantía que CDMX.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />',
+  },
+  {
+    ciudad: 'Monterrey',
+    estado: 'Nuevo León',
+    modelo: 'Coordinador + técnico local',
+    desc: 'Red de técnicos certificados Hikvision y Dahua en la zona metropolitana de Monterrey y municipios aledaños.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />',
+  },
+  {
+    ciudad: 'Bajío',
+    estado: 'Guanajuato · Querétaro · Aguascalientes',
+    modelo: 'Proyecto coordinado desde CDMX',
+    desc: 'Para plantas industriales y proyectos corporativos en el corredor Bajío. Incluye visita de diagnóstico y supervisión remota durante la instalación.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />',
+  },
+  {
+    ciudad: 'Resto del país',
+    estado: 'Proyecto especial',
+    modelo: 'Cotización caso por caso',
+    desc: 'Para proyectos en otras ciudades evaluamos la viabilidad, tiempos y costos de desplazamiento. Contáctanos para un diagnóstico inicial sin costo.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525" />',
+  },
+];
+
+const faq = [
+  {
+    q: '¿La visita técnica realmente es gratuita en toda la ZMVM?',
+    a: 'Sí, sin excepción. No cobramos costo de desplazamiento en ninguna de las 16 alcaldías de CDMX ni en los municipios del Estado de México listados en esta página. La visita técnica incluye levantamiento físico, plano de cobertura y propuesta formal — todo sin costo y sin compromiso de compra.',
+  },
+  {
+    q: '¿En cuánto tiempo pueden venir a hacer la visita técnica?',
+    a: 'Generalmente agendamos la visita técnica entre 24 y 48 horas después del primer contacto. Para zonas de alta densidad (Benito Juárez, Miguel Hidalgo, Cuauhtémoc, Naucalpan, Tlalnepantla) podemos ir el mismo día si hay disponibilidad. El tiempo en la tabla es el tiempo de respuesta inicial — la visita se agenda por cita.',
+  },
+  {
+    q: '¿Pueden instalar en Guadalajara o Monterrey?',
+    a: 'Sí. Contamos con coordinadores de proyecto y técnicos certificados locales en Guadalajara y Monterrey. El proceso es idéntico al de CDMX: visita técnica, propuesta formal, instalación certificada y garantía de 2 años por escrito. Contáctanos para agendar la visita inicial.',
+  },
+  {
+    q: '¿Qué pasa si mi colonia no está en la lista?',
+    a: 'La lista muestra los municipios y alcaldías principales pero no es exhaustiva. Si tu ubicación está dentro de la ZMVM o en zona metropolitana de las ciudades mencionadas, casi con certeza podemos atenderte. Escríbenos por WhatsApp con tu colonia y te confirmamos disponibilidad en minutos.',
+  },
+  {
+    q: '¿Los tiempos de respuesta son garantizados?',
+    a: 'Los tiempos indicados son estimados habituales en días hábiles con cita previa. No son tiempos de emergencia — son el tiempo típico para agendar una primera visita técnica. En casos urgentes (como reparaciones post-robo) priorizamos la atención y solemos tener disponibilidad el mismo día o siguiente.',
+  },
+  {
+    q: '¿Cobran más por zonas alejadas del centro?',
+    a: 'No cobramos cargo adicional por desplazamiento dentro de la ZMVM. El precio de la instalación es el mismo sin importar si estás en el centro o en un municipio periférico. Lo único que varía es el tiempo de respuesta para agendar la visita.',
+  },
+  {
+    q: '¿Hacen instalaciones en fraccionamientos con caseta de acceso?',
+    a: 'Sí, es muy común. Solo necesitamos que registres al técnico como visitante antes de la visita. En instalaciones residenciales de lujo con protocolos de seguridad estrictos, coordinamos todo previamente y el técnico llega con identificación y vehículo identificado.',
+  },
+];
+---
+
+<BaseLayout
+  title="Cobertura CDMX y Zona Metropolitana | Cámara de Seguridad — Visita Técnica Gratis"
+  description="Instalamos cámaras de seguridad en las 16 alcaldías de CDMX, 16+ municipios del Estado de México, Guadalajara y Monterrey. Visita técnica gratuita y sin compromiso."
+  canonical={`${SITE.url}/cobertura/`}
+  breadcrumb={breadcrumb}
+  faq={faq}
+>
+
+  <!-- ── 1. HERO ──────────────────────────────────────────────── -->
+  <Hero
+    eyebrow="COBERTURA · CDMX · EDOMEX · NACIONAL"
+    preTitle="Llegamos a donde"
+    title1="Tú nos"
+    title2="Necesitas"
+    subtitle="16 alcaldías, 16+ municipios y presencia nacional."
+    descriptionHtml={`Cobertura directa en toda la
+<strong class="font-bold text-brand-500">Zona Metropolitana del Valle de México</strong>
+— sin cargo por desplazamiento, sin excepciones. Visita técnica gratuita agendada en
+<strong class="font-bold text-brand-500">24 a 48 horas</strong>.
+También operamos en Guadalajara, Monterrey y el corredor Bajío.`}
+    col2Eyebrow="Nuestro alcance"
+    col2Title="Misma garantía "
+    col2TitleHighlight="en toda la zona"
+    col2Paragraphs={[
+      {
+        html: `<strong class="font-bold text-brand-500">No importa si estás en Benito Juárez o en Ixtapaluca</strong>
+— el precio de la instalación es el mismo. No cobramos cargo por desplazamiento, no cobramos
+por la visita técnica y no reducimos la calidad del trabajo según la distancia. Cada proyecto
+sigue el mismo proceso de 6 pasos.`,
+      },
+      {
+        html: `<strong class="font-bold text-brand-500">Para proyectos fuera de la ZMVM</strong>
+operamos con coordinadores de proyecto y técnicos certificados locales en Guadalajara y
+Monterrey. En el Bajío atendemos proyectos industriales y corporativos coordinados desde CDMX
+con supervisión directa.`,
+      },
+    ]}
+    showRecBadge={true}
+    showQuickLinks={false}
+  />
+
+  <!-- ── 2. ZONAS — tabs CDMX / Edomex / Nacional ────────────── -->
+  <section class="section-cream" id="zonas">
+    <div class="container">
+
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">Zonas de cobertura</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Dónde instalamos
+            <span class="text-accent-500">y en cuánto tiempo</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <div class="space-y-4">
+          <p class="lead">
+            Cada alcaldía y municipio tiene un tiempo estimado de primera respuesta para agendar
+            la visita técnica. Las zonas en verde tienen disponibilidad el mismo día o siguiente.
+            Las amarillas y grises se agendan en 24–72 horas.
+          </p>
+          <p class="text-[15.5px] leading-relaxed text-ink-600">
+            Todos los tiempos son en días hábiles con cita previa. Si tienes urgencia (post-robo
+            o falla de sistema existente) escríbenos directamente — solemos tener disponibilidad
+            prioritaria el mismo día.
+          </p>
+        </div>
+      </div>
+
+      <!-- Leyenda de colores -->
+      <div class="mt-10 flex flex-wrap gap-4">
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-[12.5px] font-semibold text-emerald-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+          Alta prioridad · 2–5 h
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-[12.5px] font-semibold text-amber-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+          Prioridad media · 3–8 h
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-[12.5px] font-semibold text-slate-600">
+          <span class="h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+          Zona periférica · 6–24 h
+        </span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mt-8" id="zona-tabs">
+
+        <!-- Tab buttons -->
+        <div class="flex gap-0 overflow-hidden rounded-xl border border-cream-200 bg-white w-fit">
+          <button data-tab="cdmx"   class="tab-btn tab-active  px-6 py-3 text-[13.5px] font-bold transition-colors">Ciudad de México</button>
+          <button data-tab="edomex" class="tab-btn tab-inactive px-6 py-3 text-[13.5px] font-bold transition-colors border-l border-cream-200">Estado de México</button>
+        </div>
+
+        <!-- CDMX panel -->
+        <div id="panel-cdmx" class="tab-panel mt-6">
+          <div class="overflow-hidden rounded-2xl border border-cream-200 bg-white shadow-sm">
+            <div class="flex items-center gap-4 bg-brand-500 px-6 py-4">
+              <span class="font-display text-3xl font-black text-accent-400">16</span>
+              <div>
+                <p class="text-[10.5px] font-bold uppercase tracking-[0.22em] text-cream-200">Alcaldías cubiertas</p>
+                <p class="font-display text-lg font-black text-white">Ciudad de México</p>
+              </div>
+              <span class="ml-auto rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold text-cream-200">Cobertura directa · sin cargo extra</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              {cdmxAlcaldias.map((z, i) => {
+                const colorDot   = z.tipo === 'alta' ? 'bg-emerald-500' : z.tipo === 'media' ? 'bg-amber-400' : 'bg-slate-400';
+                const colorBadge = z.tipo === 'alta' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : z.tipo === 'media' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-slate-50 text-slate-500 border-slate-200';
+                const borderR = (i + 1) % 4 !== 0 ? 'lg:border-r' : '';
+                const borderB = i < cdmxAlcaldias.length - 4 ? 'border-b' : '';
+                return (
+                  <div class={`flex items-center justify-between gap-3 px-5 py-3.5 border-cream-100 ${borderR} ${borderB}`}>
+                    <div class="flex items-center gap-2.5 min-w-0">
+                      <span class={`h-2 w-2 shrink-0 rounded-full ${colorDot}`}></span>
+                      <span class="truncate text-[13.5px] font-medium text-ink-700">{z.nombre}</span>
+                    </div>
+                    <span class={`shrink-0 rounded-full border px-2 py-0.5 text-[11px] font-semibold ${colorBadge}`}>{z.tiempo}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <!-- Edomex panel -->
+        <div id="panel-edomex" class="tab-panel mt-6 hidden">
+          <div class="overflow-hidden rounded-2xl border border-cream-200 bg-white shadow-sm">
+            <div class="flex items-center gap-4 bg-accent-600 px-6 py-4">
+              <span class="font-display text-3xl font-black text-white">16+</span>
+              <div>
+                <p class="text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/70">Municipios cubiertos</p>
+                <p class="font-display text-lg font-black text-white">Estado de México</p>
+              </div>
+              <span class="ml-auto rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold text-white/85">Cobertura directa · sin cargo extra</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              {edomexMunicipios.map((z, i) => {
+                const colorDot   = z.tipo === 'alta' ? 'bg-emerald-500' : z.tipo === 'media' ? 'bg-amber-400' : 'bg-slate-400';
+                const colorBadge = z.tipo === 'alta' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : z.tipo === 'media' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-slate-50 text-slate-500 border-slate-200';
+                const borderR = (i + 1) % 4 !== 0 ? 'lg:border-r' : '';
+                const borderB = i < edomexMunicipios.length - 4 ? 'border-b' : '';
+                return (
+                  <div class={`flex items-center justify-between gap-3 px-5 py-3.5 border-cream-100 ${borderR} ${borderB}`}>
+                    <div class="flex items-center gap-2.5 min-w-0">
+                      <span class={`h-2 w-2 shrink-0 rounded-full ${colorDot}`}></span>
+                      <span class="truncate text-[13.5px] font-medium text-ink-700">{z.nombre}</span>
+                    </div>
+                    <span class={`shrink-0 rounded-full border px-2 py-0.5 text-[11px] font-semibold ${colorBadge}`}>{z.tiempo}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA inline -->
+      <div class="mt-8 flex flex-col items-start gap-3 rounded-2xl border-2 border-brand-500/20 bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="font-display text-[16px] font-black text-brand-500">¿Tu colonia no aparece?</p>
+          <p class="mt-1 text-[13.5px] text-ink-600">Escríbenos con tu ubicación y te confirmamos disponibilidad en minutos.</p>
+        </div>
+        <a
+          href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent('Hola, quiero verificar si tienen cobertura en mi zona.')}`}
+          target="_blank"
+          rel="noopener"
+          class="shrink-0 btn-primary"
+        >
+          Verificar mi zona
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. STATS BAND ───────────────────────────────────────── -->
+  <section class="bg-brand-500 py-12 lg:py-14" aria-label="Cifras de cobertura">
+    <div class="container">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6">
+        {[
+          { val: '32+',    lbl: 'zonas de cobertura directa' },
+          { val: '24–48h', lbl: 'para agendar visita técnica' },
+          { val: '$0',     lbl: 'costo de desplazamiento' },
+          { val: '100%',   lbl: 'mismo precio en toda la zona' },
+        ].map((s) => (
+          <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center">
+            <p class="font-display text-3xl font-black leading-none text-white sm:text-4xl">{s.val}</p>
+            <p class="mt-2 text-[11.5px] font-semibold uppercase tracking-wider text-cream-300">{s.lbl}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. QUÉ INCLUYE LA VISITA TÉCNICA ────────────────────── -->
+  <section class="section-white" id="visita-tecnica">
+    <div class="container">
+
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">Visita técnica gratuita</span>
+          <h2 class="heading-lg mt-4 text-balance">
+            Lo que hacemos
+            <span class="text-accent-500">cuando llegamos</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <div class="space-y-4">
+          <p class="lead">
+            La visita técnica no es una visita de ventas. Es un trabajo real de diagnóstico que
+            toma entre 45 minutos y 2 horas según el tamaño del espacio. Te entregamos resultados
+            concretos antes de pedir cualquier decisión.
+          </p>
+          <p class="text-[15.5px] leading-relaxed text-ink-600">
+            Muchos de nuestros clientes nos contratan precisamente porque en la visita encontramos
+            problemas de cobertura que el instalador anterior no detectó. No vendemos cámaras —
+            diseñamos sistemas que funcionan.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          {
+            n: '01',
+            titulo: 'Levantamiento físico',
+            desc: 'Recorremos todo el espacio: accesos, perímetros, áreas internas, pasillos y zonas de alto riesgo. Identificamos puntos ciegos y ángulos críticos.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />',
+          },
+          {
+            n: '02',
+            titulo: 'Análisis de infraestructura',
+            desc: 'Revisamos cableado existente, tablero eléctrico, internet y puntos de alimentación. Determinamos si hay re-trabajo previo necesario.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />',
+          },
+          {
+            n: '03',
+            titulo: 'Plano de cobertura',
+            desc: 'Diseñamos la distribución óptima de cámaras con ángulos, tipo de lente y altura de montaje. Eliminamos zonas muertas sin instalar cámaras de más.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />',
+          },
+          {
+            n: '04',
+            titulo: 'Propuesta formal',
+            desc: 'Recibes un documento con marca, modelo y precio de cada equipo, desglose de mano de obra, tiempo estimado y condiciones de garantía. Ese mismo día.',
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />',
+          },
+        ].map((step) => (
+          <article class="card group relative overflow-hidden flex flex-col gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-card">
+            <!-- Número decorativo -->
+            <span class="absolute right-4 top-3 font-display text-[52px] font-black leading-none text-brand-500/5 select-none" aria-hidden="true">
+              {step.n}
+            </span>
+            <!-- Icon -->
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/8 text-brand-500 transition-colors group-hover:bg-brand-500 group-hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+                <Fragment set:html={step.icon} />
+              </svg>
+            </span>
+            <div>
+              <h3 class="font-display text-[16px] font-black text-brand-500 transition-colors group-hover:text-accent-500">{step.titulo}</h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-ink-600">{step.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Trust note -->
+      <div class="mt-10 flex flex-col gap-3 rounded-2xl bg-brand-500/5 border border-brand-500/15 p-6 sm:flex-row sm:items-center sm:gap-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-10 w-10 shrink-0 text-brand-500" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+        </svg>
+        <div>
+          <p class="font-display text-[15px] font-black text-brand-500">La visita es gratuita aunque no contrates</p>
+          <p class="mt-1 text-[13.5px] text-ink-600">
+            Si después de la visita decides no seguir, no hay ningún cargo. El diagnóstico, el plano de cobertura y la propuesta son tuyos
+            — sin condiciones. El 73% de quienes reciben una visita técnica nuestra terminan contratando, pero no porque los presionemos,
+            sino porque la propuesta habla por sí sola.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 5. COBERTURA NACIONAL ───────────────────────────────── -->
+  <section class="section-brand relative overflow-hidden" id="nacional">
+    <div class="absolute left-0 top-0 h-1 w-full bg-accent-500" aria-hidden="true"></div>
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.035]"
+      aria-hidden="true"
+      style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"
+    ></div>
+
+    <div class="container relative">
+
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div>
+          <span class="eyebrow-light">Proyectos nacionales</span>
+          <h2 class="heading-lg heading-light mt-4 text-balance">
+            Más allá de la
+            <span class="text-accent-400">Zona Metropolitana</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+        </div>
+        <div class="space-y-4">
+          <p class="lead-light">
+            Para empresas con instalaciones en múltiples ciudades o proyectos industriales fuera
+            de CDMX, operamos con una red de coordinadores de proyecto y técnicos certificados
+            locales — mismos estándares, misma garantía.
+          </p>
+          <p class="text-[15.5px] leading-relaxed text-cream-300">
+            No es una lista de promesas. Tenemos proyectos activos en Guadalajara y Monterrey
+            con los mismos protocolos de instalación y garantía que aplicamos en CDMX.
+            Para el Bajío y otras regiones hacemos evaluación caso por caso.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {ciudadesNacional.map((c) => (
+          <article class="flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 transition-colors hover:border-white/20 hover:bg-white/[0.07]">
+            <div class="border-b border-white/10 px-6 py-4">
+              <div class="flex items-center gap-3">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-accent-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-4.5 w-4.5" aria-hidden="true">
+                    <Fragment set:html={c.icon} />
+                  </svg>
+                </span>
+                <div>
+                  <p class="font-display text-[15px] font-black text-white">{c.ciudad}</p>
+                  <p class="text-[11px] text-cream-400">{c.estado}</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col px-6 py-4">
+              <span class="inline-block rounded-md bg-accent-500/15 px-2.5 py-1 text-[11px] font-semibold text-accent-300 border border-accent-500/25">
+                {c.modelo}
+              </span>
+              <p class="mt-3 flex-1 text-[13px] leading-relaxed text-cream-300">{c.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-8 text-center sm:flex-row sm:text-left">
+        <div class="flex-1">
+          <p class="font-display text-[17px] font-black text-white">¿Tu empresa tiene sucursales en varias ciudades?</p>
+          <p class="mt-2 text-[13.5px] text-cream-300">
+            Coordinamos proyectos multi-sede con un solo punto de contacto, una sola propuesta
+            y garantía unificada. Contáctanos para una llamada de diagnóstico sin costo.
+          </p>
+        </div>
+        <a
+          href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent('Hola, tengo un proyecto en varias ciudades y me gustaría cotizar.')}`}
+          target="_blank"
+          rel="noopener"
+          class="shrink-0 flex items-center gap-2.5 rounded-xl bg-accent-500 px-6 py-3.5 font-display text-[14px] font-bold text-white shadow-lg transition hover:bg-accent-600 active:scale-95"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+          Hablar de mi proyecto
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 6. FAQ ─────────────────────────────────────────────────── -->
+  <FaqSection faqs={faq} />
+
+  <!-- ── 7. CTA ─────────────────────────────────────────────────── -->
+  <CTASection />
+
+</BaseLayout>
+
+<script>
+  // Tab switching: CDMX / Edomex
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+  const panels = document.querySelectorAll<HTMLElement>('.tab-panel');
+
+  tabs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+
+      tabs.forEach((t) => {
+        t.classList.remove('tab-active');
+        t.classList.add('tab-inactive');
+      });
+      btn.classList.add('tab-active');
+      btn.classList.remove('tab-inactive');
+
+      panels.forEach((p) => {
+        const match = p.id === `panel-${target}`;
+        p.classList.toggle('hidden', !match);
+      });
+    });
+  });
+</script>
+
+<style>
+  .tab-active {
+    @apply bg-brand-500 text-white;
+  }
+  .tab-inactive {
+    @apply bg-white text-ink-600 hover:bg-cream-50 hover:text-brand-500;
+  }
+</style>

@@ -57,7 +57,7 @@ export const SECTION_LINKS = [
   { href: '/servicios/', label: 'Todos los servicios' },
   { href: '/#equipos', label: 'Equipos Profesionales' },
   { href: '/proceso/', label: 'Cómo trabajamos' },
-  { href: '/#cobertura', label: 'Cobertura CDMX' },
+  { href: '/cobertura/', label: 'Cobertura CDMX' },
   { href: '/#faq', label: 'Preguntas frecuentes' },
 ] as const;
 
