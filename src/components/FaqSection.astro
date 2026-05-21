@@ -31,6 +31,22 @@ const defaultFaqs: FaqEntry[] = [
     q: '¿Trabajan con contrato forzoso o mensualidad?',
     a: 'No. Pagas una sola vez y el sistema es tuyo. Sin contratos de 24 o 36 meses. El monitoreo remoto 24/7 es un servicio opcional — si lo quieres lo agregas, y si ya no lo necesitas lo cancelas sin penalización. Sin letras pequeñas, sin sorpresas.',
   },
+  {
+    q: '¿Qué marcas de cámaras instalan y por qué?',
+    a: 'Trabajamos exclusivamente con Hikvision, Dahua y Provision-ISR — las mismas que usan bancos, aeropuertos y cadenas hoteleras. Las descartadas son marcas sin respaldo técnico ni refacciones en México: el ahorro de $500 hoy se convierte en un sistema inútil a los 18 meses. Nunca instalamos lo que no usaríamos en nuestra propia casa.',
+  },
+  {
+    q: '¿Necesito internet para que funcionen las cámaras?',
+    a: 'No para grabar ni para ver las cámaras en el monitor local — eso funciona sin internet. Internet es necesario solo para el acceso remoto desde tu celular. Si pierdes señal, el sistema sigue grabando normalmente en el disco duro. Cuando vuelve la conexión, puedes acceder de nuevo sin perder ningún registro.',
+  },
+  {
+    q: '¿Puedo agregar más cámaras después?',
+    a: 'Sí, si el NVR tiene canales libres. Por eso siempre recomendamos instalar un grabador con el doble de canales que el número inicial de cámaras — así puedes escalar sin cambiar el equipo central. En la visita técnica te decimos exactamente cuánto espacio de crecimiento queda en el sistema propuesto.',
+  },
+  {
+    q: '¿Qué pasa con las grabaciones si se va la luz?',
+    a: 'Las cámaras y el NVR se apagan, pero las grabaciones anteriores quedan intactas en el disco duro. Cuando regresa la energía el sistema reinicia automáticamente y continúa grabando. Para sitios donde la continuidad es crítica, instalamos UPS (no-break) que dan entre 30 y 120 minutos de respaldo según capacidad.',
+  },
 ];
 
 const { faqs = defaultFaqs } = Astro.props;
