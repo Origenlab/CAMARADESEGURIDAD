@@ -1,4 +1,6 @@
 ---
+import { SITE } from '@/consts';
+
 interface FaqEntry {
   q: string;
   a: string;
@@ -8,90 +10,268 @@ interface Props {
   faqs?: FaqEntry[];
 }
 
-// Fallback de FAQs por default (si no se pasa via props).
-// El uso recomendado es pasar el mismo array desde la página
-// y reutilizarlo también para el JSON-LD del SEO.
 const defaultFaqs: FaqEntry[] = [
   {
     q: '¿Cuánto cuesta instalar cámaras de seguridad en mi casa?',
-    a: 'En CDMX y Estado de México, una instalación básica de 2 cámaras HD con todo incluido cuesta desde $3,490 MXN. La cotización por WhatsApp es gratis y te llega el mismo día.',
+    a: 'Una instalación residencial de 4 cámaras HD con cableado oculto, NVR de 8 canales y configuración de app parte desde $7,900 MXN todo incluido — equipo, instalación y garantía. El precio exacto depende del número de cámaras, la distribución del espacio y el tipo de cable. Cotización gratis y sin compromiso.',
+  },
+  {
+    q: '¿Cuánto tiempo tarda la instalación?',
+    a: 'Un sistema residencial de 4 cámaras se instala en un día (4–8 horas). Un comercio mediano con 8 cámaras toma entre 6 y 10 horas. Proyectos industriales o multisitio se planifican por fases. En todos los casos, al finalizar el día te entregamos el sistema funcionando y la app configurada.',
+  },
+  {
+    q: '¿Puedo ver las cámaras desde mi celular?',
+    a: 'Sí, desde cualquier lugar con internet. Configuramos la app (Hik-Connect, gDMSS o equivalente) en hasta 4 dispositivos — iPhone o Android. También puedes conectar desde PC o tablet. La visualización en vivo, reproducción de grabaciones y alertas de movimiento están disponibles desde el primer día.',
+  },
+  {
+    q: '¿Qué incluye la garantía de 2 años?',
+    a: 'Cubre equipo (cámaras, NVR, fuentes y cableado) y mano de obra. Si algo falla durante el período, mandamos técnico sin costo adicional — refacciones y visita incluidas. Es garantía por escrito, no verbal: te entregamos el documento firmado antes de que pagues. El doble del estándar del mercado (6–12 meses).',
+  },
+  {
+    q: '¿Trabajan con contrato forzoso o mensualidad?',
+    a: 'No. Pagas una sola vez y el sistema es tuyo. Sin contratos de 24 o 36 meses. El monitoreo remoto 24/7 es un servicio opcional — si lo quieres lo agregas, y si ya no lo necesitas lo cancelas sin penalización. Sin letras pequeñas, sin sorpresas.',
   },
 ];
 
 const { faqs = defaultFaqs } = Astro.props;
+const phone = SITE.contact.whatsapp;
 ---
 
-<section id="faq" class="section-white">
+<section id="faq" class="section-cream">
   <div class="container">
-    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-      <div class="lg:sticky lg:top-32 lg:self-start">
-        <span class="eyebrow">Preguntas frecuentes</span>
+
+    <!-- ── CABECERA BICOLUMNA ──────────────────────────────────── -->
+    <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+      <div>
+        <span class="eyebrow">FAQ y Cotización</span>
         <h2 class="heading-lg mt-4 text-balance">
-          Lo que la gente nos pregunta
-          <span class="text-accent-500">antes de cotizar</span>.
+          Resolvemos tus dudas
+          <span class="text-accent-500">en minutos</span>.
         </h2>
         <span class="marker-line mt-5"></span>
-        <p class="lead mt-6">
-          Si tu pregunta no está aquí, escríbenos por WhatsApp y te respondemos en menos de
-          15 minutos — sin formularios ni vendedores.
+      </div>
+      <div class="space-y-3">
+        <p class="lead">
+          Revisa las preguntas más frecuentes de nuestros clientes o escríbenos directo por WhatsApp
+          — te respondemos en menos de 15 minutos en horario hábil, con el precio real, sin rodeos.
         </p>
+        <p class="text-[15.5px] leading-relaxed text-ink-600">
+          No hay formularios que se pierdan ni call centers que te transfieren. Hay un técnico
+          certificado que responde, agenda tu visita técnica gratuita y te envía la cotización el mismo día.
+        </p>
+      </div>
+    </div>
 
-        <a
-          href="#contacto"
-          class="btn-primary mt-8 inline-flex"
-        >
-          Pregúntanos por WhatsApp
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="h-4 w-4"
-            aria-hidden="true"
-          >
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
-        </a>
+    <!-- ── CONTENIDO: FAQ + FORMULARIO ───────────────────────────── -->
+    <div class="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-12">
+
+      <!-- ── COL 1: FAQ ACCORDION ──────────────────────────────── -->
+      <div>
+        <div class="mb-6 flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-500">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="h-5 w-5 text-white" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <path d="M12 17h.01"/>
+            </svg>
+          </span>
+          <h3 class="font-display text-xl font-black text-brand-500">Preguntas frecuentes</h3>
+        </div>
+
+        <div class="space-y-2.5">
+          {
+            faqs.map((f, i) => (
+              <details
+                class="faq-item group overflow-hidden rounded-xl border border-cream-300 bg-white transition-colors open:border-brand-500 open:shadow-soft"
+                open={i === 0}
+              >
+                <summary class="flex cursor-pointer items-start justify-between gap-4 px-5 py-4 list-none">
+                  <h4 class="font-display text-[15px] font-black leading-snug text-brand-500 transition-colors group-hover:text-accent-500">
+                    {f.q}
+                  </h4>
+                  <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-brand-500 text-brand-500 transition-all group-open:rotate-45 group-open:border-accent-500 group-open:bg-accent-500 group-open:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                      class="h-3.5 w-3.5" aria-hidden="true">
+                      <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="px-5 pb-5">
+                  <span class="block h-[2px] w-8 bg-accent-500 mb-3"></span>
+                  <p class="text-[14.5px] leading-relaxed text-ink-700">{f.a}</p>
+                </div>
+              </details>
+            ))
+          }
+        </div>
+
+        <p class="mt-6 text-[13.5px] text-ink-500">
+          ¿No encontraste tu respuesta?
+          <a href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola, tengo una pregunta sobre instalación de cámaras.')}`}
+            target="_blank" rel="noopener"
+            class="font-semibold text-accent-500 hover:text-accent-600 transition-colors">
+            Escríbenos por WhatsApp →
+          </a>
+        </p>
       </div>
 
-      <div class="space-y-3">
-        {
-          faqs.map((f, i) => (
-            <details
-              class="faq-item group overflow-hidden rounded-xl border border-cream-300 bg-cream-50 transition-colors open:border-brand-500 open:bg-white open:shadow-soft"
-              open={i === 0}
-            >
-              <summary class="flex cursor-pointer items-start justify-between gap-4 px-6 py-5 list-none">
-                <h3 class="font-display text-[16.5px] font-black leading-snug text-brand-500 transition-colors group-hover:text-accent-500">
-                  {f.q}
-                </h3>
-                <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-brand-500 text-brand-500 transition-all group-open:rotate-45 group-open:border-accent-500 group-open:bg-accent-500 group-open:text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 5v14M5 12h14" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6">
-                <span class="block h-[2px] w-10 bg-accent-500 mb-4" />
-                <p class="text-[15px] leading-relaxed text-ink-700">{f.a}</p>
+      <!-- ── COL 2: FORMULARIO WHATSAPP ────────────────────────── -->
+      <div class="overflow-hidden rounded-2xl shadow-lg">
+
+        <!-- Header de la card -->
+        <div class="bg-brand-600 px-8 py-7">
+          <p class="text-[10.5px] font-bold uppercase tracking-[0.22em] text-accent-400">
+            ⚡ Respuesta garantizada en menos de 15 minutos
+          </p>
+          <h3 class="mt-2 font-display text-2xl font-black leading-tight text-white">
+            Cotización gratis<br/>
+            <span class="text-accent-400">por WhatsApp</span>
+          </h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-cream-300">
+            Completa los datos — abrimos WhatsApp con tu mensaje listo para enviar.
+            Sin formularios que se pierdan, sin esperas.
+          </p>
+        </div>
+
+        <!-- Cuerpo del formulario -->
+        <div class="bg-brand-500 px-8 py-7">
+          <form id="waf" class="space-y-4" onsubmit="return false">
+
+            <div>
+              <label for="waf-nombre" class="mb-1.5 block text-[12.5px] font-bold uppercase tracking-wide text-white/70">
+                Tu nombre
+              </label>
+              <input
+                type="text"
+                id="waf-nombre"
+                placeholder="Ej. Carlos Ramírez"
+                autocomplete="name"
+                class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition-colors focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"
+              />
+            </div>
+
+            <div>
+              <label for="waf-servicio" class="mb-1.5 block text-[12.5px] font-bold uppercase tracking-wide text-white/70">
+                Tipo de proyecto
+              </label>
+              <select
+                id="waf-servicio"
+                class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white transition-colors focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"
+              >
+                <option value="" class="bg-brand-700 text-white">Selecciona una opción…</option>
+                <option class="bg-brand-700 text-white">Casa o departamento</option>
+                <option class="bg-brand-700 text-white">Local comercial o tienda</option>
+                <option class="bg-brand-700 text-white">Oficina o corporativo</option>
+                <option class="bg-brand-700 text-white">Bodega o nave industrial</option>
+                <option class="bg-brand-700 text-white">Control de acceso</option>
+                <option class="bg-brand-700 text-white">Mantenimiento o reparación</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="waf-camaras" class="mb-1.5 block text-[12.5px] font-bold uppercase tracking-wide text-white/70">
+                  Cámaras aprox.
+                </label>
+                <select
+                  id="waf-camaras"
+                  class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white transition-colors focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"
+                >
+                  <option class="bg-brand-700 text-white">No sé aún</option>
+                  <option class="bg-brand-700 text-white">2 cámaras</option>
+                  <option class="bg-brand-700 text-white">4 cámaras</option>
+                  <option class="bg-brand-700 text-white">6 cámaras</option>
+                  <option class="bg-brand-700 text-white">8 cámaras</option>
+                  <option class="bg-brand-700 text-white">Más de 8</option>
+                </select>
               </div>
-            </details>
-          ))
-        }
+              <div>
+                <label for="waf-zona" class="mb-1.5 block text-[12.5px] font-bold uppercase tracking-wide text-white/70">
+                  Colonia / Zona
+                </label>
+                <input
+                  type="text"
+                  id="waf-zona"
+                  placeholder="Ej. Coyoacán"
+                  class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition-colors focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="waf-msg" class="mb-1.5 block text-[12.5px] font-bold uppercase tracking-wide text-white/70">
+                ¿Algo más que debamos saber?
+                <span class="font-normal normal-case text-white/45"> (opcional)</span>
+              </label>
+              <textarea
+                id="waf-msg"
+                rows="3"
+                placeholder="Ej. Tengo 2 plantas, quiero cableado oculto y ver las cámaras en mi celular…"
+                class="w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition-colors focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"
+              ></textarea>
+            </div>
+
+            <button
+              type="button"
+              id="waf-send"
+              class="group flex w-full items-center justify-center gap-3 rounded-xl bg-accent-500 px-6 py-4 font-display text-[15px] font-black text-white shadow-lg transition-all hover:bg-accent-600 hover:shadow-xl active:scale-[0.98]"
+            >
+              <!-- WhatsApp icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                class="h-5 w-5 shrink-0" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+              </svg>
+              Enviar cotización por WhatsApp
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                class="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </button>
+
+          </form>
+
+          <!-- Trust strip -->
+          <div class="mt-6 grid grid-cols-3 gap-3 border-t border-white/10 pt-6">
+            {
+              [
+                {
+                  icon: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+                  label: 'Respuesta < 15 min',
+                },
+                {
+                  icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+                  label: 'Sin compromiso',
+                },
+                {
+                  icon: '<path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/>',
+                  label: 'Cotización gratis',
+                },
+              ].map((b) => (
+                <div class="flex flex-col items-center gap-1.5 text-center">
+                  <span class="grid h-8 w-8 place-items-center rounded-lg bg-white/10">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="h-4 w-4 text-accent-400"
+                      aria-hidden="true"
+                      set:html={b.icon}
+                    />
+                  </span>
+                  <p class="text-[11px] font-semibold leading-tight text-cream-300">{b.label}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -102,3 +282,21 @@ const { faqs = defaultFaqs } = Astro.props;
     display: none;
   }
 </style>
+
+<script define:vars={{ phone }}>
+  document.getElementById('waf-send').addEventListener('click', () => {
+    const nombre   = document.getElementById('waf-nombre').value.trim() || 'un cliente';
+    const servicio = document.getElementById('waf-servicio').value || 'instalación de cámaras';
+    const camaras  = document.getElementById('waf-camaras').value;
+    const zona     = document.getElementById('waf-zona').value.trim();
+    const msg      = document.getElementById('waf-msg').value.trim();
+
+    let texto = `Hola, soy ${nombre}. Me interesa una cotización para ${servicio}`;
+    if (camaras && camaras !== 'No sé aún') texto += `, aprox. ${camaras}`;
+    if (zona) texto += `, en ${zona}`;
+    texto += '.';
+    if (msg) texto += ` ${msg}`;
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(texto)}`, '_blank');
+  });
+</script>
