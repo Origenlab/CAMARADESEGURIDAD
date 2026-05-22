@@ -1,0 +1,604 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CTASection from '@components/CTASection.astro';
+import RelatedLinks from '@components/RelatedLinks.astro';
+import { SITE } from '@/consts';
+
+export async function getStaticPaths() {
+  const subs = await getCollection('subServicios');
+  return subs.map((s) => {
+    const basename = s.id.replace(/\.md$/, '').split('/').pop()!;
+    const slug = s.data.slug ?? basename;
+    return {
+      params: {
+        parent: s.data.parentSlug,
+        sub: slug,
+      },
+      props: { sub: s, subSlug: slug },
+    };
+  });
+}
+
+const { sub, subSlug } = Astro.props;
+const { data: s } = sub;
+const { Content } = await render(sub);
+
+// ── Resolver siblings (otros L3 con mismo parent) ──────────────
+const allSubs = await getCollection('subServicios');
+const siblings = allSubs
+  .filter((x) => x.data.parentSlug === s.parentSlug && x.id !== sub.id)
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const isBrand = s.color === 'brand';
+const accentHex = isBrand ? '#0A2540' : '#DC2626';
+
+const breadcrumb = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Servicios', url: '/servicios/' },
+  { name: s.parentTitle, url: `/servicios/${s.parentSlug}/` },
+  { name: s.shortTitle ?? s.title, url: `/servicios/${s.parentSlug}/${subSlug}/` },
+];
+
+const faqSchema = s.faq.map((f) => ({ q: f.q, a: f.a }));
+
+// Service schema para esta L3
+const serviceSchema = [
+  {
+    name: s.title,
+    description: s.description,
+    url: `/servicios/${s.parentSlug}/${subSlug}/`,
+    serviceType: s.title,
+  },
+];
+
+// Products schema — modelos + paquetes con precio
+const productsSchema = [
+  ...(s.modelos ?? [])
+    .filter((m) => m.precio !== undefined)
+    .map((m) => ({
+      name: `${m.name} — ${m.brand}`,
+      description: m.description,
+      price: m.precio!,
+      priceCurrency: 'MXN',
+      brand: m.brand,
+      category: s.title,
+      url: `/servicios/${s.parentSlug}/${subSlug}/`,
+    })),
+  ...(s.paquetes ?? [])
+    .filter((p) => p.precio !== undefined)
+    .map((p) => ({
+      name: `${p.name} — ${s.title}`,
+      description: p.detail,
+      price: p.precio!,
+      priceCurrency: 'MXN',
+      brand: 'Cámara de Seguridad',
+      category: s.title,
+      url: `/servicios/${s.parentSlug}/${subSlug}/#paquetes`,
+    })),
+];
+
+// SEO meta
+const seoTitle = s.seo?.title ?? `${s.title} | Instalación Profesional CDMX`;
+const seoDesc = s.seo?.description ?? s.description;
+const seoKeywords = s.seo?.keywords ?? `${s.title.toLowerCase()}, ${s.parentTitle.toLowerCase()}, instalación CCTV CDMX, Hikvision, Dahua`;
+
+// SVG icons
+const svgIcons: Record<string, string> = {
+  home: '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  store: '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/><path d="M9 13a3 3 0 1 0 6 0"/>',
+  factory: '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/><path d="M7 17h2M11 17h2M15 17h2"/>',
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  camera: '<path d="M3 8a2 2 0 0 1 2-2h3l2-2h4l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="4"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+  eye: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  wifi: '<path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>',
+  monitor: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  car: '<path d="M5 13l2-5h10l2 5"/><path d="M5 13v5h2v-2h10v2h2v-5z"/><circle cx="8" cy="16" r="1.5"/><circle cx="16" cy="16" r="1.5"/>',
+  fingerprint: '<path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/><path d="M5 19.5C5.5 18 6 15 6 12c0-3.3 2.7-6 6-6 1.8 0 3.4.8 4.5 2"/><path d="M8 19a23 23 0 0 0 .5-5"/>',
+  tool: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  ptz: '<circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/>',
+  thermal: '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4 4 0 1 0 5 0Z"/>',
+  lpr: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 2v5M8 2v5M2 12h20"/>',
+};
+
+const headerBg = isBrand ? 'bg-brand-500' : 'bg-accent-500';
+const eyebrowCol = isBrand ? 'text-accent-400' : 'text-white/70';
+const markerCol = isBrand ? 'bg-accent-500' : 'bg-white/50';
+
+const formatPrice = (n: number) =>
+  new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDesc}
+  keywords={seoKeywords}
+  canonical={`/servicios/${s.parentSlug}/${subSlug}/`}
+  breadcrumb={breadcrumb}
+  faq={faqSchema}
+  services={serviceSchema}
+  products={productsSchema}
+>
+
+  <!-- ════════════════════════════════════════════════════════
+       1. HERO L3 — banner con título + stats + breadcrumb
+       ════════════════════════════════════════════════════════ -->
+  <section class={`relative overflow-hidden ${headerBg}`} aria-labelledby="hero-title">
+    <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/5" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -bottom-16 left-1/3 h-64 w-64 rounded-full bg-white/5" aria-hidden="true"></div>
+
+    <div class="container relative py-12 lg:py-16">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex flex-wrap items-center gap-2 text-[12.5px]">
+          {breadcrumb.map((item, i) => (
+            <li class="flex items-center gap-2">
+              {i > 0 && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-white/30" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+              )}
+              {i === breadcrumb.length - 1 ? (
+                <span class="font-semibold text-white/90" aria-current="page">{item.name}</span>
+              ) : (
+                <a href={item.url} class="text-white/60 transition-colors hover:text-white">{item.name}</a>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <div class="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
+
+        <!-- Texto principal -->
+        <div>
+          <span class={`inline-flex items-center gap-2.5 text-[10.5px] font-bold uppercase tracking-[0.26em] ${eyebrowCol}`}>
+            <span class={`h-1.5 w-1.5 rounded-full ${isBrand ? 'bg-accent-500' : 'bg-white/60'}`}></span>
+            {s.eyebrow}
+          </span>
+
+          <h1 id="hero-title" class="mt-5 font-display text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl">
+            {s.title}
+          </h1>
+
+          <span class={`mt-5 block h-[3px] w-14 rounded-full ${markerCol}`}></span>
+
+          <p class="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/85">
+            {s.subtitle}
+          </p>
+
+          <!-- CTAs hero -->
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a
+              href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, me interesa ${s.title} (${s.parentTitle}).`)}`}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-[14px] font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              style={`color: ${accentHex}`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 shrink-0" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+              </svg>
+              Cotiza gratis
+            </a>
+            <a href={`/servicios/${s.parentSlug}/`} class="inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-6 py-3 text-[14px] font-bold text-white transition-all hover:border-white/70 hover:bg-white/10">
+              ← Volver a {s.parentEyebrow}
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        {s.stats && s.stats.length > 0 && (
+          <div class="grid grid-cols-2 gap-3">
+            {s.stats.map((st) => (
+              <div class="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur-sm">
+                <p class="font-display text-2xl font-black leading-none text-white">{st.value}</p>
+                <p class="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/65">{st.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+      </div>
+    </div>
+    <div class={`h-1 w-full ${isBrand ? 'bg-accent-500' : 'bg-white/20'}`}></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       2. DESCRIPCIÓN LARGA + IDEAL PARA + PILAR
+       ════════════════════════════════════════════════════════ -->
+  <section class="section-white">
+    <div class="container">
+      <div class="grid gap-12 lg:grid-cols-[1fr_400px] lg:gap-20">
+
+        <div>
+          <span class="eyebrow">Sobre este sub-servicio</span>
+          <h2 class="heading-md mt-4 text-balance">
+            {s.title} <span class="text-accent-500">a detalle</span>
+          </h2>
+          <span class="marker-line mt-5"></span>
+          <p class="mt-6 text-[16px] leading-[1.8] text-ink-700">
+            {s.descripcionLarga ?? s.description}
+          </p>
+
+          <!-- Markdown body opcional -->
+          <div class="prose prose-slate mt-6 max-w-none prose-headings:font-display prose-headings:text-brand-500 prose-strong:text-brand-500">
+            <Content />
+          </div>
+
+          {s.idealPara && s.idealPara.length > 0 && (
+            <div class="mt-8">
+              <p class="text-[11px] font-bold uppercase tracking-[0.22em] text-ink-400">Ideal para</p>
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {s.idealPara.map((item) => (
+                  <li class="rounded-full border border-cream-300 bg-cream-100 px-3.5 py-1.5 text-[13px] font-semibold text-ink-700">{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {s.pilarIntro && (
+          <aside>
+            <div class={`rounded-2xl ${headerBg} p-8`}>
+              <span class="grid h-12 w-12 place-items-center rounded-xl bg-white/15">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white" aria-hidden="true" set:html={svgIcons[s.icon] ?? svgIcons.camera}/>
+              </span>
+              <p class={`mt-4 text-[10px] font-bold uppercase tracking-[0.22em] ${eyebrowCol}`}>Por qué nosotros</p>
+              <p class="mt-3 text-[14.5px] leading-[1.75] text-white/85">{s.pilarIntro}</p>
+
+              {s.features && s.features.length > 0 && (
+                <ul class="mt-6 space-y-2">
+                  {s.features.map((f) => (
+                    <li class="flex items-start gap-2.5 text-[13px] text-white/80">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class={`mt-0.5 h-4 w-4 shrink-0 ${isBrand ? 'text-accent-400' : 'text-white/60'}`} aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </aside>
+        )}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       3. MODELOS / EQUIPOS (Product cards)
+       ════════════════════════════════════════════════════════ -->
+  {s.modelos && s.modelos.length > 0 && (
+    <section class="section-cream" id="modelos">
+      <div class="container">
+
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr]">
+          <div>
+            <span class="eyebrow">Modelos disponibles</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Equipos que <span class="text-accent-500">instalamos</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Cada modelo está seleccionado por funcionalidad real para tu caso de uso. Marcas con refacciones disponibles en México y firmware con soporte activo — no genéricos importados.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {s.modelos.map((m) => (
+            <article class={`card relative flex flex-col overflow-visible border ${m.destacado ? 'border-accent-500/40 shadow-[0_8px_32px_rgba(220,38,38,0.12)]' : 'border-cream-200'}`}>
+
+              {m.destacado && (
+                <div class="absolute -top-3.5 left-6">
+                  <span class="rounded-full bg-accent-500 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white shadow-cta">
+                    Recomendado
+                  </span>
+                </div>
+              )}
+
+              <div class={`${headerBg} relative overflow-hidden px-6 py-6`}>
+                <div class="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/8" aria-hidden="true"></div>
+                <p class="relative text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/70">{m.brand}</p>
+                <h3 class="relative mt-1 font-display text-[18px] font-black leading-snug text-white">{m.name}</h3>
+              </div>
+
+              <div class="flex flex-1 flex-col p-6">
+                <p class="text-[14px] leading-relaxed text-ink-600">{m.description}</p>
+
+                {m.features && m.features.length > 0 && (
+                  <ul class="mt-5 space-y-2">
+                    {m.features.map((f) => (
+                      <li class="flex items-start gap-2 text-[13px] text-ink-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 h-4 w-4 shrink-0 text-accent-500" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {m.idealPara && (
+                  <p class="mt-5 rounded-lg bg-cream-100 px-3 py-2 text-[12.5px] text-ink-600">
+                    <strong class="text-brand-500">Ideal para:</strong> {m.idealPara}
+                  </p>
+                )}
+
+                <div class="mt-6 flex items-center justify-between border-t border-cream-100 pt-5">
+                  {m.precio ? (
+                    <div>
+                      <span class="text-[10.5px] font-bold uppercase tracking-wider text-ink-400">desde</span>
+                      <p class="font-display text-2xl font-black leading-none text-brand-500">
+                        {formatPrice(m.precio)}
+                      </p>
+                    </div>
+                  ) : (
+                    <p class="font-display text-[15px] font-black text-brand-500">
+                      Cotización personalizada
+                    </p>
+                  )}
+                  <a
+                    href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, me interesa el modelo ${m.name} (${m.brand}) para ${s.title}.`)}`}
+                    target="_blank"
+                    rel="noopener"
+                    class="rounded-lg bg-accent-500 px-4 py-2 text-[12.5px] font-bold text-white transition hover:bg-accent-600"
+                  >
+                    Cotizar
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════════════════════
+       4. COMPARATIVA TÉCNICA
+       ════════════════════════════════════════════════════════ -->
+  {s.comparativa && s.comparativa.length > 0 && (
+    <section class="section-white" id="comparativa">
+      <div class="container">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr]">
+          <div>
+            <span class="eyebrow">Especificaciones</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Lo que <span class="text-accent-500">debes saber</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Especificaciones técnicas que pueden marcar la diferencia entre un sistema que funciona y uno que decora. Si algún término no te queda claro, pregúntanos por WhatsApp.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-hidden rounded-2xl border border-cream-200">
+          {s.comparativa.map((row, i) => (
+            <div class={`grid grid-cols-[minmax(0,1fr)_2fr] ${i !== 0 ? 'border-t border-cream-100' : ''} ${row.highlight ? 'bg-accent-500/5' : i % 2 === 1 ? 'bg-cream-50' : 'bg-white'}`}>
+              <div class={`px-6 py-4 text-[13.5px] font-bold ${row.highlight ? 'text-accent-500' : 'text-brand-500'}`}>{row.atributo}</div>
+              <div class="border-l border-cream-100 px-6 py-4 text-[14px] text-ink-700">{row.valor}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════════════════════
+       5. CASOS DE USO
+       ════════════════════════════════════════════════════════ -->
+  {s.casosDeUso && s.casosDeUso.length > 0 && (
+    <section class="section-cream" id="casos-uso">
+      <div class="container">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr]">
+          <div>
+            <span class="eyebrow">Casos de uso reales</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Dónde se aplica <span class="text-accent-500">en la práctica</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Estos son los escenarios típicos donde este sub-servicio resuelve un problema concreto. Si el tuyo no aparece aquí, escríbenos — diseñamos a medida.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {s.casosDeUso.map((c, i) => (
+            <article class="card group flex flex-col gap-4 p-6 transition-all hover:-translate-y-0.5 hover:shadow-card">
+              <div class="flex items-center justify-between">
+                <span class={`flex h-10 w-10 items-center justify-center rounded-xl ${isBrand ? 'bg-brand-500/8 text-brand-500' : 'bg-accent-500/8 text-accent-500'} transition-colors group-hover:bg-brand-500 group-hover:text-white`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={svgIcons[c.icon ?? s.icon] ?? svgIcons.camera}/>
+                </span>
+                <span class="font-display text-[28px] font-black leading-none text-ink-200 select-none">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <div>
+                <h3 class="font-display text-[15.5px] font-black leading-snug text-brand-500 group-hover:text-accent-500 transition-colors">{c.titulo}</h3>
+                <p class="mt-2 text-[13.5px] leading-relaxed text-ink-600">{c.descripcion}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════════════════════
+       6. PAQUETES (mismo patrón que L2)
+       ════════════════════════════════════════════════════════ -->
+  {s.paquetes && s.paquetes.length > 0 && (
+    <section class="section-white" id="paquetes">
+      <div class="container">
+
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr]">
+          <div>
+            <span class="eyebrow">Paquetes y precios</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Precio justo, <span class="text-accent-500">todo incluido</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Cada paquete incluye equipo, mano de obra, cableado oculto, configuración de app y garantía de 2 años por escrito. Cotización final personalizada después de la visita técnica gratuita.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {s.paquetes.map((pkg) => {
+            const isPopular = pkg.popular === true;
+            const cardBg = isPopular ? (isBrand ? 'bg-brand-500' : 'bg-accent-500') : 'bg-white';
+            const nameCls = isPopular ? 'text-white' : 'text-brand-500';
+            const detailCls = isPopular ? 'text-white/75' : 'text-ink-500';
+            const priceCls = isPopular ? 'text-white' : 'text-brand-500';
+            const borderCls = isPopular ? 'border-transparent shadow-[0_8px_32px_rgba(10,37,64,0.3)]' : 'border-cream-200';
+            return (
+              <article class={`card relative flex flex-col overflow-visible border ${borderCls} ${cardBg}`}>
+                {isPopular && (
+                  <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                    <span class="rounded-full bg-accent-500 px-4 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white shadow-cta">Más elegido</span>
+                  </div>
+                )}
+                <div class={`flex flex-1 flex-col p-6 ${isPopular ? 'pt-8' : ''}`}>
+                  <h3 class={`font-display text-[17px] font-black leading-snug ${nameCls}`}>{pkg.name}</h3>
+                  {pkg.precio ? (
+                    <div class="mt-4">
+                      <span class={`text-[11px] font-bold uppercase tracking-wider ${isPopular ? 'text-white/60' : 'text-ink-400'}`}>desde</span>
+                      <p class={`font-display text-3xl font-black leading-none ${priceCls}`}>{formatPrice(pkg.precio)}</p>
+                      <span class={`text-[11px] ${isPopular ? 'text-white/50' : 'text-ink-400'}`}>MXN · todo incluido</span>
+                    </div>
+                  ) : (
+                    <div class="mt-4">
+                      <p class={`font-display text-xl font-black ${priceCls}`}>Cotización personalizada</p>
+                    </div>
+                  )}
+                  <div class={`my-5 h-px w-full ${isPopular ? 'bg-white/15' : 'bg-cream-200'}`}></div>
+                  <p class={`flex-1 text-[13.5px] leading-relaxed ${detailCls}`}>{pkg.detail}</p>
+                  <a
+                    href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, me interesa el paquete "${pkg.name}" de ${s.title}.`)}`}
+                    target="_blank"
+                    rel="noopener"
+                    class={`mt-6 flex items-center justify-center gap-2 rounded-xl py-3 text-[14px] font-bold transition-all ${isPopular ? 'bg-white text-brand-500 hover:bg-cream-50' : `border-2 ${isBrand ? 'border-brand-500 text-brand-500 hover:bg-brand-500 hover:text-white' : 'border-accent-500 text-accent-500 hover:bg-accent-500 hover:text-white'}`}`}
+                  >
+                    Cotizar paquete
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════════════════════
+       7. FAQ específica del sub-servicio
+       ════════════════════════════════════════════════════════ -->
+  {s.faq && s.faq.length > 0 && (
+    <section class="section-cream" id="faq">
+      <div class="container">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.8fr]">
+          <div class="lg:sticky lg:top-32 lg:self-start">
+            <span class="eyebrow">Preguntas frecuentes</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Sobre <span class="text-accent-500">{s.shortTitle ?? s.title}</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+            <p class="mt-5 text-[14.5px] leading-relaxed text-ink-600">
+              Respondemos por WhatsApp en menos de 15 minutos si tu pregunta no está aquí.
+            </p>
+            <a
+              href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, tengo una pregunta sobre ${s.title}`)}`}
+              target="_blank"
+              rel="noopener"
+              class="mt-6 inline-flex items-center gap-2 text-[13.5px] font-bold text-accent-500 transition-all hover:gap-3"
+            >
+              Preguntar por WhatsApp
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="space-y-3">
+            {s.faq.map((item, i) => (
+              <details class="faq-item group rounded-2xl border border-cream-200 bg-white open:shadow-soft">
+                <summary class="flex cursor-pointer select-none list-none items-start justify-between gap-4 p-6 text-[14.5px] font-bold text-ink-800 transition-colors hover:text-brand-500">
+                  <span class="flex items-start gap-3">
+                    <span class={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-black text-white ${isBrand ? 'bg-brand-500' : 'bg-accent-500'}`}>
+                      {i + 1}
+                    </span>
+                    {item.q}
+                  </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 h-4 w-4 shrink-0 text-ink-400 transition-transform duration-200 group-open:rotate-180" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="border-t border-cream-100 px-6 pb-6 pt-4">
+                  <p class="pl-9 text-[14px] leading-[1.8] text-ink-600">{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════════════════════
+       8. SIBLINGS — otros L3 del mismo parent
+       ════════════════════════════════════════════════════════ -->
+  {siblings.length > 0 && (
+    <section class="section-white" id="relacionados">
+      <div class="container">
+        <div class="mb-10 flex items-end justify-between gap-4">
+          <div>
+            <span class="eyebrow">Más en {s.parentEyebrow.toLowerCase()}</span>
+            <h2 class="heading-md mt-4">Otras especialidades de <span class="text-accent-500">{s.parentTitle}</span></h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <a href={`/servicios/${s.parentSlug}/`} class="btn-outline hidden sm:inline-flex shrink-0">Ver todas</a>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {siblings.map((sib) => {
+            const sibSlug = sib.id.replace(/\.md$/, '');
+            const sibColor = sib.data.color === 'brand' ? 'bg-brand-500' : 'bg-accent-500';
+            return (
+              <a href={`/servicios/${sib.data.parentSlug}/${sibSlug}/`} class="card group flex items-start gap-4 p-5 transition-all hover:-translate-y-0.5 hover:shadow-card">
+                <span class={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${sibColor}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-white" aria-hidden="true" set:html={svgIcons[sib.data.icon] ?? svgIcons.camera}/>
+                </span>
+                <div class="min-w-0 flex-1">
+                  <p class="text-[10.5px] font-bold uppercase tracking-wider text-ink-400">{sib.data.eyebrow}</p>
+                  <p class="mt-0.5 font-display text-[15px] font-black leading-snug text-brand-500 group-hover:text-accent-500 transition-colors">{sib.data.title}</p>
+                  <p class="mt-1.5 text-[13px] leading-snug text-ink-600 line-clamp-2">{sib.data.description}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════════════════════
+       9. ENLAZADO INTERNO HACIA OTRAS L2
+       ════════════════════════════════════════════════════════ -->
+  <RelatedLinks
+    currentPath={`/servicios/${s.parentSlug}/`}
+    variant="cream"
+    eyebrow="Otros servicios"
+    heading={`Complementa con otras líneas`}
+    lead="Cada sub-servicio puede combinarse con otras líneas para una solución integral. Conoce todo el catálogo profesional."
+  />
+
+  <!-- ════════════════════════════════════════════════════════
+       10. CTA final
+       ════════════════════════════════════════════════════════ -->
+  <CTASection />
+
+</BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+  details summary::marker { display: none; }
+  .faq-item[open] > summary { color: rgb(var(--color-brand)); }
+</style>

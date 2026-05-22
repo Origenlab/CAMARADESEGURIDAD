@@ -262,6 +262,108 @@ const formatPrice = (n: number) =>
 
 
   <!-- ══════════════════════════════════════════════════════
+       2.5 SEGMENTACIÓN — ¿Para qué tipo de cliente es esto?
+       ══════════════════════════════════════════════════════ -->
+  {s.segmentacion && s.segmentacion.length > 0 && (
+    <section class="section-cream" id="segmentacion">
+      <div class="container">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <div>
+            <span class="eyebrow">Encuentra tu caso</span>
+            <h2 class="heading-md mt-4 text-balance">
+              ¿Para qué tipo de hogar <span class="text-accent-500">es esto?</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Cada tipo de inmueble tiene riesgos diferentes y necesita un sistema distinto. Identifica tu caso para entender qué paquete y configuración aplican mejor — sin sobre-instalar ni quedarte corto.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {s.segmentacion.map((seg, i) => (
+            <article class="card group flex flex-col gap-4 p-6 transition-all hover:-translate-y-1 hover:shadow-card">
+              <div class="flex items-start justify-between">
+                <span class={`flex h-11 w-11 items-center justify-center rounded-xl ${isBrand ? 'bg-brand-500/8 text-brand-500' : 'bg-accent-500/8 text-accent-500'} transition-colors group-hover:bg-brand-500 group-hover:text-white`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={svgIcons[seg.icon ?? s.icon] ?? svgIcons.home}/>
+                </span>
+                <span class="font-display text-[36px] font-black leading-none text-ink-200 select-none" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <div>
+                <h3 class="font-display text-[16px] font-black leading-snug text-brand-500">{seg.tipo}</h3>
+                <p class="mt-2 text-[13.5px] leading-relaxed text-ink-600">{seg.descripcion}</p>
+                <div class="mt-4 rounded-lg border border-accent-500/20 bg-accent-500/5 p-3">
+                  <p class="text-[10.5px] font-bold uppercase tracking-wider text-accent-600">Recomendamos</p>
+                  <p class="mt-1 text-[12.5px] leading-relaxed text-ink-700">{seg.recomendacion}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══════════════════════════════════════════════════════
+       2.6 PROBLEMAS — Por qué necesitas este servicio
+       ══════════════════════════════════════════════════════ -->
+  {s.problemas && s.problemas.length > 0 && (
+    <section class="section-brand relative overflow-hidden" id="problemas">
+      <div class="absolute left-0 top-0 h-1 w-full bg-accent-500" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0 opacity-[0.035]" aria-hidden="true"
+        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+
+      <div class="container relative">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <div>
+            <span class="eyebrow-light">El problema real</span>
+            <h2 class="heading-md heading-light mt-4 text-balance">
+              ¿Tu sistema actual <span class="text-accent-400">realmente protege</span> tu hogar?
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <div class="space-y-4">
+            <p class="lead-light">
+              La mayoría de los sistemas residenciales falla por las mismas razones: kits comprados sin asesoría, instalación deficiente, apps que dejan de funcionar, cero soporte cuando algo falla. Antes de instalar, identifica estos errores comunes.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {s.problemas.map((p) => (
+            <article class="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 transition-colors hover:border-white/20 hover:bg-white/[0.07]">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-500/20 text-accent-300">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={svgIcons[p.icon ?? 'shield'] ?? svgIcons.shield}/>
+              </span>
+              <div>
+                <h3 class="font-display text-[15px] font-black leading-snug text-white">{p.titulo}</h3>
+                <p class="mt-2 text-[13px] leading-relaxed text-cream-300">{p.descripcion}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-12 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center sm:flex-row sm:text-left">
+          <div class="flex-1">
+            <p class="font-display text-[16px] font-black text-white">Evita estos errores con un diagnóstico profesional gratis</p>
+            <p class="mt-2 text-[13px] text-cream-300">
+              Vamos a tu casa, identificamos puntos críticos y te entregamos plano de cobertura sin compromiso.
+            </p>
+          </div>
+          <a
+            href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, quiero un diagnóstico de seguridad para mi hogar.`)}`}
+            target="_blank"
+            rel="noopener"
+            class="shrink-0 rounded-xl bg-accent-500 px-6 py-3 font-display text-[14px] font-bold text-white shadow-lg transition hover:bg-accent-600"
+          >
+            Solicitar diagnóstico gratis
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══════════════════════════════════════════════════════
        3. SUB-SERVICIOS
        ══════════════════════════════════════════════════════ -->
   {s.subServicios.length > 0 && (
@@ -320,6 +422,145 @@ const formatPrice = (n: number) =>
     </section>
   )}
 
+
+  <!-- ══════════════════════════════════════════════════════
+       3.5 PROCESO — Cómo trabajamos en este servicio
+       ══════════════════════════════════════════════════════ -->
+  {s.proceso && s.proceso.length > 0 && (
+    <section class="section-white" id="proceso">
+      <div class="container">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <div>
+            <span class="eyebrow">Cómo trabajamos</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Proceso paso a paso, <span class="text-accent-500">sin sorpresas</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Cada instalación residencial sigue el mismo proceso documentado de 5 pasos. Sabes exactamente qué viene, quién es responsable y cuánto tiempo toma — antes, durante y después de la instalación.
+          </p>
+        </div>
+
+        <div class="mt-12 relative">
+          <!-- Línea conectora vertical en desktop -->
+          <div class="absolute left-[27px] top-3 hidden h-[calc(100%-24px)] w-0.5 bg-cream-200 lg:block" aria-hidden="true"></div>
+
+          <ol class="space-y-6">
+            {s.proceso.map((step) => (
+              <li class="relative flex items-start gap-5">
+                <span class={`relative z-10 grid h-14 w-14 shrink-0 place-items-center rounded-2xl font-display text-[15px] font-black text-white shadow-cta ${isBrand ? 'bg-brand-500' : 'bg-accent-500'}`}>
+                  {step.numero}
+                </span>
+                <div class="flex-1 pt-1.5">
+                  <div class="flex flex-wrap items-baseline gap-3">
+                    <h3 class="font-display text-[17px] font-black text-brand-500">{step.titulo}</h3>
+                    {step.tiempo && (
+                      <span class="rounded-full bg-accent-500/10 px-2.5 py-0.5 text-[11px] font-bold text-accent-600 border border-accent-500/20">
+                        ⏱ {step.tiempo}
+                      </span>
+                    )}
+                  </div>
+                  <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">{step.descripcion}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══════════════════════════════════════════════════════
+       3.6 MARCAS — Criterio profesional
+       ══════════════════════════════════════════════════════ -->
+  {s.marcas && s.marcas.length > 0 && (
+    <section class="section-cream" id="marcas">
+      <div class="container">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <div>
+            <span class="eyebrow">Marcas con criterio</span>
+            <h2 class="heading-md mt-4 text-balance">
+              No instalamos <span class="text-accent-500">cualquier marca</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Trabajamos exclusivamente con marcas que tienen refacciones disponibles en México, soporte técnico activo y actualizaciones de firmware. El ahorro de una marca genérica casi siempre termina costando el doble en 18 meses.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          {s.marcas.map((m, i) => (
+            <article class={`card relative flex flex-col overflow-visible border ${i === 0 ? 'border-accent-500/40 shadow-[0_8px_32px_rgba(220,38,38,0.12)]' : 'border-cream-200'}`}>
+              {i === 0 && (
+                <div class="absolute -top-3.5 left-6">
+                  <span class="rounded-full bg-accent-500 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white shadow-cta">
+                    Recomendada
+                  </span>
+                </div>
+              )}
+
+              <div class={`${headerBg} relative overflow-hidden px-6 py-6`}>
+                <div class="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/8" aria-hidden="true"></div>
+                {m.posicionamiento && (
+                  <p class="relative text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/70">{m.posicionamiento}</p>
+                )}
+                <h3 class="relative mt-1 font-display text-2xl font-black leading-none text-white">{m.nombre}</h3>
+              </div>
+
+              <div class="flex flex-1 flex-col p-6">
+                <p class="text-[14px] leading-relaxed text-ink-600">{m.descripcion}</p>
+                <div class="mt-5 rounded-lg bg-cream-100 px-4 py-3 border border-cream-200">
+                  <p class="text-[10.5px] font-bold uppercase tracking-wider text-brand-500">Ideal para</p>
+                  <p class="mt-1 text-[13px] leading-snug text-ink-700">{m.idealPara}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══════════════════════════════════════════════════════
+       3.7 CASOS DE USO REALES
+       ══════════════════════════════════════════════════════ -->
+  {s.casosDeUso && s.casosDeUso.length > 0 && (
+    <section class="section-white" id="casos-uso">
+      <div class="container">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <div>
+            <span class="eyebrow">Casos reales</span>
+            <h2 class="heading-md mt-4 text-balance">
+              Cómo se aplica <span class="text-accent-500">en la práctica</span>
+            </h2>
+            <span class="marker-line mt-5"></span>
+          </div>
+          <p class="lead text-ink-600">
+            Cada hogar tiene un caso de uso distinto. Estos son escenarios típicos que hemos instalado más de 1,200 veces en CDMX y Edomex — para que identifiques el tuyo y sepas qué esperar.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {s.casosDeUso.map((c, i) => (
+            <article class="card group flex flex-col gap-5 p-6 transition-all hover:-translate-y-1 hover:shadow-card">
+              <div class="flex items-center justify-between">
+                <span class={`flex h-11 w-11 items-center justify-center rounded-xl ${isBrand ? 'bg-brand-500 text-white' : 'bg-accent-500 text-white'}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={svgIcons[c.icon ?? s.icon] ?? svgIcons.home}/>
+                </span>
+                <span class="font-display text-[24px] font-black leading-none text-ink-200 select-none" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <div>
+                <h3 class="font-display text-[15.5px] font-black leading-snug text-brand-500 group-hover:text-accent-500 transition-colors">{c.titulo}</h3>
+                <p class="mt-2 text-[13.5px] leading-relaxed text-ink-600">{c.descripcion}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- ══════════════════════════════════════════════════════
        4. PAQUETES — PRICING

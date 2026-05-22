@@ -124,6 +124,47 @@ const servicios = defineCollection({
       // Contenido funcional (para L3 detalle)
       idealPara: z.array(z.string()).default([]),
       features: z.array(z.string()).default([]),
+
+      // ─── SECCIONES DE NARRATIVA COHERENTE ───
+      // Segmentación inicial — "¿Para qué tipo de cliente es esto?"
+      segmentacion: z.array(z.object({
+        tipo: z.string(),
+        descripcion: z.string(),
+        recomendacion: z.string(),
+        icon: z.string().optional(),
+      })).default([]),
+
+      // Problemas comunes — "¿Por qué necesitas este servicio?"
+      problemas: z.array(z.object({
+        titulo: z.string(),
+        descripcion: z.string(),
+        icon: z.string().optional(),
+      })).default([]),
+
+      // Proceso paso a paso específico de este servicio
+      proceso: z.array(z.object({
+        numero: z.string(),
+        titulo: z.string(),
+        descripcion: z.string(),
+        tiempo: z.string().optional(),
+      })).default([]),
+
+      // Casos de uso reales
+      casosDeUso: z.array(z.object({
+        titulo: z.string(),
+        descripcion: z.string(),
+        icon: z.string().optional(),
+      })).default([]),
+
+      // Marcas / equipos con criterio de elección
+      marcas: z.array(z.object({
+        nombre: z.string(),
+        descripcion: z.string(),
+        idealPara: z.string(),
+        posicionamiento: z.string().optional(),
+      })).default([]),
+
+      // ─── PAQUETES Y FAQ (existentes) ───
       paquetes: z
         .array(
           z.object({
@@ -154,8 +195,89 @@ const servicios = defineCollection({
     }),
 });
 
+/**
+ * Collection: subServicios (L3)
+ * Páginas L3 — sub-páginas hijas de cada servicio L2.
+ * Ej: /servicios/camaras-para-hogar/camaras-ip/
+ */
+const subServicios = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/sub-servicios' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      shortTitle: z.string().optional(),
+      eyebrow: z.string(),
+      subtitle: z.string(),
+      description: z.string(),
+      descripcionLarga: z.string().optional(),
+
+      // Relación con parent L2
+      parentSlug: z.string(),
+      parentTitle: z.string(),
+      parentEyebrow: z.string(),
+
+      // Slug explícito (sobrescribe el basename del archivo) — útil para evitar
+      // colisiones entre L3 con mismo concepto pero distinto parent.
+      slug: z.string().optional(),
+
+      icon: z.enum([
+        'home', 'store', 'factory', 'lock', 'camera', 'shield',
+        'eye', 'bell', 'wifi', 'monitor', 'car', 'fingerprint', 'tool',
+        'ptz', 'thermal', 'lpr',
+      ]),
+      color: z.enum(['brand', 'accent']).default('brand'),
+      orden: z.number().default(0),
+      heroImage: image().optional(),
+
+      pilarIntro: z.string().optional(),
+      stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
+
+      idealPara: z.array(z.string()).default([]),
+      features: z.array(z.string()).default([]),
+
+      modelos: z.array(z.object({
+        name: z.string(),
+        brand: z.string(),
+        description: z.string(),
+        features: z.array(z.string()).default([]),
+        idealPara: z.string().optional(),
+        precio: z.number().optional(),
+        destacado: z.boolean().default(false),
+      })).default([]),
+
+      comparativa: z.array(z.object({
+        atributo: z.string(),
+        valor: z.string(),
+        highlight: z.boolean().default(false),
+      })).default([]),
+
+      casosDeUso: z.array(z.object({
+        titulo: z.string(),
+        descripcion: z.string(),
+        icon: z.string().optional(),
+      })).default([]),
+
+      paquetes: z.array(z.object({
+        name: z.string(),
+        detail: z.string(),
+        precio: z.number().optional(),
+        popular: z.boolean().default(false),
+      })).default([]),
+
+      faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+
+      destacado: z.boolean().default(false),
+      seo: z.object({
+        title: z.string().optional(),
+        description: z.string().optional(),
+        keywords: z.string().optional(),
+      }).optional(),
+    }),
+});
+
 export const collections = {
   productos,
   blog,
   servicios,
+  subServicios,
 };
