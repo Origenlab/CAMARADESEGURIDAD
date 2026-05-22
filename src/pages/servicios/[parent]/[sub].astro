@@ -136,10 +136,11 @@ const formatPrice = (n: number) =>
     col2Eyebrow={s.hero?.col2Eyebrow ?? `Sobre ${s.shortTitle ?? s.title}`}
     col2Title={s.hero?.col2Title ?? 'Especialidad profesional con '}
     col2TitleHighlight={s.hero?.col2TitleHighlight ?? 'garantía 2 años'}
-    col2Paragraphs={(s.hero?.col2Paragraphs && s.hero.col2Paragraphs.length > 1
-      ? s.hero.col2Paragraphs.slice(1)
-      : [s.pilarIntro ?? s.descripcionLarga ?? s.description]
-    ).map((html) => ({ html }))}
+    col2Paragraphs={(s.hero?.col2Paragraphs ?? [s.pilarIntro ?? s.descripcionLarga ?? s.description])
+      .map((html) => ({ html }))}
+    col2HighlightStat={s.hero?.col2HighlightStat}
+    col2Features={(s.hero?.col2Features ?? []).map((text) => ({ text }))}
+    col2TrustStrip={s.hero?.col2TrustStrip ?? []}
     showRecBadge={s.hero?.showRecBadge ?? true}
     showQuickLinks={s.hero?.showQuickLinks ?? false}
   />

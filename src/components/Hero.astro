@@ -15,6 +15,15 @@ interface ParagraphEntry {
   html: string;
 }
 
+interface FeatureEntry {
+  text: string;
+}
+
+interface HighlightStat {
+  value: string;
+  label: string;
+}
+
 interface Props {
   // Columna 1
   eyebrow?: string;
@@ -29,6 +38,9 @@ interface Props {
   col2Title?: string;
   col2TitleHighlight?: string;
   col2Paragraphs?: ParagraphEntry[];
+  col2HighlightStat?: HighlightStat;
+  col2Features?: FeatureEntry[];
+  col2TrustStrip?: string[];
 
   // Opciones
   showRecBadge?: boolean;
@@ -70,6 +82,9 @@ en equipo y mano de obra, y opcionalmente mantenimiento preventivo o monitoreo
 24/7 — sin contrato forzoso ni mensualidad obligatoria.`,
     },
   ],
+  col2HighlightStat,
+  col2Features = [],
+  col2TrustStrip = [],
 
   showRecBadge = true,
   showQuickLinks = true,
@@ -143,7 +158,7 @@ const quickLinks = [
         />
       </div>
 
-      <!-- COLUMNA 2 -->
+      <!-- COLUMNA 2 — diseño profesional con stat + paragraphs + features + trust -->
       <div class="animate-fade-up lg:[animation-delay:120ms] lg:pt-2">
         <span class="eyebrow">{col2Eyebrow}</span>
 
@@ -153,9 +168,59 @@ const quickLinks = [
 
         <span class="marker-line mt-6"></span>
 
-        <div class="mt-7 space-y-6 text-[16px] leading-[1.75] text-ink-700">
+        <!-- Stat highlight (opcional) -->
+        {col2HighlightStat && (
+          <div class="mt-6 relative overflow-hidden rounded-2xl border border-brand-500/15 bg-gradient-to-br from-brand-500/[0.06] to-accent-500/[0.04] p-5">
+            <div class="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-accent-500/8" aria-hidden="true"></div>
+            <div class="relative flex items-center gap-4">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-500 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-display text-2xl font-black leading-none text-brand-500">{col2HighlightStat.value}</p>
+                <p class="mt-1 text-[12px] font-semibold uppercase tracking-wider text-ink-600">{col2HighlightStat.label}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Párrafos profesionales -->
+        <div class="mt-6 space-y-5 text-[16px] leading-[1.75] text-ink-700">
           {col2Paragraphs.map((p) => <p set:html={p.html} />)}
         </div>
+
+        <!-- Features list con checkmarks (opcional) -->
+        {col2Features.length > 0 && (
+          <ul class="mt-7 grid gap-3 sm:grid-cols-2">
+            {col2Features.map((f) => (
+              <li class="flex items-start gap-2.5">
+                <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-500/10 ring-1 ring-accent-500/20">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-accent-500" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                </span>
+                <span class="text-[14px] font-semibold leading-snug text-ink-700">{f.text}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <!-- Trust strip — micro badges (opcional) -->
+        {col2TrustStrip.length > 0 && (
+          <div class="mt-6 flex flex-wrap gap-2 border-t border-cream-300 pt-5">
+            {col2TrustStrip.map((b) => (
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-cream-300 bg-white px-3 py-1.5 text-[11.5px] font-bold uppercase tracking-wide text-brand-500 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-accent-500" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+                {b}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   </div>
