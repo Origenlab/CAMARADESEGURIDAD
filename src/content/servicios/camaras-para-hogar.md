@@ -22,17 +22,6 @@ hero:
   col2Paragraphs:
     - "En <strong class=\"font-bold text-brand-500\">10 años instalando más de 1,200 sistemas CCTV residenciales</strong> en CDMX y Estado de México hemos visto el mismo patrón: la mayoría de los robos a casa habitación son <strong class=\"font-bold text-brand-500\">oportunistas</strong> y se previenen con disuasión visible más cobertura inteligente de los puntos críticos. Por eso no diseñamos para impresionar — diseñamos para que tu sistema funcione el día que realmente lo necesitas. Cada propuesta arranca con <strong class=\"font-bold text-brand-500\">visita técnica gratuita</strong> donde identificamos puntos ciegos, evaluamos infraestructura y dimensionamos cobertura exacta — sin sobre-instalar."
     - "Trabajamos <strong class=\"font-bold text-brand-500\">exclusivamente con Hikvision, Dahua y Provision-ISR</strong>, las mismas marcas certificadas que usan bancos, aeropuertos y centros comerciales en México. Cableado oculto profesional en muros y plafones, app oficial configurada en hasta <strong class=\"font-bold text-brand-500\">4 dispositivos de tu familia</strong> con capacitación incluida, y <strong class=\"font-bold text-brand-500\">garantía de 2 años por escrito</strong> en equipo Y mano de obra. Soporte post-instalación directo con el técnico responsable vía WhatsApp en menos de 15 minutos. Sin call center, sin contrato forzoso, sin mensualidad obligatoria."
-  col2Features:
-    - "Visita técnica gratuita · 24-48 horas"
-    - "Cableado oculto profesional en muros"
-    - "App en 4 dispositivos + capacitación"
-    - "Garantía 2 años por escrito"
-    - "Soporte WhatsApp <15 minutos"
-    - "Sin contrato ni mensualidad"
-  col2TrustStrip:
-    - "Hikvision certificado"
-    - "Dahua certificado"
-    - "Provision-ISR"
   showRecBadge: true
   showQuickLinks: false
 
