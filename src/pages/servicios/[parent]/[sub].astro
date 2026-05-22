@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
 import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
@@ -123,69 +124,25 @@ const formatPrice = (n: number) =>
 >
 
   <!-- ════════════════════════════════════════════════════════
-       1. HERO L3 — banner con título + stats + breadcrumb
+       1. HERO — componente unificado <Hero/> (mismo del Home)
        ════════════════════════════════════════════════════════ -->
-  <section class={`relative overflow-hidden ${headerBg}`} aria-labelledby="hero-title">
-    <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/5" aria-hidden="true"></div>
-    <div class="pointer-events-none absolute -bottom-16 left-1/3 h-64 w-64 rounded-full bg-white/5" aria-hidden="true"></div>
-
-    <div class="container relative py-12 lg:py-16">
-
-      <div class="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
-
-        <!-- Texto principal -->
-        <div>
-          <span class={`inline-flex items-center gap-2.5 text-[10.5px] font-bold uppercase tracking-[0.26em] ${eyebrowCol}`}>
-            <span class={`h-1.5 w-1.5 rounded-full ${isBrand ? 'bg-accent-500' : 'bg-white/60'}`}></span>
-            {s.eyebrow}
-          </span>
-
-          <h1 id="hero-title" class="mt-5 font-display text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl">
-            {s.title}
-          </h1>
-
-          <span class={`mt-5 block h-[3px] w-14 rounded-full ${markerCol}`}></span>
-
-          <p class="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/85">
-            {s.subtitle}
-          </p>
-
-          <!-- CTAs hero -->
-          <div class="mt-7 flex flex-wrap gap-3">
-            <a
-              href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, me interesa ${s.title} (${s.parentTitle}).`)}`}
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-[14px] font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              style={`color: ${accentHex}`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 shrink-0" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
-              </svg>
-              Cotiza gratis
-            </a>
-            <a href={`/servicios/${s.parentSlug}/`} class="inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-6 py-3 text-[14px] font-bold text-white transition-all hover:border-white/70 hover:bg-white/10">
-              ← Volver a {s.parentEyebrow}
-            </a>
-          </div>
-        </div>
-
-        <!-- Stats -->
-        {s.stats && s.stats.length > 0 && (
-          <div class="grid grid-cols-2 gap-3">
-            {s.stats.map((st) => (
-              <div class="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur-sm">
-                <p class="font-display text-2xl font-black leading-none text-white">{st.value}</p>
-                <p class="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/65">{st.label}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-      </div>
-    </div>
-    <div class={`h-1 w-full ${isBrand ? 'bg-accent-500' : 'bg-white/20'}`}></div>
-  </section>
+  <Hero
+    eyebrow={s.eyebrow}
+    preTitle={s.hero?.preTitle ?? s.parentEyebrow}
+    title1={s.hero?.title1 ?? s.title.split(' ').slice(0, -1).join(' ')}
+    title2={s.hero?.title2 ?? s.title.split(' ').slice(-1).join(' ')}
+    subtitle={s.subtitle}
+    descriptionHtml={s.hero?.col2Paragraphs?.[0] ?? s.description}
+    col2Eyebrow={s.hero?.col2Eyebrow ?? `Sobre ${s.shortTitle ?? s.title}`}
+    col2Title={s.hero?.col2Title ?? 'Especialidad profesional con '}
+    col2TitleHighlight={s.hero?.col2TitleHighlight ?? 'garantía 2 años'}
+    col2Paragraphs={(s.hero?.col2Paragraphs && s.hero.col2Paragraphs.length > 1
+      ? s.hero.col2Paragraphs.slice(1)
+      : [s.pilarIntro ?? s.descripcionLarga ?? s.description]
+    ).map((html) => ({ html }))}
+    showRecBadge={s.hero?.showRecBadge ?? true}
+    showQuickLinks={s.hero?.showQuickLinks ?? false}
+  />
 
   <!-- ════════════════════════════════════════════════════════
        2. DESCRIPCIÓN LARGA + IDEAL PARA + PILAR

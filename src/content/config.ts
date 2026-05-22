@@ -104,6 +104,19 @@ const servicios = defineCollection({
       orden: z.number().default(0),
       heroImage: image().optional(),
 
+      // Hero del componente unificado <Hero/> (mismo del Home)
+      hero: z.object({
+        preTitle: z.string(),
+        title1: z.string(),
+        title2: z.string(),
+        col2Eyebrow: z.string(),
+        col2Title: z.string(),
+        col2TitleHighlight: z.string(),
+        col2Paragraphs: z.array(z.string()),
+        showRecBadge: z.boolean().default(true),
+        showQuickLinks: z.boolean().default(false),
+      }).optional(),
+
       // Pilar (estructura tipo SEPRICO)
       pilar: z.number().optional(),
       pilarIntro: z.string().optional(),
@@ -219,6 +232,19 @@ const subServicios = defineCollection({
       // Slug explícito (sobrescribe el basename del archivo) — útil para evitar
       // colisiones entre L3 con mismo concepto pero distinto parent.
       slug: z.string().optional(),
+
+      // Hero del componente unificado <Hero/>
+      hero: z.object({
+        preTitle: z.string(),
+        title1: z.string(),
+        title2: z.string(),
+        col2Eyebrow: z.string(),
+        col2Title: z.string(),
+        col2TitleHighlight: z.string(),
+        col2Paragraphs: z.array(z.string()),
+        showRecBadge: z.boolean().default(true),
+        showQuickLinks: z.boolean().default(false),
+      }).optional(),
 
       icon: z.enum([
         'home', 'store', 'factory', 'lock', 'camera', 'shield',

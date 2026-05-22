@@ -11,6 +11,20 @@ color: brand
 orden: 1
 destacado: true
 
+# Hero unificado (mismo componente del Home)
+hero:
+  preTitle: "Servicio Residencial · CDMX y Edomex"
+  title1: "Cámaras para"
+  title2: "el Hogar"
+  col2Eyebrow: "Por qué elegirnos"
+  col2Title: "Sistemas CCTV diseñados a la medida de "
+  col2TitleHighlight: "tu casa"
+  col2Paragraphs:
+    - "Una casa bien protegida no se logra comprando un kit genérico — se <strong class=\"font-bold text-brand-500\">diseña</strong>. En camara-de-seguridad.com instalamos sistemas residenciales pensados específicamente para uso familiar: cámaras Hikvision, Dahua o Provision-ISR según tu caso, cableado oculto profesional y app móvil configurada en hasta 4 dispositivos."
+    - "<strong class=\"font-bold text-brand-500\">Cada hogar tiene puntos críticos distintos.</strong> Por eso cada instalación inicia con visita técnica gratuita y propuesta personalizada antes de cualquier compromiso. Garantía de 2 años por escrito en equipo y mano de obra, soporte directo con el técnico que instaló tu sistema — sin call center, sin contrato forzoso."
+  showRecBadge: true
+  showQuickLinks: false
+
 pilar: 1
 pilarIntro: "Lo que diferencia un sistema residencial profesional de un kit comprado en internet no es la cámara — es el diseño. Cada hogar tiene puntos críticos distintos: una casa con cochera necesita ángulos diferentes que un departamento, una quinta con jardín distintos que un fraccionamiento. Por eso cada instalación inicia con visita técnica gratuita y propuesta personalizada antes de cualquier compromiso."
 
