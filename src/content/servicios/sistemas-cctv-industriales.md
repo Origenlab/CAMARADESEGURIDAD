@@ -26,19 +26,19 @@ stats:
 subServicios:
   - name: "Cámaras Térmicas Perimetrales"
     description: "Detección de calor que distingue personas y vehículos incluso en oscuridad total. Útil para perímetros largos y para mantenimiento predictivo de maquinaria. Bispectrum (térmica + óptica) en un solo equipo."
-    url: "/servicios/industrial/camaras-termicas/"
+    url: "/servicios/sistemas-cctv-industriales/camaras-termicas/"
     icon: eye
   - name: "PTZ con Auto-Tracking"
     description: "Cámaras Speed Dome con zoom óptico 25-30× y seguimiento automático por IA. Ideales para vigilar grandes patios, perímetros o naves desde menos puntos. Rondas programadas con presets configurables."
-    url: "/servicios/industrial/ptz/"
+    url: "/servicios/sistemas-cctv-industriales/ptz/"
     icon: monitor
   - name: "LPR — Lectura de Placas"
     description: "Cámaras especializadas que leen placas vehiculares con barrera automatizada. Listas blancas para flotilla autorizada, listas negras para vehículos no permitidos y registro completo de entrada-salida con timestamp."
-    url: "/servicios/industrial/lpr/"
+    url: "/servicios/sistemas-cctv-industriales/lpr/"
     icon: car
   - name: "Centro de Monitoreo"
     description: "Cuarto de control con NVR profesional de alta capacidad, redundancia en RAID-1, UPS de respaldo y software VMS para gestionar 32-256+ cámaras desde una sola consola. Integración con control de acceso y alarmas."
-    url: "/servicios/industrial/centro-monitoreo/"
+    url: "/servicios/sistemas-cctv-industriales/centro-monitoreo/"
     icon: wifi
 
 idealPara:

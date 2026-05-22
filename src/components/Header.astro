@@ -38,34 +38,34 @@ const breadcrumb = isHome
 
 // Iconos SVG para el mega-menu de servicios
 const serviceIcons: Record<string, string> = {
-  '/servicios/hogar/':          '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
-  '/servicios/comercio/':       '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/>',
-  '/servicios/industrial/':     '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/>',
-  '/servicios/control-acceso/': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  '/servicios/camaras-para-hogar/':          '<path d="m3 11 9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>',
+  '/servicios/camaras-para-comercio/':       '<path d="M3 9h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 9Z"/><path d="M3 9 5 4h14l2 5"/>',
+  '/servicios/sistemas-cctv-industriales/':     '<path d="M3 22V9l6 4V9l6 4V3h6v19H3Z"/>',
+  '/servicios/control-de-acceso/': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
 };
 
 const serviceDescriptions: Record<string, string> = {
-  '/servicios/hogar/':          'Protege tu familia y patrimonio',
-  '/servicios/comercio/':       'Tiendas, oficinas y negocios',
-  '/servicios/industrial/':     'Plantas, naves y bodegas',
-  '/servicios/control-acceso/': 'Videoporteros y cerraduras IP',
+  '/servicios/camaras-para-hogar/':          'Protege tu familia y patrimonio',
+  '/servicios/camaras-para-comercio/':       'Tiendas, oficinas y negocios',
+  '/servicios/sistemas-cctv-industriales/':     'Plantas, naves y bodegas',
+  '/servicios/control-de-acceso/': 'Videoporteros y cerraduras IP',
 };
 
 // Iconos para links directos en móvil
 const mobileNavIcons: Record<string, string> = {
-  '/nosotros/':  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
-  '/proceso/':   '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
-  '/cobertura/': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/>',
-  '/faq/':       '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
+  '/sobre-nosotros/':  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+  '/como-trabajamos/':   '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  '/cobertura-cdmx-edomex/': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/>',
+  '/preguntas-frecuentes/':       '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
   '/contacto/':  '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.92 3.42 2 2 0 0 1 3.9 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.91 6.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/>',
 };
 
 // Links directos en el nav principal
 const mainNavLinks = [
-  { href: '/nosotros/',  label: 'Nosotros' },
-  { href: '/proceso/',   label: 'Proceso' },
-  { href: '/cobertura/', label: 'Cobertura' },
-  { href: '/faq/',       label: 'FAQ' },
+  { href: '/sobre-nosotros/',  label: 'Nosotros' },
+  { href: '/como-trabajamos/',   label: 'Proceso' },
+  { href: '/cobertura-cdmx-edomex/', label: 'Cobertura' },
+  { href: '/preguntas-frecuentes/',       label: 'FAQ' },
   { href: '/contacto/',  label: 'Contacto' },
 ];
 ---

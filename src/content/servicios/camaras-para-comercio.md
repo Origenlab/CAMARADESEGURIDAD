@@ -27,19 +27,19 @@ stats:
 subServicios:
   - name: "CCTV para Tiendas y Locales"
     description: "Cobertura completa de punto de venta, entradas, áreas de exhibición y bodega de producto. Cámaras discretas para ambiente comercial — calidad de imagen para identificar incidentes sin parecer una fortaleza."
-    url: "/servicios/comercio/tiendas/"
+    url: "/servicios/camaras-para-comercio/tiendas/"
     icon: camera
   - name: "Sistemas para Oficinas"
     description: "Áreas comunes, accesos, salas de juntas y áreas restringidas con control de visibilidad según privacidad. Integración con control de acceso por tarjeta o huella para registrar entradas y salidas del personal."
-    url: "/servicios/comercio/oficinas/"
+    url: "/servicios/camaras-para-comercio/oficinas/"
     icon: shield
   - name: "Cámaras para Bodegas"
     description: "Perímetro exterior, áreas de carga y descarga, pasillos de almacén y zonas de inventario. Cámaras IK10 antivandálicas en accesos y PTZ para vigilar grandes superficies con menos puntos."
-    url: "/servicios/comercio/bodegas/"
+    url: "/servicios/camaras-para-comercio/bodegas/"
     icon: monitor
   - name: "Multi-Sucursal Centralizado"
     description: "Cadenas y franquicias con visualización central de todas las sucursales desde un solo dashboard. Roles diferenciados para gerente regional, sucursal y corporativo. Reportes consolidados de eventos."
-    url: "/servicios/comercio/multi-sucursal/"
+    url: "/servicios/camaras-para-comercio/multi-sucursal/"
     icon: wifi
 
 idealPara:

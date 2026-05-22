@@ -7,7 +7,7 @@ import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
 import { PAGE_SEO } from '@/data/seo';
 
-const seo = PAGE_SEO['/nosotros/'];
+const seo = PAGE_SEO['/sobre-nosotros/'];
 
 // ── Datos JSON-LD (también pasados al componente FaqSection) ──
 const faq = [
@@ -35,7 +35,7 @@ const faq = [
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
-  { name: 'Nosotros', url: '/nosotros/' },
+  { name: 'Nosotros', url: '/sobre-nosotros/' },
 ];
 
 // ── Datos de la página ───────────────────────────────────────
@@ -81,7 +81,7 @@ const hitos = [
   { año: '2024', evento: '+2,000 sistemas instalados · Lanzamiento de monitoreo 24/7' },
 ];
 
-// Cards de servicios en /nosotros/ — texto diferente, links al index (/#servicios)
+// Cards de servicios en /sobre-nosotros/ — texto diferente, links al index (/#servicios)
 const nosotrosServices = [
   {
     href: '/#servicios',
@@ -123,7 +123,7 @@ const comparacion = [
   title={seo.title}
   description={seo.description}
   keywords={seo.keywords}
-  canonical="/nosotros/"
+  canonical="/sobre-nosotros/"
   breadcrumb={breadcrumb}
   faq={faq}
 >

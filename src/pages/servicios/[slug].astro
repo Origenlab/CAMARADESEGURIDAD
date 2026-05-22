@@ -530,10 +530,10 @@ const formatPrice = (n: number) =>
 
       <div class="grid gap-5 sm:grid-cols-3">
         {[
-          { href: '/servicios/hogar/',         label: 'Cámaras para Hogar',    eyebrow: 'Residencial',    icon: 'home',    color: 'brand' },
-          { href: '/servicios/comercio/',       label: 'Cámaras para Comercio', eyebrow: 'Comercial',     icon: 'store',   color: 'accent' },
-          { href: '/servicios/industrial/',     label: 'Sistemas Industriales', eyebrow: 'Industrial',    icon: 'factory', color: 'brand' },
-          { href: '/servicios/control-acceso/', label: 'Control de Acceso',     eyebrow: 'Complementario', icon: 'lock',   color: 'accent' },
+          { href: '/servicios/camaras-para-hogar/',         label: 'Cámaras para Hogar',    eyebrow: 'Residencial',    icon: 'home',    color: 'brand' },
+          { href: '/servicios/camaras-para-comercio/',       label: 'Cámaras para Comercio', eyebrow: 'Comercial',     icon: 'store',   color: 'accent' },
+          { href: '/servicios/sistemas-cctv-industriales/',     label: 'Sistemas Industriales', eyebrow: 'Industrial',    icon: 'factory', color: 'brand' },
+          { href: '/servicios/control-de-acceso/', label: 'Control de Acceso',     eyebrow: 'Complementario', icon: 'lock',   color: 'accent' },
         ]
         .filter((rel) => rel.href !== `/servicios/${slug}/`)
         .map((rel) => {

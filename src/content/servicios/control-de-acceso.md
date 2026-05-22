@@ -26,19 +26,19 @@ stats:
 subServicios:
   - name: "Videoporteros IP"
     description: "Pantalla interior + unidad exterior con cámara Full HD, audio bidireccional confiable y app móvil. Identifica quién toca antes de abrir desde casa o desde cualquier parte del mundo. Integración con la chapa."
-    url: "/servicios/control-acceso/videoporteros/"
+    url: "/servicios/control-de-acceso/videoporteros/"
     icon: bell
   - name: "Cerraduras Inteligentes"
     description: "Abre con app, huella, código numérico, tarjeta NFC o llave física de respaldo. Crea códigos temporales para empleados domésticos, mantenimiento o Airbnb. Funciona localmente aunque se caiga el internet."
-    url: "/servicios/control-acceso/cerraduras-inteligentes/"
+    url: "/servicios/control-de-acceso/cerraduras-inteligentes/"
     icon: lock
   - name: "Biométricos Empresariales"
     description: "Lectores de huella, rostro o tarjeta MIFARE/NFC con gestión completa de usuarios por departamento. Registro auditable de entrada-salida con timestamp. Compatible con sistemas de nómina y T&A."
-    url: "/servicios/control-acceso/biometricos/"
+    url: "/servicios/control-de-acceso/biometricos/"
     icon: fingerprint
   - name: "Acceso Vehicular con LPR"
     description: "Pluma automática + cámara de lectura de placas con listas blancas configurables. Abre sin contacto para vehículos autorizados, bloquea no autorizados y registra cada entrada-salida con timestamp y foto."
-    url: "/servicios/control-acceso/acceso-vehicular/"
+    url: "/servicios/control-de-acceso/acceso-vehicular/"
     icon: car
 
 idealPara:

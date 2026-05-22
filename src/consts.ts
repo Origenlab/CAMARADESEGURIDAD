@@ -38,27 +38,27 @@ export const NAV_LINKS = [
   { href: '/', label: 'Inicio' },
   { href: '/servicios/', label: 'Servicios' },
   { href: '/#porque-nosotros', label: 'Por qué nosotros' },
-  { href: '/proceso/', label: 'Cómo trabajamos' },
-  { href: '/faq/', label: 'Preguntas frecuentes' },
+  { href: '/como-trabajamos/', label: 'Cómo trabajamos' },
+  { href: '/preguntas-frecuentes/', label: 'Preguntas frecuentes' },
   { href: '/contacto/', label: 'Contacto' },
 ] as const;
 
 /** Links de servicios — usados en footer y mega-menú */
 export const SERVICE_LINKS = [
-  { href: '/servicios/hogar/', label: 'Cámaras para Hogar' },
-  { href: '/servicios/comercio/', label: 'Cámaras para Comercio' },
-  { href: '/servicios/industrial/', label: 'Sistemas Industriales' },
-  { href: '/servicios/control-acceso/', label: 'Control de Acceso' },
+  { href: '/servicios/camaras-para-hogar/', label: 'Cámaras para Hogar' },
+  { href: '/servicios/camaras-para-comercio/', label: 'Cámaras para Comercio' },
+  { href: '/servicios/sistemas-cctv-industriales/', label: 'Sistemas Industriales' },
+  { href: '/servicios/control-de-acceso/', label: 'Control de Acceso' },
 ] as const;
 
 /** Secciones y páginas de interés — usados en footer y accesos rápidos */
 export const SECTION_LINKS = [
-  { href: '/nosotros/', label: 'Quiénes somos' },
+  { href: '/sobre-nosotros/', label: 'Quiénes somos' },
   { href: '/servicios/', label: 'Todos los servicios' },
   { href: '/#equipos', label: 'Equipos Profesionales' },
-  { href: '/proceso/', label: 'Cómo trabajamos' },
-  { href: '/cobertura/', label: 'Cobertura CDMX' },
-  { href: '/faq/', label: 'Preguntas frecuentes' },
+  { href: '/como-trabajamos/', label: 'Cómo trabajamos' },
+  { href: '/cobertura-cdmx-edomex/', label: 'Cobertura CDMX' },
+  { href: '/preguntas-frecuentes/', label: 'Preguntas frecuentes' },
   { href: '/contacto/', label: 'Contacto' },
 ] as const;
 

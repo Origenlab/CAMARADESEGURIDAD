@@ -27,19 +27,19 @@ stats:
 subServicios:
   - name: "Cámaras IP para Hogar"
     description: "Cámaras Full HD y 4K con visión nocturna IR, audio bidireccional y app móvil. Las mismas marcas Hikvision y Dahua que usan bancos — adaptadas al uso residencial con discreción y precio justo."
-    url: "/servicios/hogar/camaras-ip/"
+    url: "/servicios/camaras-para-hogar/camaras-ip/"
     icon: camera
   - name: "Videoporteros Inteligentes"
     description: "Identifica quién toca antes de abrir desde tu pantalla interior o desde el celular. Audio bidireccional Full HD, integración con la chapa y registro de visitas. Útil sin importar si estás en casa o no."
-    url: "/servicios/hogar/videoporteros/"
+    url: "/servicios/camaras-para-hogar/videoporteros/"
     icon: bell
   - name: "Alarmas Residenciales"
     description: "Sensores de movimiento, contactos magnéticos en ventanas y puertas, botón de pánico y sirena disuasoria. Notificación push al celular en cuanto se activa cualquier sensor — opcional sin contrato."
-    url: "/servicios/hogar/alarmas/"
+    url: "/servicios/camaras-para-hogar/alarmas/"
     icon: shield
   - name: "Monitoreo desde tu App"
     description: "Configuramos la aplicación oficial de la marca en hasta 4 dispositivos y te capacitamos antes de irnos. Ver en vivo, revisar grabaciones, compartir acceso con la familia y recibir alertas inteligentes desde cualquier lugar."
-    url: "/servicios/hogar/monitoreo/"
+    url: "/servicios/camaras-para-hogar/monitoreo/"
     icon: monitor
 
 idealPara:

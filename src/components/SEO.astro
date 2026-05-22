@@ -265,10 +265,10 @@ const localBusiness = {
     '@type': 'OfferCatalog',
     name: 'Servicios de instalación CCTV',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cámaras de seguridad para hogar', url: `${SITE.url}/servicios/hogar/` } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cámaras de seguridad para comercio', url: `${SITE.url}/servicios/comercio/` } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Sistemas CCTV industriales', url: `${SITE.url}/servicios/industrial/` } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Control de acceso', url: `${SITE.url}/servicios/control-acceso/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cámaras de seguridad para hogar', url: `${SITE.url}/servicios/camaras-para-hogar/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cámaras de seguridad para comercio', url: `${SITE.url}/servicios/camaras-para-comercio/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Sistemas CCTV industriales', url: `${SITE.url}/servicios/sistemas-cctv-industriales/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Control de acceso', url: `${SITE.url}/servicios/control-de-acceso/` } },
     ],
   },
   aggregateRating: {
@@ -387,7 +387,7 @@ if (reviews && reviews.length > 0) {
   });
 }
 
-// HowTo (paso a paso, ideal para /proceso/)
+// HowTo (paso a paso, ideal para /como-trabajamos/)
 if (howTo && howTo.steps.length > 0) {
   extraSchemas.push({
     '@context': 'https://schema.org',
@@ -424,7 +424,7 @@ if (contactPoints && contactPoints.length > 0) {
   });
 }
 
-// Places servidos (para /cobertura/)
+// Places servidos (para /cobertura-cdmx-edomex/)
 if (places && places.length > 0) {
   extraSchemas.push({
     '@context': 'https://schema.org',

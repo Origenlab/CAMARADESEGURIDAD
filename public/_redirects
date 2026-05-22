@@ -1,0 +1,30 @@
+# ─────────────────────────────────────────────────────────────
+# 301 Redirects · Cámara de Seguridad
+# Formato Cloudflare Pages — preserva ranking SEO de URLs antiguas
+# ─────────────────────────────────────────────────────────────
+
+# Servicios — sub-páginas L2
+/servicios/hogar/             /servicios/camaras-para-hogar/             301
+/servicios/hogar              /servicios/camaras-para-hogar/             301
+/servicios/comercio/          /servicios/camaras-para-comercio/          301
+/servicios/comercio           /servicios/camaras-para-comercio/          301
+/servicios/industrial/        /servicios/sistemas-cctv-industriales/     301
+/servicios/industrial         /servicios/sistemas-cctv-industriales/     301
+/servicios/control-acceso/    /servicios/control-de-acceso/              301
+/servicios/control-acceso     /servicios/control-de-acceso/              301
+
+# Páginas L2 raíz
+/nosotros/                    /sobre-nosotros/                           301
+/nosotros                     /sobre-nosotros/                           301
+/proceso/                     /como-trabajamos/                          301
+/proceso                      /como-trabajamos/                          301
+/cobertura/                   /cobertura-cdmx-edomex/                    301
+/cobertura                    /cobertura-cdmx-edomex/                    301
+/faq/                         /preguntas-frecuentes/                     301
+/faq                          /preguntas-frecuentes/                     301
+
+# Atajos cortos sin /servicios/ (keyword corto → URL completa)
+/hogar                        /servicios/camaras-para-hogar/             301
+/comercio                     /servicios/camaras-para-comercio/          301
+/industrial                   /servicios/sistemas-cctv-industriales/     301
+/control-de-acceso            /servicios/control-de-acceso/              301

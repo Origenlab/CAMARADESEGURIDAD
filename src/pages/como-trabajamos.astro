@@ -8,7 +8,7 @@ import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
 import { PAGE_SEO } from '@/data/seo';
 
-const seo = PAGE_SEO['/proceso/'];
+const seo = PAGE_SEO['/como-trabajamos/'];
 
 // HowTo schema — los 6 pasos del proceso
 const howTo = {
@@ -46,7 +46,7 @@ const howTo = {
 
 const breadcrumb = [
   { name: 'Inicio', url: '/' },
-  { name: 'Cómo trabajamos', url: '/proceso/' },
+  { name: 'Cómo trabajamos', url: '/como-trabajamos/' },
 ];
 
 const faq = [
@@ -93,7 +93,7 @@ const faq = [
   title={seo.title}
   description={seo.description}
   keywords={seo.keywords}
-  canonical="/proceso/"
+  canonical="/como-trabajamos/"
   breadcrumb={breadcrumb}
   faq={faq}
   howTo={howTo}
