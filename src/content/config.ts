@@ -164,6 +164,8 @@ const servicios = defineCollection({
         descripcion: z.string(),
         recomendacion: z.string(),
         icon: z.string().optional(),
+        image: image().optional(), // imagen real opcional · fallback placeholder
+        imageAlt: z.string().optional(),
       })).default([]),
 
       // Problemas comunes — "¿Por qué necesitas este servicio?"

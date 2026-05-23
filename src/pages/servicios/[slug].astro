@@ -352,25 +352,93 @@ const formatPrice = (n: number) =>
           </p>
         </div>
 
-        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {s.segmentacion.map((seg, i) => (
-            <article class="card group flex flex-col gap-4 p-6 transition-all hover:-translate-y-1 hover:shadow-card">
-              <div class="flex items-start justify-between">
-                <span class={`flex h-11 w-11 items-center justify-center rounded-xl ${isBrand ? 'bg-brand-500/8 text-brand-500' : 'bg-accent-500/8 text-accent-500'} transition-colors group-hover:bg-brand-500 group-hover:text-white`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true" set:html={svgIcons[seg.icon ?? s.icon] ?? svgIcons.home}/>
-                </span>
-                <span class="font-display text-[36px] font-black leading-none text-ink-200 select-none" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              </div>
-              <div>
-                <h3 class="font-display text-[16px] font-black leading-snug text-brand-500">{seg.tipo}</h3>
-                <p class="mt-2 text-[13.5px] leading-relaxed text-ink-600">{seg.descripcion}</p>
-                <div class="mt-4 rounded-lg border border-accent-500/20 bg-accent-500/5 p-3">
-                  <p class="text-[10.5px] font-bold uppercase tracking-wider text-accent-600">Recomendamos</p>
-                  <p class="mt-1 text-[12.5px] leading-relaxed text-ink-700">{seg.recomendacion}</p>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {s.segmentacion.map((seg, i) => {
+            // Alterna fondo brand/accent para variedad visual
+            const cardAccent = i % 2 === 0 ? 'brand' : 'accent';
+            const isBrandCard = cardAccent === 'brand';
+            const placeholderBg = isBrandCard
+              ? 'bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700'
+              : 'bg-gradient-to-br from-accent-500 via-accent-600 to-accent-700';
+            const decorRing = isBrandCard ? 'bg-accent-500/25' : 'bg-white/15';
+            return (
+              <article class="group flex flex-col overflow-hidden rounded-2xl bg-white border border-cream-200 shadow-sm transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(10,37,64,0.25)]">
+
+                <!-- ── HEADER VISUAL (imagen real o placeholder ilustrado) ── -->
+                <div class={`relative aspect-[16/10] overflow-hidden ${seg.image ? '' : placeholderBg}`}>
+
+                  {seg.image ? (
+                    <img
+                      src={seg.image.src}
+                      alt={seg.imageAlt ?? seg.tipo}
+                      width={seg.image.width}
+                      height={seg.image.height}
+                      loading="lazy"
+                      class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <>
+                      <!-- Patrón de puntos sutil -->
+                      <div class="absolute inset-0 opacity-[0.08]" aria-hidden="true"
+                        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 20px 20px;"></div>
+
+                      <!-- Círculo decorativo grande -->
+                      <div class={`absolute -right-12 -top-12 h-40 w-40 rounded-full ${decorRing} blur-sm`} aria-hidden="true"></div>
+                      <div class={`absolute -left-8 -bottom-8 h-28 w-28 rounded-full ${decorRing} opacity-60`} aria-hidden="true"></div>
+
+                      <!-- Icon masivo centrado -->
+                      <div class="absolute inset-0 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-28 w-28 text-white/60 transition-transform duration-500 group-hover:scale-110" aria-hidden="true" set:html={svgIcons[seg.icon ?? s.icon] ?? svgIcons.home}/>
+                      </div>
+
+                      <!-- Línea decorativa bottom -->
+                      <div class="absolute bottom-0 left-0 h-1 w-full bg-white/20" aria-hidden="true"></div>
+                    </>
+                  )}
+
+                  <!-- Type chip overlay top-left -->
+                  <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-brand-500 shadow-sm">
+                    <span class={`h-1.5 w-1.5 rounded-full ${isBrandCard ? 'bg-accent-500' : 'bg-brand-500'}`}></span>
+                    Tipo {String(i + 1).padStart(2, '0')}
+                  </span>
+
+                  <!-- Tipo title overlay bottom -->
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5">
+                    <h3 class="font-display text-[18px] font-black leading-tight text-white drop-shadow-md">
+                      {seg.tipo}
+                    </h3>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <!-- ── BODY ── -->
+                <div class="flex flex-1 flex-col p-5">
+                  <p class="text-[13.5px] leading-relaxed text-ink-600">
+                    {seg.descripcion}
+                  </p>
+
+                  <!-- Divider -->
+                  <div class="my-5 h-px bg-cream-200"></div>
+
+                  <!-- Recomendación destacada -->
+                  <div class="rounded-xl border border-accent-500/20 bg-gradient-to-br from-accent-500/[0.06] to-accent-500/[0.02] p-4">
+                    <div class="flex items-center gap-2">
+                      <span class="flex h-5 w-5 items-center justify-center rounded-full bg-accent-500 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3" aria-hidden="true">
+                          <path d="m13 2-3 7h6l-7 13 3-9H6l7-11z"/>
+                        </svg>
+                      </span>
+                      <p class="text-[10.5px] font-bold uppercase tracking-wider text-accent-600">
+                        Recomendamos
+                      </p>
+                    </div>
+                    <p class="mt-2.5 text-[12.5px] leading-relaxed text-ink-700">
+                      {seg.recomendacion}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
