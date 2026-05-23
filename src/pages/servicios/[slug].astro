@@ -515,20 +515,17 @@ const formatPrice = (n: number) =>
         style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"></div>
 
       <div class="container relative">
-        <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <div>
-            <span class="eyebrow-light">El problema real</span>
-            <h2 class="heading-md heading-light mt-4 text-balance">
-              ¿Tu sistema actual <span class="text-accent-400">realmente protege</span> tu hogar?
-            </h2>
-            <span class="marker-line mt-5"></span>
-          </div>
-          <div class="space-y-4">
-            <p class="lead-light">
-              La mayoría de los sistemas residenciales falla por las mismas razones: kits comprados sin asesoría, instalación deficiente, apps que dejan de funcionar, cero soporte cuando algo falla. Antes de instalar, identifica estos errores comunes.
-            </p>
-          </div>
-        </div>
+        <SectionHeader
+          eyebrow="El problema real"
+          title="¿Tu sistema actual realmente protege tu hogar?"
+          highlight="realmente protege"
+          level="lg"
+          variant="dark"
+          lead={[
+            `La mayoría de los sistemas residenciales falla por las mismas razones: <strong class="font-bold text-white">kits comprados sin asesoría, instalación deficiente, apps que dejan de funcionar y cero soporte</strong> cuando algo falla. En CAMSEG hemos visto el patrón repetirse durante 50 años: un sistema que se ve bien recién instalado no es lo mismo que un sistema que sigue funcionando a los 3 años cuando realmente lo necesitas.`,
+            `Antes de invertir en cámaras, identifica los <strong class="font-semibold text-white">cuatro errores más comunes</strong> que volverán tu sistema inservible a los 12-18 meses. Cada problema documentado abajo lo hemos rescatado decenas de veces con migración profesional — pero es más barato evitarlo desde el inicio.`,
+          ]}
+        />
 
         <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {s.problemas.map((p) => (
