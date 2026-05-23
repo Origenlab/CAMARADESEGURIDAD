@@ -206,20 +206,7 @@ subServicios:
     url: "/servicios/camaras-para-hogar/monitoreo/"
     icon: monitor
 
-paquetes:
-  - name: "Básico — 2 cámaras"
-    detail: "DVR 4 canales + HDD 500 GB · ideal para entrada y cochera o departamento pequeño"
-    precio: 3490
-  - name: "Estándar — 4 cámaras"
-    detail: "DVR 8 canales + HDD 1 TB · perímetro completo casa media · más elegido"
-    precio: 5490
-    popular: true
-  - name: "Premium — 8 cámaras"
-    detail: "NVR 8ch + HDD 2 TB + audio + UPS · casa grande o residencial"
-    precio: 9990
-  - name: "Plus Residencial — 16+"
-    detail: "NVR 16ch + HDD 4 TB + UPS + Sky Tracker · quintas, ranchos, casas de campo"
-    precio: 18900
+paquetes: []
 
 faq:
   - q: "¿Qué tipo de cámara funciona mejor para mi casa?"
