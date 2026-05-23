@@ -5,6 +5,31 @@ eyebrow: "SERVICIO RESIDENCIAL"
 subtitle: "Sistemas CCTV diseñados a la medida de tu casa — no kits genéricos que se venden por internet."
 description: "Instalación profesional de cámaras de seguridad para hogar en CDMX y Estado de México. Equipos Hikvision, Dahua y Provision-ISR con visita técnica gratuita, garantía 2 años por escrito y soporte directo sin call center."
 descripcionLarga: "Una casa bien protegida no se logra comprando un kit genérico — se diseña. En camara-de-seguridad.com instalamos sistemas CCTV residenciales pensados específicamente para uso familiar: cámaras Hikvision, Dahua o Provision-ISR según tu caso, cableado oculto profesional, app móvil configurada en hasta 4 dispositivos con capacitación incluida, integración opcional con videoporteros, alarmas y monitoreo desde el celular. Todo respaldado con garantía de 2 años por escrito y soporte directo con el técnico que instaló tu sistema."
+descripcionSecundaria: "Más allá del equipo, lo que protege tu hogar es el <strong class=\"font-bold text-brand-500\">criterio de instalación</strong>: dónde se coloca cada cámara, qué ángulo cubre, cómo se oculta el cableado, cómo se configura la app para tu familia. Por eso enviamos técnicos certificados Hikvision y Dahua — no subcontratistas. El mismo que diseña tu sistema es el que lo instala, te capacita y queda como contacto directo de soporte por WhatsApp. Sin call center, sin tickets perdidos, sin números que no responden a los 6 meses."
+
+miniStats:
+  - value: "10+"
+    label: "años de experiencia"
+  - value: "+1,200"
+    label: "hogares protegidos"
+  - value: "32+"
+    label: "zonas de cobertura"
+  - value: "2 años"
+    label: "garantía por escrito"
+
+idealParaDetalle:
+  - titulo: "Casas con cochera o patio"
+    descripcion: "Cobertura entrada vehicular, perímetro exterior y áreas comunes con cámaras ColorVu para identificación de día y noche."
+  - titulo: "Departamentos en planta baja"
+    descripcion: "Cámaras Wi-Fi discretas sin cables expuestos en accesos, ventanas vulnerables y áreas comunes con permiso del edificio."
+  - titulo: "Residenciales y fraccionamientos"
+    descripcion: "Sistemas multi-cámara con NVR central, audio bidireccional y configuración de roles para familia, personal y vecinos autorizados."
+  - titulo: "Casas de campo o de fin de semana"
+    descripcion: "Vigilancia 24/7 con notificación push inteligente y UPS de respaldo para mantener el sistema activo durante apagones."
+  - titulo: "Hogares con personal doméstico"
+    descripcion: "Cámaras visibles solo en áreas comunes (nunca habitaciones privadas), audio para verificar entregas y registro objetivo con respeto legal."
+  - titulo: "Hogares con adultos mayores"
+    descripcion: "Videoporteros IP que identifican visitas antes de abrir, botón de pánico inalámbrico opcional y verificación remota por la familia."
 
 icon: home
 color: brand

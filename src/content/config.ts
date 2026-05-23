@@ -97,6 +97,19 @@ const servicios = defineCollection({
       subtitle: z.string(),
       description: z.string(),
       descripcionLarga: z.string().optional(),
+      descripcionSecundaria: z.string().optional(),
+
+      // Mini stats inline en sección 2 — para balance visual
+      miniStats: z.array(z.object({
+        value: z.string(),
+        label: z.string(),
+      })).default([]),
+
+      // Ideal para con descripción opcional (override del array simple)
+      idealParaDetalle: z.array(z.object({
+        titulo: z.string(),
+        descripcion: z.string().optional(),
+      })).default([]),
 
       // Visual
       icon: z.enum(['home', 'store', 'factory', 'lock', 'camera', 'shield']),
