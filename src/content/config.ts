@@ -201,6 +201,69 @@ const servicios = defineCollection({
         posicionamiento: z.string().optional(),
       })).default([]),
 
+      // ─── HEADINGS DINÁMICOS POR SECCIÓN (anti-hardcode) ───
+      // Cada L2 puede sobrescribir los títulos genéricos del template
+      headings: z.object({
+        idealPara: z.object({
+          title: z.string().optional(),
+          highlight: z.string().optional(),
+          lead: z.array(z.string()).default([]),
+        }).optional(),
+        segmentacion: z.object({
+          title: z.string().optional(),
+          highlight: z.string().optional(),
+          lead: z.array(z.string()).default([]),
+        }).optional(),
+        problemas: z.object({
+          title: z.string().optional(),
+          highlight: z.string().optional(),
+          lead: z.array(z.string()).default([]),
+        }).optional(),
+        proceso: z.object({
+          title: z.string().optional(),
+          highlight: z.string().optional(),
+          lead: z.string().optional(),
+        }).optional(),
+        casos: z.object({
+          title: z.string().optional(),
+          highlight: z.string().optional(),
+          lead: z.string().optional(),
+        }).optional(),
+        marcas: z.object({
+          title: z.string().optional(),
+          highlight: z.string().optional(),
+          lead: z.string().optional(),
+        }).optional(),
+        subServicios: z.object({
+          eyebrow: z.string().optional(),
+          title1: z.string().optional(),
+          title2: z.string().optional(),
+        }).optional(),
+      }).optional(),
+
+      // Testimonio destacado en sección 2 (anti-hardcode Roberto M.)
+      testimonio: z.object({
+        texto: z.string(),
+        autor: z.string(),
+        rol: z.string(),
+        initials: z.string(),
+      }).optional(),
+
+      // CTA del bloque de problemas (anti-hardcode "diagnóstico de seguridad para mi hogar")
+      ctaProblemas: z.object({
+        titulo: z.string(),
+        descripcion: z.string(),
+        waMessage: z.string(),
+        ctaLabel: z.string(),
+      }).optional(),
+
+      // Form WhatsApp dinámico por servicio (anti-hardcode "Cámaras aprox.")
+      formConfig: z.object({
+        fieldLabel: z.string().default('Cámaras aprox.'),
+        fieldOptions: z.array(z.string()).default(['No sé aún', '2 cámaras', '4 cámaras', '6-8 cámaras', 'Más de 8']),
+        textareaPlaceholder: z.string().default('Cuéntanos brevemente tu caso...'),
+      }).optional(),
+
       // ─── PAQUETES Y FAQ (existentes) ───
       paquetes: z
         .array(
@@ -227,6 +290,7 @@ const servicios = defineCollection({
         .object({
           title: z.string().optional(),
           description: z.string().optional(),
+          keywords: z.string().optional(),
         })
         .optional(),
     }),

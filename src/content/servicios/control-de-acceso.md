@@ -222,10 +222,64 @@ faq:
   - q: "¿Puedo controlar acceso vehicular en mi fraccionamiento?"
     a: "Sí. El sistema LPR (Lectura de Placas) más pluma automática permite gestionar listas blancas de residentes con apertura sin contacto, listas grises de visitantes con código temporal y listas negras automáticas. Cada entrada y salida queda registrada con foto y timestamp. CAMSEG ha equipado fraccionamientos desde 30 hasta 600 unidades — el sistema escala sin problema."
 
+# Headings dinámicos por sección — copy específico para control-de-acceso
+headings:
+  idealPara:
+    title: "Ideal para gestionar tus accesos"
+    highlight: "tus accesos"
+    lead:
+      - "Más de <strong class=\"font-bold text-brand-500\">3,500 sistemas de control de acceso</strong> instalados con CAMSEG nos enseñaron que cada proyecto es distinto: una casa con empleada doméstica no requiere lo mismo que un fraccionamiento de 200 unidades o una planta industrial con 3 turnos. Identifica tu caso para entender qué tecnología (videoportero IP, biométrico, smart lock o LPR) recomendamos."
+      - "Cada caso documentado abajo incluye <strong class=\"font-semibold text-brand-500\">integración nativa con CCTV</strong> existente para que cada acceso quede grabado en alta calidad. Si tu proyecto es híbrido o multi-sitio, agenda visita técnica gratuita para diseño a medida."
+  segmentacion:
+    title: "¿Qué tipo de control de acceso necesitas?"
+    highlight: "tipo de control"
+    lead:
+      - "Cada perfil requiere <strong class=\"font-bold text-brand-500\">tecnología distinta</strong>: residencial usa videoportero + smart lock, comercial usa biométrico de huella o tarjeta, industrial requiere torniquetes + LPR, enterprise exige doble autenticación con esclusas. Identifica tu caso para entender la propuesta."
+      - "En CAMSEG <strong class=\"font-semibold text-brand-500\">no aplicamos plantillas</strong> — un datacenter requiere compliance ISO 27001, un fraccionamiento requiere gestión de visitantes con código temporal, una planta requiere integración con nómina y T&A. Cada solución se diseña según operación real."
+  problemas:
+    title: "¿Tu control de acceso actual es realmente seguro?"
+    highlight: "realmente seguro"
+    lead:
+      - "La mayoría de los sistemas de acceso fallan por las mismas razones: <strong class=\"font-bold text-white\">llaves físicas que se copian sin control, cerraduras sin registro auditable, timbres WiFi que se caen y la imposibilidad de revocar acceso al instante</strong> cuando despides personal. El resultado son riesgos abiertos y disputas laborales sin evidencia."
+      - "Antes de invertir, identifica los <strong class=\"font-semibold text-white\">cuatro errores más comunes</strong> que vuelven inservible un control de acceso. CAMSEG ha rescatado proyectos con llaves perdidas, cerraduras sin log y biométricos sin gestión multi-rol — es más barato hacerlo bien desde el inicio."
+  proceso:
+    title: "Proceso paso a paso con integración CCTV"
+    highlight: "integración CCTV"
+    lead: "Cada proyecto de control de acceso CAMSEG se integra nativamente con tu CCTV existente — sea Hikvision, Dahua, Axis o cualquier marca profesional. Cada apertura queda grabada en alta calidad, cada intento fallido genera notificación. Proceso documentado de 5 pasos sin sorpresas."
+  casos:
+    title: "Cómo se aplica el control de acceso real"
+    highlight: "control de acceso real"
+    lead: "Estos son escenarios típicos que CAMSEG ha equipado: hogares con códigos temporales, despachos con biométrico + log auditable, fraccionamientos con LPR, plantas con turnos integrados a nómina y datacenters con doble autenticación. Identifica el tuyo."
+  marcas:
+    title: "Marcas con criterio para control de acceso"
+    highlight: "criterio"
+    lead: "Trabajamos con marcas que escalan: residencial (Hikvision/Dahua/Yale), enterprise (Suprema/ZKTeco con BioStar) y premium bancario (HID + Aqara). Cada nivel tiene refacciones disponibles, firmware actualizado y soporte técnico en México."
+  subServicios:
+    eyebrow: "Especialidades de control de acceso"
+    title1: "Cuatro especialidades de acceso,"
+    title2: "una sola garantía"
+
+testimonio:
+  texto: "CAMSEG nos integró el biométrico de huella con las 12 cámaras existentes y con el sistema de nómina. Cada apertura queda grabada en alta calidad y el reporte de asistencia se exporta directo. Cuando despedimos a alguien, revocar el acceso es un clic. A los 16 meses todo sigue funcionando impecable."
+  autor: "Lic. Carolina P."
+  rol: "Despacho contable · 28 empleados · CDMX"
+  initials: "CP"
+
+ctaProblemas:
+  titulo: "Diagnóstico gratuito de control de acceso + CCTV"
+  descripcion: "Vamos a tu propiedad, mapeamos accesos reales, evaluamos integración con tu CCTV actual y te entregamos plano sin compromiso."
+  waMessage: "Hola, quiero un diagnóstico gratuito de control de acceso para mi proyecto."
+  ctaLabel: "Solicitar diagnóstico gratis"
+
+formConfig:
+  fieldLabel: "Tipo de control"
+  fieldOptions: ["No sé · diagnóstico", "Videoportero IP", "Cerradura inteligente", "Biométrico empresarial", "LPR vehicular", "Combinación"]
+  textareaPlaceholder: "Ej. Casa con empleada doméstica, quiero códigos temporales y app en celular..."
+
 seo:
-  title: "Control de Acceso México | Videoporteros, Cerraduras Smart, Biométricos · CAMSEG"
-  description: "Videoporteros IP, cerraduras inteligentes, biométricos y acceso vehicular con LPR en toda la República Mexicana. Integración nativa con CCTV. CAMSEG · 50+ años de experiencia · +3,500 sistemas instalados · garantía 2 años por escrito."
-  keywords: "control de acceso México, videoportero IP, cerradura inteligente, biométrico huella, biométrico rostro, acceso vehicular LPR, fraccionamiento, control empleados, tiempo asistencia, Hikvision videoportero, Suprema BioStar, ZKTeco, Yale Aqara, integración CCTV, LFPDPPP"
+  title: "Control de Acceso | CAMSEG · Videoporteros, Biométricos y LPR"
+  description: "Videoporteros IP, cerraduras inteligentes, biométricos y LPR vehicular con integración nativa CCTV. CAMSEG · 50+ años · +3,500 sistemas · garantía 2 años."
+  keywords: "control de acceso México, videoportero IP, cerradura inteligente, biométrico huella, biométrico rostro, acceso vehicular LPR, fraccionamiento, control empleados, tiempo asistencia, Hikvision videoportero, Suprema BioStar, ZKTeco, Yale Aqara, integración CCTV, LFPDPPP, CAMSEG accesos"
 ---
 
 ## Cuándo necesitas control de acceso

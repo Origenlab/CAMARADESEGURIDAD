@@ -84,7 +84,7 @@ export const LINK_CATALOG: Record<string, RelatedLink> = {
     href: '/sobre-nosotros/',
     label: 'Quiénes somos · 50 años de experiencia',
     eyebrow: 'Nosotros',
-    description: 'Más de 15,000 sistemas instalados en CDMX desde 1976, técnicos certificados Hikvision.',
+    description: 'Más de 17,000 sistemas instalados en CDMX desde 1976, técnicos certificados Hikvision.',
     icon: 'about',
     color: 'brand',
   },
@@ -129,7 +129,7 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   '/': {
     title: 'CAMSEG | Cámaras de Seguridad CCTV en México · 50+ Años · Cobertura Nacional',
     description:
-      'CAMSEG · empresa mexicana líder en venta e instalación de cámaras de seguridad CCTV con más de 50 años de experiencia. +15,000 proyectos en toda la República Mexicana para hogar, comercio, industria y gobierno. Hikvision, Dahua, Axis y Provision-ISR con garantía 2 años por escrito.',
+      'CAMSEG · empresa mexicana líder en venta e instalación de cámaras de seguridad CCTV con más de 50 años de experiencia. +17,000 proyectos en toda la República Mexicana para hogar, comercio, industria y gobierno. Hikvision, Dahua, Axis y Provision-ISR con garantía 2 años por escrito.',
     keywords:
       'CAMSEG, cámaras de seguridad México, instalación CCTV nacional, empresa mexicana cámaras, cámaras Hikvision México, cámaras Dahua, Axis, videovigilancia profesional, monitoreo 24/7, cámaras IP 4K, control de acceso',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/sobre-nosotros/', '/preguntas-frecuentes/', '/contacto/'],
@@ -146,10 +146,54 @@ export const PAGE_SEO: Record<string, PageSEO> = {
     contextLead: 'Cada solución tiene sub-servicios independientes con paquetes, precios y especialidades. Revisa la línea que aplica a tu caso.',
   },
 
+  '/servicios/camaras-para-hogar/': {
+    title: 'Cámaras de Seguridad para Hogar | CAMSEG · Casas y Departamentos',
+    description:
+      'Cámaras de seguridad para casa y departamento con cableado oculto, app en tu celular y garantía 2 años por escrito. CAMSEG · 50+ años · técnicos Hikvision y Dahua. Visita técnica gratis en toda la República.',
+    keywords:
+      'cámaras de seguridad para hogar, cámaras casa CDMX, cámaras departamento, videovigilancia residencial, instalación cámaras casa, Hik-Connect, DMSS, videoportero hogar, cámaras Hikvision casa, alarmas residenciales, CAMSEG hogar',
+    relatedLinks: ['/servicios/camaras-para-comercio/', '/servicios/control-de-acceso/', '/servicios/sistemas-cctv-industriales/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/'],
+    contextHeading: 'Explora más líneas de servicio CAMSEG',
+    contextLead: 'Si necesitas también proteger un comercio, una nave industrial o gestionar accesos, estas son las otras líneas profesionales que opera CAMSEG con la misma garantía y proceso.',
+  },
+
+  '/servicios/camaras-para-comercio/': {
+    title: 'Cámaras para Comercio | CAMSEG · CCTV sin Cerrar tu Negocio',
+    description:
+      'CCTV profesional para tiendas, oficinas, restaurantes y bodegas. Instalación fuera de horario, planos profesionales, multi-usuario por rol y garantía 2 años. CAMSEG · 50+ años · cobertura nacional · cumplimiento LFPDPPP.',
+    keywords:
+      'cámaras seguridad comercio, CCTV tiendas, cámaras oficina, cámaras restaurante, sistema vigilancia comercial, CCTV bodega, multi-sucursal HikCentral, cumplimiento LFPDPPP, sin cerrar negocio, CAMSEG comercio',
+    relatedLinks: ['/servicios/camaras-para-hogar/', '/servicios/sistemas-cctv-industriales/', '/servicios/control-de-acceso/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/'],
+    contextHeading: 'Otras líneas que CAMSEG integra a tu comercio',
+    contextLead: 'Las soluciones comerciales suelen combinarse con control de acceso, integración multi-sucursal o ampliación a bodegas industriales. Explora qué más se conecta con tu negocio.',
+  },
+
+  '/servicios/sistemas-cctv-industriales/': {
+    title: 'Sistemas CCTV Industriales | CAMSEG · NOM-001 · Térmicas · PTZ',
+    description:
+      'CCTV industrial con cumplimiento NOM-001-SEDE, cámaras térmicas, PTZ con auto-tracking, LPR vehicular y centros de monitoreo VMS. CAMSEG · 50+ años · proyectos ejecutivos para plantas, datacenters y gobierno.',
+    keywords:
+      'sistemas CCTV industriales, cámaras térmicas industriales, NOM-001-SEDE, PTZ industrial, centro monitoreo VMS, LPR planta, datacenter Tier III, SCADA integración, COFEPRIS, CAMSEG industrial, integrador CCTV gobierno',
+    relatedLinks: ['/servicios/camaras-para-comercio/', '/servicios/control-de-acceso/', '/servicios/camaras-para-hogar/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/'],
+    contextHeading: 'Servicios complementarios para entornos industriales',
+    contextLead: 'Las plantas y sitios críticos suelen integrar control de acceso vehicular LPR, monitoreo multi-sitio y cobertura nacional para operaciones en varios estados. Explora cómo se complementan.',
+  },
+
+  '/servicios/control-de-acceso/': {
+    title: 'Control de Acceso | CAMSEG · Videoporteros, Biométricos y LPR',
+    description:
+      'Videoporteros IP, cerraduras inteligentes, biométricos por huella o rostro y acceso vehicular con LPR. Integración nativa con CCTV. CAMSEG · 50+ años · +3,500 sistemas · garantía 2 años por escrito.',
+    keywords:
+      'control de acceso México, videoportero IP, cerradura inteligente, biométrico huella, biométrico rostro, LPR fraccionamiento, tiempo asistencia, Suprema BioStar, ZKTeco, Yale Aqara, integración CCTV, CAMSEG accesos',
+    relatedLinks: ['/servicios/camaras-para-hogar/', '/servicios/camaras-para-comercio/', '/servicios/sistemas-cctv-industriales/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/'],
+    contextHeading: 'Líneas CAMSEG que se integran con tu control de acceso',
+    contextLead: 'El control de acceso multiplica su valor cuando se integra con cámaras CCTV. Estas son las líneas que CAMSEG suele combinar con tu proyecto de accesos.',
+  },
+
   '/sobre-nosotros/': {
     title: 'Sobre CAMSEG | Empresa Mexicana de Cámaras de Seguridad desde 1976',
     description:
-      'CAMSEG · empresa familiar mexicana fundada en 1976. Más de 50 años instalando sistemas CCTV en toda la República. Técnicos certificados Hikvision, Dahua y Axis, más de 15,000 proyectos entregados en residencial, comercial, industrial y gobierno con garantía de 2 años por escrito.',
+      'CAMSEG · empresa familiar mexicana fundada en 1976. Más de 50 años instalando sistemas CCTV en toda la República. Técnicos certificados Hikvision, Dahua y Axis, más de 17,000 proyectos entregados en residencial, comercial, industrial y gobierno con garantía de 2 años por escrito.',
     keywords:
       'CAMSEG empresa, historia cámaras seguridad México, integrador CCTV 50 años, instaladores certificados Hikvision México, técnicos Dahua nacional, expertos CCTV gobierno, mejor empresa cámaras seguridad México',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/', '/contacto/'],

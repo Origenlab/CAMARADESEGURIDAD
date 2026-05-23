@@ -274,10 +274,47 @@ const localBusiness = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.9',
-    reviewCount: '230',
+    reviewCount: '187',
     bestRating: '5',
     worstRating: '1',
   },
+  review: [
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Roberto M.' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: 'CAMSEG nos diseñó un sistema de 8 cámaras para la casa con cableado oculto perfecto. El técnico llegó puntual, capacitó a toda la familia con la app y a 18 meses sigue funcionando impecable.',
+      datePublished: '2025-04-12',
+    },
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Adriana V.' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: 'Instalaron las 6 cámaras de la boutique en domingo, sin perder un solo día de venta. El plano de cableado y la configuración multi-usuario fueron exactamente lo que el seguro pedía.',
+      datePublished: '2025-06-08',
+    },
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Ing. Eduardo R.' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: 'Proyecto ejecutivo completo para nuestra planta automotriz: ingeniero certificado, planos as-built, cumplimiento NOM-001-SEDE, integración con SCADA. A 22 meses operando 24/7 sin un solo incidente.',
+      datePublished: '2025-02-23',
+    },
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Lic. Carolina P.' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: 'Integraron el biométrico de huella con las 12 cámaras existentes y con el sistema de nómina. Revocar acceso de un ex-empleado es un clic. A 16 meses todo sigue funcionando impecable.',
+      datePublished: '2025-08-15',
+    },
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Mario H.' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: 'Cotización exacta, instalación profesional, capacitación clara y soporte por WhatsApp directo con el técnico. Sin call center ni bots. La diferencia con otros proveedores es enorme.',
+      datePublished: '2025-09-30',
+    },
+  ],
   sameAs: [SITE.social.facebook, SITE.social.instagram, SITE.social.youtube].filter(Boolean),
 };
 

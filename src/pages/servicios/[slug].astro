@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import SectionHeader from '@components/SectionHeader.astro';
@@ -17,6 +17,7 @@ export async function getStaticPaths() {
 
 const { servicio } = Astro.props;
 const { data: s } = servicio;
+const { Content } = await render(servicio);
 const slug = servicio.id.replace(/\.md$/, '');
 
 const isBrand   = s.color === 'brand';
@@ -29,6 +30,103 @@ const breadcrumb = [
 ];
 
 const faqSchema = s.faq.map((f) => ({ q: f.q, a: f.a }));
+
+// ── Defaults inteligentes para headings dinámicos (anti-hardcode) ──
+const pilarNumber = String(s.pilar ?? s.orden ?? 1).padStart(2, '0');
+
+// Form WhatsApp dinámico — defaults por slug si no se sobreescribe
+const formDefaults: Record<string, { fieldLabel: string; fieldOptions: string[]; textareaPlaceholder: string }> = {
+  'camaras-para-hogar': {
+    fieldLabel: 'Cámaras aprox.',
+    fieldOptions: ['No sé aún', '2 cámaras', '4 cámaras', '6-8 cámaras', 'Más de 8'],
+    textareaPlaceholder: 'Ej. Tengo una casa de 2 pisos con cochera y patio trasero...',
+  },
+  'camaras-para-comercio': {
+    fieldLabel: 'Cámaras aprox.',
+    fieldOptions: ['No sé aún', '4 cámaras', '6-8 cámaras', '8-12 cámaras', 'Multi-sucursal'],
+    textareaPlaceholder: 'Ej. Tienda de ropa de 80 m² con caja y 2 probadores...',
+  },
+  'sistemas-cctv-industriales': {
+    fieldLabel: 'Tamaño del proyecto',
+    fieldOptions: ['Necesito diagnóstico', 'Nave 8-12 cám.', 'Planta 12-30 cám.', '30-60 cám.', 'Multi-planta enterprise'],
+    textareaPlaceholder: 'Ej. Planta automotriz 8,000 m², 3 accesos, requiere NOM-001-SEDE...',
+  },
+  'control-de-acceso': {
+    fieldLabel: 'Tipo de control',
+    fieldOptions: ['No sé · diagnóstico', 'Videoportero IP', 'Cerradura inteligente', 'Biométrico empresarial', 'LPR vehicular', 'Combinación'],
+    textareaPlaceholder: 'Ej. Casa con empleada doméstica, quiero códigos temporales y app en celular...',
+  },
+};
+const formConfig = s.formConfig ?? formDefaults[slug] ?? formDefaults['camaras-para-hogar'];
+
+// Headings dinámicos con fallback genérico
+const hIdealPara = {
+  title: s.headings?.idealPara?.title ?? 'Ideal para los siguientes casos',
+  highlight: s.headings?.idealPara?.highlight ?? 'Ideal para',
+  lead: (s.headings?.idealPara?.lead && s.headings.idealPara.lead.length > 0)
+    ? s.headings.idealPara.lead
+    : [
+        `Más de <strong class="font-bold text-brand-500">17,000 instalaciones</strong> nos enseñaron que cada caso tiene riesgos y dinámicas distintas. Estos son los escenarios donde nuestro servicio CAMSEG aplica mejor — identifica el tuyo para entender qué configuración recomendamos y por qué.`,
+        `Cada caso documentado abajo viene con <strong class="font-semibold text-brand-500">recomendación específica de equipos</strong> según experiencia real de proyectos similares. Si tu situación no encaja exactamente, escríbenos: diseñamos a la medida con visita técnica gratuita previa.`,
+      ],
+};
+const hSegmentacion = {
+  title: s.headings?.segmentacion?.title ?? `¿Para qué tipo de cliente es ${s.shortTitle?.toLowerCase() ?? 'este servicio'}?`,
+  highlight: s.headings?.segmentacion?.highlight ?? '¿Para qué tipo',
+  lead: (s.headings?.segmentacion?.lead && s.headings.segmentacion.lead.length > 0)
+    ? s.headings.segmentacion.lead
+    : [
+        `Cada perfil tiene <strong class="font-bold text-brand-500">riesgos diferentes</strong> y necesita un sistema distinto. Identifica tu caso para entender qué configuración y equipos recomendamos.`,
+        `En CAMSEG no aplicamos <strong class="font-semibold text-brand-500">la misma propuesta a todos</strong> — diseñamos según tamaño, puntos críticos y nivel de riesgo real. La visita técnica gratuita confirma el diseño antes de cualquier compromiso.`,
+      ],
+};
+const hProblemas = {
+  title: s.headings?.problemas?.title ?? '¿Tu sistema actual realmente protege?',
+  highlight: s.headings?.problemas?.highlight ?? 'realmente protege',
+  lead: (s.headings?.problemas?.lead && s.headings.problemas.lead.length > 0)
+    ? s.headings.problemas.lead
+    : [
+        `La mayoría de los sistemas falla por las mismas razones: <strong class="font-bold text-white">equipos comprados sin asesoría, instalación deficiente, configuración descuidada y cero soporte</strong> cuando algo falla. En CAMSEG hemos visto el patrón repetirse durante 50 años.`,
+        `Antes de invertir, identifica los <strong class="font-semibold text-white">cuatro errores más comunes</strong> que vuelven inservible un sistema a los 12-18 meses. Cada problema documentado abajo lo hemos rescatado decenas de veces — es más barato evitarlo desde el inicio.`,
+      ],
+};
+const hProceso = {
+  title: s.headings?.proceso?.title ?? 'Proceso paso a paso, sin sorpresas',
+  highlight: s.headings?.proceso?.highlight ?? 'sin sorpresas',
+  lead: s.headings?.proceso?.lead ?? 'Cada proyecto sigue el mismo proceso documentado. Sabes exactamente qué viene, quién es responsable y cuánto tiempo toma — antes, durante y después de la instalación.',
+};
+const hCasos = {
+  title: s.headings?.casos?.title ?? 'Cómo se aplica en la práctica',
+  highlight: s.headings?.casos?.highlight ?? 'en la práctica',
+  lead: s.headings?.casos?.lead ?? `Estos son escenarios típicos que CAMSEG ha instalado con +17,000 proyectos como referencia — para que identifiques el tuyo y sepas qué esperar.`,
+};
+const hMarcas = {
+  title: s.headings?.marcas?.title ?? 'No instalamos cualquier marca',
+  highlight: s.headings?.marcas?.highlight ?? 'cualquier marca',
+  lead: s.headings?.marcas?.lead ?? 'Trabajamos exclusivamente con marcas que tienen refacciones disponibles en México, soporte técnico activo y actualizaciones de firmware. El ahorro de una marca genérica casi siempre termina costando el doble en 18 meses.',
+};
+const hSubServicios = {
+  eyebrow: s.headings?.subServicios?.eyebrow ?? 'Especialidades incluidas',
+  title1: s.headings?.subServicios?.title1 ?? 'Cuatro especialidades,',
+  title2: s.headings?.subServicios?.title2 ?? 'una sola garantía',
+};
+
+// Testimonio dinámico — fallback genérico CAMSEG (no específico a hogar)
+const testimonio = s.testimonio ?? {
+  texto: 'CAMSEG nos diseñó el proyecto completo con visita técnica previa, planos profesionales y técnicos certificados. La cotización fue exactamente lo que pagamos — sin sorpresas, sin ajustes de último momento. A los meses sigue funcionando impecable.',
+  autor: 'Cliente verificado',
+  rol: 'Proyecto CAMSEG · cobertura nacional',
+  initials: 'CV',
+};
+
+// CTA bloque problemas — dinámico
+const ctaProblemasDefaults = {
+  titulo: 'Evita estos errores con un diagnóstico profesional gratis',
+  descripcion: 'Vamos a tu inmueble, identificamos puntos críticos y te entregamos plano de cobertura sin compromiso.',
+  waMessage: `Hola, quiero un diagnóstico profesional gratuito para mi proyecto de ${s.shortTitle ?? s.title}.`,
+  ctaLabel: 'Solicitar diagnóstico gratis',
+};
+const ctaProblemas = s.ctaProblemas ?? ctaProblemasDefaults;
 
 // Products schema para los paquetes de ESTE servicio
 const productsSchema = (s.paquetes ?? [])
@@ -53,10 +151,24 @@ const serviceSchema = [
   },
 ];
 
+// HowTo schema generado desde el proceso de cada L2
+const howToSchema = (s.proceso && s.proceso.length > 0)
+  ? {
+      name: `Cómo CAMSEG instala ${s.title}`,
+      description: `Proceso documentado en ${s.proceso.length} pasos de CAMSEG para ${s.title.toLowerCase()}, desde la visita técnica gratuita hasta la entrega con garantía firmada.`,
+      totalTime: 'P7D',
+      steps: s.proceso.map((p) => ({
+        name: p.titulo,
+        text: p.descripcion + (p.tiempo ? ` Duración aprox: ${p.tiempo}.` : ''),
+        url: `/servicios/${slug}/#proceso`,
+      })),
+    }
+  : undefined;
+
 // SEO meta optimizado por slug
 const seoTitle = s.seo?.title ?? `${s.title} | Instalación CCTV Profesional · Garantía 2 Años`;
 const seoDesc = s.seo?.description ?? `${s.description} Visita técnica gratuita en CDMX y Edomex. Técnicos certificados Hikvision y Dahua, garantía 2 años por escrito.`;
-const seoKeywords = `${s.title.toLowerCase()}, cámaras de seguridad ${slug}, instalación CCTV ${slug}, ${s.shortTitle?.toLowerCase() ?? ''}, Hikvision, Dahua, cotización gratis`;
+const seoKeywords = s.seo?.keywords ?? `${s.title.toLowerCase()}, cámaras de seguridad ${slug}, instalación CCTV ${slug}, ${s.shortTitle?.toLowerCase() ?? ''}, Hikvision, Dahua, cotización gratis`;
 
 // ── Iconos SVG paths ───────────────────────────────────────────
 const svgIcons: Record<string, string> = {
@@ -102,6 +214,7 @@ const formatPrice = (n: number) =>
   faq={faqSchema}
   services={serviceSchema}
   products={productsSchema}
+  howTo={howToSchema}
 >
 
   <!-- ══════════════════════════════════════════════════════
@@ -220,15 +333,15 @@ const formatPrice = (n: number) =>
             </svg>
             <blockquote class="relative">
               <p class="text-[14.5px] leading-[1.7] text-ink-700 italic">
-                "CAMSEG nos diseñó un sistema de 8 cámaras para la casa con cableado oculto perfecto. El técnico llegó puntual, capacitó a toda la familia con la app y a 18 meses sigue funcionando impecable. La cotización fue exactamente lo que pagamos — sin sorpresas."
+                "{testimonio.texto}"
               </p>
               <figcaption class="mt-4 flex items-center gap-3 border-t border-cream-200 pt-4">
                 <span class={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-display text-[13px] font-black text-white ${isBrand ? 'bg-brand-500' : 'bg-accent-500'}`}>
-                  RM
+                  {testimonio.initials}
                 </span>
                 <div>
-                  <p class="font-display text-[13px] font-black text-brand-500 leading-tight">Roberto M.</p>
-                  <p class="text-[11.5px] text-ink-500 leading-tight">Casa · Coyoacán, CDMX · cliente verificado</p>
+                  <p class="font-display text-[13px] font-black text-brand-500 leading-tight">{testimonio.autor}</p>
+                  <p class="text-[11.5px] text-ink-500 leading-tight">{testimonio.rol}</p>
                 </div>
                 <div class="ml-auto flex gap-0.5">
                   {[1,2,3,4,5].map(() => (
@@ -262,9 +375,9 @@ const formatPrice = (n: number) =>
           <aside class="flex">
             <div class={`relative overflow-hidden rounded-3xl ${headerBg} text-white shadow-[0_24px_60px_-20px_rgba(10,37,64,0.5)] w-full flex flex-col`}>
 
-              <!-- Número decorativo grande -->
+              <!-- Número decorativo grande (dinámico por pilar) -->
               <span class="absolute right-6 top-2 font-display text-[140px] font-black leading-none text-white/[0.06] select-none pointer-events-none" aria-hidden="true">
-                01
+                {pilarNumber}
               </span>
 
               <!-- Patrón de puntos sutil -->
@@ -345,13 +458,10 @@ const formatPrice = (n: number) =>
           <!-- Header canónico SectionHeader -->
           <SectionHeader
             eyebrow="Casos de uso"
-            title="Ideal para los siguientes casos"
-            highlight="Ideal para"
+            title={hIdealPara.title}
+            highlight={hIdealPara.highlight}
             level="lg"
-            lead={[
-              `Más de <strong class="font-bold text-brand-500">15,000 instalaciones</strong> nos enseñaron que cada inmueble tiene riesgos y dinámicas distintas. Estos son los escenarios donde nuestro servicio residencial CAMSEG aplica mejor — identifica el tuyo para entender qué configuración recomendamos y por qué.`,
-              `Cada caso de uso documentado abajo viene con <strong class="font-semibold text-brand-500">recomendación específica de equipos</strong> según experiencia real de instalaciones similares. Si tu situación no encaja exactamente en alguno de estos perfiles, escríbenos: diseñamos a la medida con visita técnica gratuita previa.`,
-            ]}
+            lead={hIdealPara.lead}
           />
 
           {s.idealParaDetalle && s.idealParaDetalle.length > 0 ? (
@@ -406,13 +516,10 @@ const formatPrice = (n: number) =>
       <div class="container">
         <SectionHeader
           eyebrow="Encuentra tu caso"
-          title="¿Para qué tipo de hogar es esto?"
-          highlight="es esto?"
+          title={hSegmentacion.title}
+          highlight={hSegmentacion.highlight}
           level="lg"
-          lead={[
-            `Cada tipo de inmueble tiene <strong class="font-bold text-brand-500">riesgos diferentes</strong> y necesita un sistema distinto. Una casa con cochera requiere ángulos y equipos diferentes que un departamento en planta baja, y un residencial necesita roles multi-usuario que una quinta no usa. Identifica tu caso para entender qué paquete y configuración recomendamos.`,
-            `En CAMSEG no aplicamos <strong class="font-semibold text-brand-500">la misma propuesta a todos</strong> — el sistema correcto depende del tamaño del inmueble, los puntos críticos a cubrir y el nivel de riesgo de la zona. Sin sobre-instalar ni quedarte corto. La visita técnica gratuita confirma el diseño antes de cualquier compromiso.`,
-          ]}
+          lead={hSegmentacion.lead}
         />
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {s.segmentacion.map((seg, i) => {
@@ -518,14 +625,11 @@ const formatPrice = (n: number) =>
       <div class="container relative">
         <SectionHeader
           eyebrow="El problema real"
-          title="¿Tu sistema actual realmente protege tu hogar?"
-          highlight="realmente protege"
+          title={hProblemas.title}
+          highlight={hProblemas.highlight}
           level="lg"
           variant="dark"
-          lead={[
-            `La mayoría de los sistemas residenciales falla por las mismas razones: <strong class="font-bold text-white">kits comprados sin asesoría, instalación deficiente, apps que dejan de funcionar y cero soporte</strong> cuando algo falla. En CAMSEG hemos visto el patrón repetirse durante 50 años: un sistema que se ve bien recién instalado no es lo mismo que un sistema que sigue funcionando a los 3 años cuando realmente lo necesitas.`,
-            `Antes de invertir en cámaras, identifica los <strong class="font-semibold text-white">cuatro errores más comunes</strong> que volverán tu sistema inservible a los 12-18 meses. Cada problema documentado abajo lo hemos rescatado decenas de veces con migración profesional — pero es más barato evitarlo desde el inicio.`,
-          ]}
+          lead={hProblemas.lead}
         />
 
         <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -544,18 +648,18 @@ const formatPrice = (n: number) =>
 
         <div class="mt-12 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center sm:flex-row sm:text-left">
           <div class="flex-1">
-            <p class="font-display text-[16px] font-black text-white">Evita estos errores con un diagnóstico profesional gratis</p>
+            <p class="font-display text-[16px] font-black text-white">{ctaProblemas.titulo}</p>
             <p class="mt-2 text-[13px] text-cream-300">
-              Vamos a tu casa, identificamos puntos críticos y te entregamos plano de cobertura sin compromiso.
+              {ctaProblemas.descripcion}
             </p>
           </div>
           <a
-            href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, quiero un diagnóstico de seguridad para mi hogar.`)}`}
+            href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(ctaProblemas.waMessage)}`}
             target="_blank"
             rel="noopener"
             class="shrink-0 rounded-xl bg-accent-500 px-6 py-3 font-display text-[14px] font-bold text-white shadow-lg transition hover:bg-accent-600"
           >
-            Solicitar diagnóstico gratis
+            {ctaProblemas.ctaLabel}
           </a>
         </div>
       </div>
@@ -571,10 +675,10 @@ const formatPrice = (n: number) =>
 
         <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <span class="eyebrow">Especialidades incluidas</span>
+            <span class="eyebrow">{hSubServicios.eyebrow}</span>
             <h2 class="heading-md mt-4 text-balance">
-              Cuatro especialidades,<br/>
-              <span class="text-accent-500">una sola garantía</span>.
+              {hSubServicios.title1}<br/>
+              <span class="text-accent-500">{hSubServicios.title2}</span>.
             </h2>
             <span class="marker-line mt-5"></span>
           </div>
@@ -631,13 +735,11 @@ const formatPrice = (n: number) =>
         <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div>
             <span class="eyebrow">Cómo trabajamos</span>
-            <h2 class="heading-md mt-4 text-balance">
-              Proceso paso a paso, <span class="text-accent-500">sin sorpresas</span>
-            </h2>
+            <h2 class="heading-md mt-4 text-balance" set:html={hProceso.title.replace(hProceso.highlight, `<span class="text-accent-500">${hProceso.highlight}</span>`)}></h2>
             <span class="marker-line mt-5"></span>
           </div>
           <p class="lead text-ink-600">
-            Cada instalación residencial sigue el mismo proceso documentado de 5 pasos. Sabes exactamente qué viene, quién es responsable y cuánto tiempo toma — antes, durante y después de la instalación.
+            {hProceso.lead}
           </p>
         </div>
 
@@ -679,13 +781,11 @@ const formatPrice = (n: number) =>
         <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div>
             <span class="eyebrow">Marcas con criterio</span>
-            <h2 class="heading-md mt-4 text-balance">
-              No instalamos <span class="text-accent-500">cualquier marca</span>
-            </h2>
+            <h2 class="heading-md mt-4 text-balance" set:html={hMarcas.title.replace(hMarcas.highlight, `<span class="text-accent-500">${hMarcas.highlight}</span>`)}></h2>
             <span class="marker-line mt-5"></span>
           </div>
           <p class="lead text-ink-600">
-            Trabajamos exclusivamente con marcas que tienen refacciones disponibles en México, soporte técnico activo y actualizaciones de firmware. El ahorro de una marca genérica casi siempre termina costando el doble en 18 meses.
+            {hMarcas.lead}
           </p>
         </div>
 
@@ -731,13 +831,11 @@ const formatPrice = (n: number) =>
         <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div>
             <span class="eyebrow">Casos reales</span>
-            <h2 class="heading-md mt-4 text-balance">
-              Cómo se aplica <span class="text-accent-500">en la práctica</span>
-            </h2>
+            <h2 class="heading-md mt-4 text-balance" set:html={hCasos.title.replace(hCasos.highlight, `<span class="text-accent-500">${hCasos.highlight}</span>`)}></h2>
             <span class="marker-line mt-5"></span>
           </div>
           <p class="lead text-ink-600">
-            Cada hogar tiene un caso de uso distinto. Estos son escenarios típicos que hemos instalado más de 1,200 veces en CDMX y Edomex — para que identifiques el tuyo y sepas qué esperar.
+            {hCasos.lead}
           </p>
         </div>
 
@@ -935,14 +1033,12 @@ const formatPrice = (n: number) =>
                       class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400" />
                   </div>
                   <div>
-                    <label for={`wa-camaras-${slug}`} class="mb-1.5 block text-[11.5px] font-bold uppercase tracking-wide text-white/70">Cámaras aprox.</label>
+                    <label for={`wa-camaras-${slug}`} class="mb-1.5 block text-[11.5px] font-bold uppercase tracking-wide text-white/70">{formConfig.fieldLabel}</label>
                     <select id={`wa-camaras-${slug}`}
                       class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400">
-                      <option class="bg-brand-700">No sé aún</option>
-                      <option class="bg-brand-700">2 cámaras</option>
-                      <option class="bg-brand-700">4 cámaras</option>
-                      <option class="bg-brand-700">6-8 cámaras</option>
-                      <option class="bg-brand-700">Más de 8</option>
+                      {formConfig.fieldOptions.map((opt) => (
+                        <option class="bg-brand-700">{opt}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -952,11 +1048,11 @@ const formatPrice = (n: number) =>
                     Cuéntanos más <span class="font-normal normal-case text-white/45">(opcional)</span>
                   </label>
                   <textarea id={`wa-msg-${slug}`} rows="3"
-                    placeholder="Ej. Tengo una casa de 2 pisos con cochera..."
+                    placeholder={formConfig.textareaPlaceholder}
                     class="w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"></textarea>
                 </div>
 
-                <button type="button" data-waform-submit={slug} data-service-title={s.title} data-wa-phone={SITE.contact.whatsapp}
+                <button type="button" data-waform-submit={slug} data-service-title={s.title} data-wa-phone={SITE.contact.whatsapp} data-field-label={formConfig.fieldLabel}
                   class="group flex w-full items-center justify-center gap-3 rounded-xl bg-accent-500 px-6 py-4 font-display text-[15px] font-black text-white shadow-lg transition hover:bg-accent-600 hover:shadow-xl active:scale-[0.98]">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
@@ -1024,19 +1120,51 @@ const formatPrice = (n: number) =>
     </section>
   )}
 
+  <!-- ══════════════════════════════════════════════════════
+       7. CONTENIDO ADICIONAL — markdown body (tablas, listas, info técnica)
+       ══════════════════════════════════════════════════════ -->
+  <section class="section-white" id="info-tecnica">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Información técnica"
+        title="Lo que debes saber antes de decidir"
+        highlight="antes de decidir"
+        level="lg"
+        lead={[
+          `Esta es la información que normalmente no encuentras en otras páginas: <strong class="font-bold text-brand-500">criterios técnicos, tablas comparativas, cobertura típica, marcas equivalentes y cumplimiento normativo</strong>. La compartimos abierta porque un cliente informado siempre se vuelve mejor cliente.`,
+          `Si después de leer queda alguna duda específica, el <strong class="font-semibold text-brand-500">formulario WhatsApp de arriba</strong> abre conversación directa con un técnico CAMSEG certificado. Sin call center, sin bots, sin contrato forzoso.`,
+        ]}
+      />
+      <article class="prose-camseg mt-12 max-w-none">
+        <Content />
+      </article>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       8. RELATED LINKS — cross-linking SEO entre L2/L3
+       ══════════════════════════════════════════════════════ -->
+  <RelatedLinks
+    currentPath={`/servicios/${slug}/`}
+    variant="cream"
+  />
+
   <!-- WhatsApp form submit handler (shared para todos los slugs) -->
   <script>
     document.querySelectorAll('[data-waform-submit]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const slug = btn.getAttribute('data-waform-submit');
         const serviceTitle = btn.getAttribute('data-service-title') || 'tu servicio';
+        const fieldLabel = btn.getAttribute('data-field-label') || 'detalle';
         const nombre = (document.getElementById(`wa-nombre-${slug}`) as HTMLInputElement)?.value.trim() || 'un cliente';
         const zona = (document.getElementById(`wa-zona-${slug}`) as HTMLInputElement)?.value.trim();
-        const camaras = (document.getElementById(`wa-camaras-${slug}`) as HTMLSelectElement)?.value;
+        const detalle = (document.getElementById(`wa-camaras-${slug}`) as HTMLSelectElement)?.value;
         const msg = (document.getElementById(`wa-msg-${slug}`) as HTMLTextAreaElement)?.value.trim();
 
         let texto = `Hola, soy ${nombre}. Me interesa cotizar ${serviceTitle}`;
-        if (camaras && camaras !== 'No sé aún') texto += `, aprox. ${camaras}`;
+        if (detalle && !detalle.toLowerCase().includes('no sé') && !detalle.toLowerCase().includes('diagnóstico')) {
+          texto += ` (${fieldLabel}: ${detalle})`;
+        }
         if (zona) texto += `, en ${zona}`;
         texto += '.';
         if (msg) texto += ` ${msg}`;

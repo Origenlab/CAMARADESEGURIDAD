@@ -50,7 +50,7 @@ hero:
   col2Title: "Protección residencial que realmente "
   col2TitleHighlight: "funciona"
   col2Paragraphs:
-    - "En <strong class=\"font-bold text-brand-500\">50 años instalando más de 15,000 sistemas CCTV residenciales</strong> en CDMX y Estado de México hemos visto el mismo patrón: la mayoría de los robos a casa habitación son <strong class=\"font-bold text-brand-500\">oportunistas</strong> y se previenen con disuasión visible más cobertura inteligente de los puntos críticos. Por eso no diseñamos para impresionar — diseñamos para que tu sistema funcione el día que realmente lo necesitas. Cada propuesta arranca con <strong class=\"font-bold text-brand-500\">visita técnica gratuita</strong> donde identificamos puntos ciegos, evaluamos infraestructura y dimensionamos cobertura exacta — sin sobre-instalar."
+    - "En <strong class=\"font-bold text-brand-500\">50 años protegiendo más de 8,500 hogares mexicanos</strong> hemos visto el mismo patrón: la mayoría de los robos a casa habitación son <strong class=\"font-bold text-brand-500\">oportunistas</strong> y se previenen con disuasión visible más cobertura inteligente de los puntos críticos. Por eso no diseñamos para impresionar — diseñamos para que tu sistema funcione el día que realmente lo necesitas. Cada propuesta arranca con <strong class=\"font-bold text-brand-500\">visita técnica gratuita</strong> donde identificamos puntos ciegos, evaluamos infraestructura y dimensionamos cobertura exacta — sin sobre-instalar."
     - "Trabajamos <strong class=\"font-bold text-brand-500\">exclusivamente con Hikvision, Dahua y Provision-ISR</strong>, las mismas marcas certificadas que usan bancos, aeropuertos y centros comerciales en México. Cableado oculto profesional en muros y plafones, app oficial configurada en hasta <strong class=\"font-bold text-brand-500\">4 dispositivos de tu familia</strong> con capacitación incluida, y <strong class=\"font-bold text-brand-500\">garantía de 2 años por escrito</strong> en equipo Y mano de obra. Soporte post-instalación directo con el técnico responsable vía WhatsApp en menos de 15 minutos. Sin call center, sin contrato forzoso, sin mensualidad obligatoria."
   showRecBadge: true
   showQuickLinks: false
@@ -226,9 +226,64 @@ faq:
   - q: "¿Qué pasa si una cámara falla durante la garantía?"
     a: "Coordinamos visita técnica sin costo: traemos refacción, reparamos o reemplazamos el equipo. Garantía cubre equipo Y mano de obra por 2 años por escrito — el doble del estándar del mercado. No hay letra chica, exclusiones ocultas ni 'gastos de desplazamiento'. Sostenido en contrato firmado."
 
+# Headings dinámicos por sección — copy específico para hogar
+headings:
+  idealPara:
+    title: "Ideal para hogares como el tuyo"
+    highlight: "como el tuyo"
+    lead:
+      - "Más de <strong class=\"font-bold text-brand-500\">8,500 hogares protegidos</strong> nos enseñaron que cada casa tiene riesgos distintos: una casa con cochera necesita ángulos diferentes que un departamento en planta baja, una residencia con personal doméstico requiere zonificación legal específica. Identifica tu caso para entender qué configuración recomendamos."
+      - "Cada caso documentado abajo viene con <strong class=\"font-semibold text-brand-500\">recomendación específica de equipos</strong> según experiencia real en instalaciones similares. Si tu hogar no encaja exactamente en alguno de estos perfiles, escríbenos: diseñamos a la medida con visita técnica gratuita previa."
+  segmentacion:
+    title: "¿Para qué tipo de hogar es esto?"
+    highlight: "tipo de hogar"
+    lead:
+      - "Cada tipo de inmueble residencial tiene <strong class=\"font-bold text-brand-500\">riesgos diferentes</strong> y necesita un sistema distinto. Una casa con cochera requiere ángulos y equipos diferentes que un departamento en planta baja, y un residencial necesita roles multi-usuario que una quinta no usa."
+      - "En CAMSEG no aplicamos <strong class=\"font-semibold text-brand-500\">la misma propuesta a todos</strong> — el sistema correcto depende del tamaño del inmueble, los puntos críticos a cubrir y el nivel de riesgo de la zona. Sin sobre-instalar ni quedarte corto."
+  problemas:
+    title: "¿Tu sistema actual realmente protege tu hogar?"
+    highlight: "protege tu hogar"
+    lead:
+      - "La mayoría de los sistemas residenciales falla por las mismas razones: <strong class=\"font-bold text-white\">kits comprados sin asesoría, instalación deficiente, apps que dejan de funcionar y cero soporte</strong> cuando algo falla. En CAMSEG hemos visto el patrón repetirse durante 50 años: un sistema que se ve bien recién instalado no es lo mismo que un sistema que sigue funcionando a los 3 años cuando realmente lo necesitas."
+      - "Antes de invertir en cámaras, identifica los <strong class=\"font-semibold text-white\">cuatro errores más comunes</strong> que volverán tu sistema inservible a los 12-18 meses. Cada problema documentado abajo lo hemos rescatado decenas de veces — pero es más barato evitarlo desde el inicio."
+  proceso:
+    title: "Proceso paso a paso, sin sorpresas"
+    highlight: "sin sorpresas"
+    lead: "Cada instalación residencial sigue el mismo proceso documentado de 5 pasos. Sabes exactamente qué viene, quién es responsable y cuánto tiempo toma — antes, durante y después de la instalación."
+  casos:
+    title: "Cómo se aplica en hogares reales"
+    highlight: "hogares reales"
+    lead: "Cada hogar tiene un caso de uso distinto. Estos son escenarios típicos que CAMSEG ha instalado más de 8,500 veces — para que identifiques el tuyo y sepas qué esperar."
+  marcas:
+    title: "No instalamos cualquier marca residencial"
+    highlight: "cualquier marca"
+    lead: "Trabajamos exclusivamente con marcas que tienen refacciones disponibles en México, soporte técnico activo y actualizaciones de firmware. El ahorro de una marca genérica casi siempre termina costando el doble en 18 meses cuando la cámara residencial deja de funcionar."
+  subServicios:
+    eyebrow: "Especialidades residenciales"
+    title1: "Cuatro especialidades para tu hogar,"
+    title2: "una sola garantía"
+
+testimonio:
+  texto: "CAMSEG nos diseñó un sistema de 8 cámaras para la casa con cableado oculto perfecto. El técnico llegó puntual, capacitó a toda la familia con la app y a 18 meses sigue funcionando impecable. La cotización fue exactamente lo que pagamos — sin sorpresas."
+  autor: "Roberto M."
+  rol: "Casa · Coyoacán, CDMX · cliente verificado"
+  initials: "RM"
+
+ctaProblemas:
+  titulo: "Evita estos errores con un diagnóstico residencial gratis"
+  descripcion: "Vamos a tu casa, identificamos puntos críticos y te entregamos plano de cobertura sin compromiso."
+  waMessage: "Hola, quiero un diagnóstico de seguridad gratuito para mi hogar."
+  ctaLabel: "Solicitar diagnóstico gratis"
+
+formConfig:
+  fieldLabel: "Cámaras aprox."
+  fieldOptions: ["No sé aún", "2 cámaras", "4 cámaras", "6-8 cámaras", "Más de 8"]
+  textareaPlaceholder: "Ej. Tengo una casa de 2 pisos con cochera y patio trasero..."
+
 seo:
-  title: "Cámaras de Seguridad para Hogar en CDMX | Desde $3,490 · Garantía 2 Años"
-  description: "Instalación profesional de cámaras de seguridad para casa en CDMX y Estado de México. Hikvision, Dahua, Provision-ISR con visita técnica gratis, garantía 2 años por escrito y soporte directo. Sin mensualidad obligatoria."
+  title: "Cámaras de Seguridad para Hogar | CAMSEG · Casas y Departamentos"
+  description: "CCTV para casa y departamento con cableado oculto, app en tu celular y garantía 2 años por escrito. CAMSEG · 50+ años · Hikvision y Dahua · visita técnica gratis."
+  keywords: "cámaras de seguridad para hogar, cámaras casa CDMX, cámaras departamento, videovigilancia residencial, instalación cámaras casa, Hik-Connect, DMSS, videoportero hogar, cámaras Hikvision casa, CAMSEG hogar, cableado oculto, garantía 2 años"
 ---
 
 ## Sistema diseñado, no comprado

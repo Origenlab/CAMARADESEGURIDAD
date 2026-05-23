@@ -223,10 +223,64 @@ faq:
   - q: "¿Cuánto tiempo guarda grabaciones el sistema?"
     a: "Para comercios el estándar es 14-30 días en bucle continuo. La duración exacta depende del número de cámaras, resolución y capacidad del disco duro. En proyectos comerciales típicos: 4 cámaras Full HD con HDD de 1 TB graban ~14 días continuos. Para giros que requieren mayor retención (farmacéuticos, joyerías) instalamos discos de 2-4 TB para 28-60 días."
 
+# Headings dinámicos por sección — copy específico para comercio
+headings:
+  idealPara:
+    title: "Ideal para comercios como el tuyo"
+    highlight: "como el tuyo"
+    lead:
+      - "Más de <strong class=\"font-bold text-brand-500\">5,000 comercios protegidos</strong> con CAMSEG nos enseñaron que un sistema comercial bien diseñado cubre 4 frentes simultáneos: punto de venta, accesos, áreas comunes y perímetro. Identifica tu giro para entender qué configuración recomendamos según el tipo de operación, el flujo de personas y el riesgo real."
+      - "Cada caso documentado abajo viene con <strong class=\"font-semibold text-brand-500\">cobertura específica por giro</strong>: ropa requiere ángulos distintos que ferretería, joyería distintos que cafetería. Si tu negocio no encaja exactamente, la visita técnica gratuita confirma el diseño antes de cualquier compromiso."
+  segmentacion:
+    title: "¿Para qué tipo de comercio es esto?"
+    highlight: "tipo de comercio"
+    lead:
+      - "Cada giro tiene <strong class=\"font-bold text-brand-500\">riesgos distintos</strong> y necesita una arquitectura diferente. Una tienda de 80 m² no se diseña igual que una bodega de distribución, ni una cadena de 20 sucursales como una oficina corporativa. Identifica tu tipo de negocio para entender la propuesta."
+      - "En CAMSEG no <strong class=\"font-semibold text-brand-500\">aplicamos plantilla</strong> — un consultorio médico requiere privacidad de pacientes, un restaurante requiere audio para disputas, una bodega requiere PTZ perimetral. Cada caso se diseña según operación real."
+  problemas:
+    title: "¿Tu CCTV actual protege tu negocio o solo decora?"
+    highlight: "solo decora"
+    lead:
+      - "La mayoría de los sistemas comerciales fallan en lo mismo: <strong class=\"font-bold text-white\">cierran el negocio durante la instalación, dejan ángulos malos sobre la caja, no tienen permisos diferenciados por empleado y carecen de documentación auditable</strong>. El resultado son seguros que rechazan reclamaciones y evidencia inservible cuando ocurre un robo."
+      - "Antes de invertir, identifica los <strong class=\"font-semibold text-white\">cuatro errores más comunes</strong> que vuelven inservible un sistema comercial. CAMSEG ha rescatado decenas de proyectos mal instalados — es más barato hacerlo bien desde el inicio que pagar dos veces."
+  proceso:
+    title: "Proceso paso a paso, sin cerrar tu negocio"
+    highlight: "sin cerrar"
+    lead: "Cada instalación comercial sigue el mismo proceso documentado de 5 pasos. Trabajamos en horario que no afecta tu operación — antes de apertura, después de cierre o fines de semana. En 50 años CAMSEG nunca ha pedido a un cliente cerrar para instalarle."
+  casos:
+    title: "Cómo se aplica en negocios reales"
+    highlight: "negocios reales"
+    lead: "Estos son escenarios típicos que CAMSEG ha instalado en +5,000 comercios mexicanos — para que identifiques el tuyo y sepas qué esperar en cobertura, configuración y resultados."
+  marcas:
+    title: "No instalamos cualquier marca en tu negocio"
+    highlight: "cualquier marca"
+    lead: "Trabajamos exclusivamente con marcas que tienen plataforma multi-sucursal, IA para reducir falsas alarmas y soporte técnico activo en México. Un comercio mal equipado pierde más en seguros rechazados que lo que ahorró en cámara genérica."
+  subServicios:
+    eyebrow: "Especialidades comerciales"
+    title1: "Cuatro especialidades para tu negocio,"
+    title2: "una sola garantía"
+
+testimonio:
+  texto: "CAMSEG nos instaló las 6 cámaras de la tienda en domingo, sin perder un solo día de venta. El plano de cableado y la configuración multi-usuario por rol fueron exactamente lo que el seguro pedía. A 14 meses, cero incidentes y respuesta inmediata por WhatsApp cuando tuvimos una duda con la app."
+  autor: "Adriana V."
+  rol: "Boutique · Polanco, CDMX · cliente verificada"
+  initials: "AV"
+
+ctaProblemas:
+  titulo: "Evita estos errores con un diagnóstico comercial gratis"
+  descripcion: "Vamos a tu negocio fuera de horario, identificamos puntos críticos y te entregamos plano de cobertura sin compromiso."
+  waMessage: "Hola, quiero un diagnóstico de CCTV gratuito para mi negocio."
+  ctaLabel: "Solicitar diagnóstico gratis"
+
+formConfig:
+  fieldLabel: "Cámaras aprox."
+  fieldOptions: ["No sé aún", "4 cámaras", "6-8 cámaras", "8-12 cámaras", "Multi-sucursal"]
+  textareaPlaceholder: "Ej. Tienda de ropa de 80 m² con caja y 2 probadores..."
+
 seo:
-  title: "Cámaras de Seguridad para Comercio | CAMSEG · CCTV Profesional sin Afectar Operación"
-  description: "Instalación de CCTV para tiendas, oficinas, restaurantes y bodegas en toda la República Mexicana. Más de 5,000 comercios protegidos, instalación fuera de horario, planos profesionales, garantía 2 años. Hikvision, Dahua, Axis. Sin contrato forzoso."
-  keywords: "cámaras seguridad comercio México, CCTV tiendas, cámaras oficina, cámaras restaurante, sistema vigilancia comercial, CCTV bodega, instalación cámaras negocio sin cerrar, multi-sucursal HikCentral, cumplimiento LFPDPPP"
+  title: "Cámaras para Comercio | CAMSEG · CCTV sin Cerrar tu Negocio"
+  description: "CCTV para tiendas, oficinas, restaurantes y bodegas. Instalación fuera de horario, planos profesionales y garantía 2 años. CAMSEG · 50+ años · cobertura nacional."
+  keywords: "cámaras seguridad comercio México, CCTV tiendas, cámaras oficina, cámaras restaurante, sistema vigilancia comercial, CCTV bodega, instalación cámaras negocio sin cerrar, multi-sucursal HikCentral, cumplimiento LFPDPPP, CAMSEG comercio"
 ---
 
 ## Cobertura típica de un comercio bien protegido

@@ -228,10 +228,64 @@ faq:
   - q: "¿Qué redundancia incluyen sus sistemas industriales?"
     a: "Por default: NVR con disco RAID-1 (espejado · si uno falla el otro mantiene grabación) + UPS para mantener sistema activo durante apagones breves. Para sitios críticos: doble NVR en cluster, doble fuente eléctrica con switch automático, conexión a red redundante y backup a cloud cifrado. Lo dimensionamos según criticidad del sitio en visita técnica."
 
+# Headings dinámicos por sección — copy específico para industrial
+headings:
+  idealPara:
+    title: "Ideal para plantas y sitios críticos"
+    highlight: "sitios críticos"
+    lead:
+      - "Más de <strong class=\"font-bold text-brand-500\">800 plantas y sitios críticos instalados</strong> con CAMSEG nos enseñaron que un proyecto industrial no se mide en cámaras, sino en cobertura crítica + cumplimiento normativo + integración con sistemas existentes. Identifica tu sector para entender qué arquitectura recomendamos."
+      - "Cada caso documentado abajo viene con <strong class=\"font-semibold text-brand-500\">requisitos específicos</strong>: la NOM-001-SEDE no aplica igual a una nave que a una subestación CFE, ni un farmacéutico COFEPRIS tiene los mismos controles que un datacenter Tier III. Si tu proyecto requiere ingeniería específica, agenda visita técnica con ingeniero certificado."
+  segmentacion:
+    title: "¿Para qué tipo de planta industrial es esto?"
+    highlight: "planta industrial"
+    lead:
+      - "Cada tipo de instalación industrial tiene <strong class=\"font-bold text-brand-500\">requisitos normativos y operativos distintos</strong>. Una nave logística no se diseña como una planta automotriz, ni una subestación eléctrica como un datacenter. Identifica el tipo de sitio para entender la propuesta CAMSEG."
+      - "En CAMSEG aplicamos <strong class=\"font-semibold text-brand-500\">ingeniería industrial sin atajos</strong>: cada proyecto inicia con visita de ingeniero certificado, proyecto ejecutivo formal, cableado estructurado y documentación legal completa para auditorías de cumplimiento."
+  problemas:
+    title: "¿Tu CCTV industrial cumple NOM y opera 24/7?"
+    highlight: "cumple NOM"
+    lead:
+      - "La mayoría de las plantas tienen sistemas que <strong class=\"font-bold text-white\">empezaron residenciales y crecieron sin diseño</strong>: cámaras genéricas con cableado expuesto, NVRs en cuarto de máquinas sin climatización, cero documentación para auditorías, falla térmica indetectable hasta que arde el motor. El resultado son seguros rechazados y multas por incumplimiento NOM."
+      - "Antes de ampliar o reemplazar, identifica los <strong class=\"font-semibold text-white\">cuatro errores industriales más comunes</strong>. CAMSEG ha rescatado proyectos de instalaciones improvisadas con ingeniería formal — es más barato hacerlo bien desde el inicio."
+  proceso:
+    title: "Proceso paso a paso con ingeniería formal"
+    highlight: "ingeniería formal"
+    lead: "Cada proyecto industrial CAMSEG sigue el mismo proceso documentado de 5 etapas con ingeniero certificado, proyecto ejecutivo formal y entrega de planos as-built. Sabes exactamente qué viene en cada fase del proyecto."
+  casos:
+    title: "Cómo se aplica en plantas reales"
+    highlight: "plantas reales"
+    lead: "Estos son escenarios industriales típicos que CAMSEG ha equipado en +800 plantas mexicanas — automotriz, farmacéutico, energético, logístico, datacenters y sector gobierno. Para que identifiques referencias similares a tu proyecto."
+  marcas:
+    title: "Marcas industriales con criterio de ingeniería"
+    highlight: "criterio de ingeniería"
+    lead: "En entornos industriales el criterio NO es precio sino vida útil, soporte 24/7, certificaciones IK10/IP67 y plataforma VMS para multi-sitio. Una marca residencial en planta falla en meses. CAMSEG trabaja solo con equipos validados para uso industrial."
+  subServicios:
+    eyebrow: "Especialidades industriales"
+    title1: "Cuatro especialidades industriales,"
+    title2: "una sola garantía"
+
+testimonio:
+  texto: "CAMSEG hizo el proyecto ejecutivo completo para nuestra planta automotriz: ingeniero certificado, planos as-built, cumplimiento NOM-001-SEDE, integración con SCADA y centro de monitoreo VMS. A 22 meses operando 24/7 sin un solo incidente. El equipo de mantenimiento sigue con la misma persona de CAMSEG que instaló."
+  autor: "Ing. Eduardo R."
+  rol: "Gerente de Seguridad · Planta automotriz · Querétaro"
+  initials: "ER"
+
+ctaProblemas:
+  titulo: "Diagnóstico industrial gratuito con ingeniero certificado"
+  descripcion: "Vamos a tu planta, evaluamos NOM-001-SEDE, infraestructura eléctrica y de red, y te entregamos proyecto ejecutivo preliminar sin compromiso."
+  waMessage: "Hola, quiero un diagnóstico industrial con ingeniero certificado para mi planta."
+  ctaLabel: "Agendar visita técnica industrial"
+
+formConfig:
+  fieldLabel: "Tamaño del proyecto"
+  fieldOptions: ["Necesito diagnóstico", "Nave 8-12 cám.", "Planta 12-30 cám.", "30-60 cám.", "Multi-planta enterprise"]
+  textareaPlaceholder: "Ej. Planta automotriz 8,000 m², 3 accesos, requiere NOM-001-SEDE..."
+
 seo:
-  title: "Sistemas CCTV Industriales en México | CAMSEG · NOM-001 · Térmicas · PTZ · LPR"
-  description: "Diseño e instalación de sistemas CCTV industriales en toda la República Mexicana. Cámaras térmicas, PTZ con auto-tracking, LPR vehicular y centros de monitoreo VMS. Más de 800 plantas instaladas. Cumplimos NOM-001-SEDE. Marcas Hikvision, Dahua, Axis, Avigilon, FLIR."
-  keywords: "CCTV industrial México, cámaras térmicas industriales, PTZ industrial, LPR vehicular, centro monitoreo VMS, HikCentral, Milestone XProtect, cumplimiento NOM-001, cámaras IK10 IP67, mantenimiento predictivo térmico, integración SCADA, datacenter cámaras, subestación CFE"
+  title: "Sistemas CCTV Industriales | CAMSEG · NOM-001 · Térmicas · PTZ"
+  description: "CCTV industrial con NOM-001-SEDE, térmicas, PTZ, LPR y centros VMS. CAMSEG · 50+ años · +800 plantas · proyectos ejecutivos para industria, datacenters y gobierno."
+  keywords: "CCTV industrial México, cámaras térmicas industriales, PTZ industrial, LPR vehicular, centro monitoreo VMS, HikCentral, Milestone XProtect, cumplimiento NOM-001, cámaras IK10 IP67, integración SCADA, datacenter Tier III, subestación CFE, COFEPRIS, CAMSEG industrial"
 ---
 
 ## Cómo trabajamos en industrial
