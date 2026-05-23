@@ -3,7 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
-import { PAGE_SEO } from '@/data/seo';
+import { PAGE_SEO, getQuickLinks } from '@/data/seo';
 
 const seo = PAGE_SEO['/contacto/'];
 
@@ -181,6 +181,7 @@ sin "ese precio era sin cableado oculto".`,
       },
     ]}
     showRecBadge={false}
+    quickLinks={getQuickLinks("/contacto/")}
     showQuickLinks={true}
   />
 

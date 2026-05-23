@@ -223,6 +223,122 @@ export function getRelatedLinks(currentPath: string, maxLinks = 6): RelatedLink[
     .slice(0, maxLinks);
 }
 
+/**
+ * Quick links del Hero — sets curados por página.
+ * 5 links variados que enriquecen el interlinking interno desde el hero.
+ */
+export interface QuickLink {
+  href: string;
+  title: string;
+  sub: string;
+  icon: string;
+}
+
+const QUICK_LINKS_BY_PATH: Record<string, QuickLink[]> = {
+  '/': [
+    { href: '/servicios/camaras-para-hogar/',         title: 'Hogar',          sub: 'Casas · Departamentos · Cocheras',   icon: 'home'    },
+    { href: '/servicios/camaras-para-comercio/',      title: 'Comercio',       sub: 'Tiendas · Oficinas · Bodegas',       icon: 'store'   },
+    { href: '/servicios/sistemas-cctv-industriales/', title: 'Industrial',     sub: 'Fábricas · Naves · Patios',          icon: 'factory' },
+    { href: '/servicios/control-de-acceso/',          title: 'Control acceso', sub: 'Videoporteros · Biométricos · LPR',  icon: 'lock'    },
+    { href: '/contacto/',                             title: 'Cotización',     sub: 'Respuesta WhatsApp < 15 min',        icon: 'phone'   },
+  ],
+
+  '/servicios/': [
+    { href: '/servicios/camaras-para-hogar/',         title: 'Residencial',    sub: 'Hogares · Quintas · Departamentos',  icon: 'home'    },
+    { href: '/servicios/camaras-para-comercio/',      title: 'Comercial',      sub: 'Tiendas · Restaurantes · Bodegas',   icon: 'store'   },
+    { href: '/servicios/sistemas-cctv-industriales/', title: 'Industrial',     sub: 'Térmicas · PTZ · Centros monitoreo', icon: 'factory' },
+    { href: '/servicios/control-de-acceso/',          title: 'Accesos',        sub: 'Biométricos · LPR · Smart locks',    icon: 'lock'    },
+    { href: '/como-trabajamos/',                      title: 'Nuestro proceso', sub: '6 pasos · visita técnica gratis',   icon: 'clock'   },
+  ],
+
+  '/servicios/camaras-para-hogar/': [
+    { href: '/servicios/camaras-para-hogar/camaras-ip/',    title: 'Cámaras IP',      sub: 'Full HD · 4K · ColorVu',         icon: 'camera'  },
+    { href: '/servicios/camaras-para-hogar/videoporteros/', title: 'Videoporteros',   sub: 'Pantalla + audio + app',         icon: 'bell'    },
+    { href: '/servicios/camaras-para-hogar/alarmas/',       title: 'Alarmas',         sub: 'PIR · Magnéticos · Pánico',      icon: 'shield'  },
+    { href: '/servicios/camaras-para-hogar/monitoreo/',     title: 'App móvil',       sub: 'Hik-Connect · DMSS · 4 disp.',   icon: 'monitor' },
+    { href: '/contacto/',                                   title: 'Visita gratis',   sub: 'CDMX · 24-48 h sin costo',       icon: 'phone'   },
+  ],
+
+  '/servicios/camaras-para-comercio/': [
+    { href: '/servicios/camaras-para-comercio/tiendas/',         title: 'Tiendas',       sub: 'POS · entrada · exhibición',     icon: 'store'   },
+    { href: '/servicios/camaras-para-comercio/oficinas/',        title: 'Oficinas',      sub: 'Áreas comunes · accesos',        icon: 'monitor' },
+    { href: '/servicios/camaras-para-comercio/bodegas/',         title: 'Bodegas',       sub: 'Perímetro · carga · IK10',       icon: 'factory' },
+    { href: '/servicios/camaras-para-comercio/multi-sucursal/',  title: 'Multi-sucursal', sub: 'VMS · roles · reportes',        icon: 'eye'     },
+    { href: '/contacto/',                                        title: 'Sin afectar',   sub: 'Instalación fuera de horario',   icon: 'clock'   },
+  ],
+
+  '/servicios/sistemas-cctv-industriales/': [
+    { href: '/servicios/sistemas-cctv-industriales/camaras-termicas/',  title: 'Térmicas',     sub: 'Detección 24/7 · IA',           icon: 'thermal' },
+    { href: '/servicios/sistemas-cctv-industriales/ptz/',               title: 'PTZ',          sub: 'Zoom 25x · Auto-tracking',      icon: 'ptz'     },
+    { href: '/servicios/sistemas-cctv-industriales/lpr/',               title: 'LPR vehicular', sub: 'Placas · barrera · listas',    icon: 'lpr'     },
+    { href: '/servicios/sistemas-cctv-industriales/centro-monitoreo/',  title: 'Centro VMS',   sub: '32-256 cámaras · RAID',         icon: 'monitor' },
+    { href: '/contacto/',                                               title: 'NOM-001-SEDE', sub: 'Proyecto ejecutivo · ISO',      icon: 'shield'  },
+  ],
+
+  '/servicios/control-de-acceso/': [
+    { href: '/servicios/control-de-acceso/videoporteros/',          title: 'Videoporteros', sub: 'IP · pantalla · audio dual',    icon: 'bell'        },
+    { href: '/servicios/control-de-acceso/cerraduras-inteligentes/', title: 'Smart locks',  sub: 'App · huella · NFC',            icon: 'lock'        },
+    { href: '/servicios/control-de-acceso/biometricos/',            title: 'Biométricos',   sub: 'Huella · rostro · MIFARE',     icon: 'fingerprint' },
+    { href: '/servicios/control-de-acceso/acceso-vehicular/',       title: 'Acceso LPR',    sub: 'Pluma + placas · auditable',   icon: 'car'         },
+    { href: '/servicios/camaras-para-hogar/',                       title: 'Integración',   sub: 'CCTV + control de acceso',     icon: 'camera'      },
+  ],
+
+  '/sobre-nosotros/': [
+    { href: '/servicios/',              title: 'Catálogo',       sub: '4 líneas · residencial a gobierno', icon: 'camera'  },
+    { href: '/como-trabajamos/',        title: 'Proceso',        sub: '6 pasos documentados',              icon: 'clock'   },
+    { href: '/cobertura-cdmx-edomex/',  title: 'Cobertura',      sub: 'Toda la República Mexicana',        icon: 'map'     },
+    { href: '/preguntas-frecuentes/',   title: 'FAQ',            sub: '31 respuestas honestas',            icon: 'help'    },
+    { href: '/contacto/',               title: 'Cotización',     sub: 'WhatsApp < 15 min',                  icon: 'phone'   },
+  ],
+
+  '/como-trabajamos/': [
+    { href: '/servicios/',              title: 'Servicios',      sub: 'Qué instalamos',                    icon: 'camera'  },
+    { href: '/cobertura-cdmx-edomex/',  title: 'Tu zona',        sub: '32+ estados con cobertura',         icon: 'map'     },
+    { href: '/sobre-nosotros/',         title: 'CAMSEG',         sub: '50+ años · empresa mexicana',       icon: 'about'   },
+    { href: '/preguntas-frecuentes/',   title: 'Dudas',          sub: 'Precios · garantía · marcas',       icon: 'help'    },
+    { href: '/contacto/',               title: 'Agenda visita',  sub: 'Gratis · 24-48 h',                  icon: 'phone'   },
+  ],
+
+  '/cobertura-cdmx-edomex/': [
+    { href: '/servicios/camaras-para-hogar/',         title: 'Residencial',     sub: 'CDMX y Edomex sin cargo',          icon: 'home'    },
+    { href: '/servicios/camaras-para-comercio/',      title: 'Comercial',       sub: 'Cobertura nacional',                icon: 'store'   },
+    { href: '/servicios/sistemas-cctv-industriales/', title: 'Industrial',      sub: 'Plantas · CEDIS · gobierno',        icon: 'factory' },
+    { href: '/como-trabajamos/',                      title: 'Tiempos',         sub: '24-48 h para visita técnica',       icon: 'clock'   },
+    { href: '/contacto/',                             title: 'Mi zona',         sub: 'Confirma cobertura por WhatsApp',   icon: 'phone'   },
+  ],
+
+  '/preguntas-frecuentes/': [
+    { href: '/servicios/',              title: 'Servicios',      sub: '4 líneas profesionales',            icon: 'camera'  },
+    { href: '/como-trabajamos/',        title: 'Proceso',        sub: 'Cómo instalamos paso a paso',       icon: 'clock'   },
+    { href: '/cobertura-cdmx-edomex/',  title: 'Cobertura',      sub: 'Dónde operamos',                    icon: 'map'     },
+    { href: '/sobre-nosotros/',         title: 'Nosotros',       sub: '50+ años de experiencia',           icon: 'about'   },
+    { href: '/contacto/',               title: 'Cotizar',        sub: 'Respuesta WhatsApp inmediata',      icon: 'phone'   },
+  ],
+
+  '/contacto/': [
+    { href: '/servicios/',              title: 'Servicios',      sub: 'Catálogo profesional CAMSEG',       icon: 'camera'  },
+    { href: '/como-trabajamos/',        title: 'Proceso',        sub: 'Qué pasa después de cotizar',       icon: 'clock'   },
+    { href: '/cobertura-cdmx-edomex/',  title: 'Cobertura',      sub: 'Mi zona',                           icon: 'map'     },
+    { href: '/preguntas-frecuentes/',   title: 'Dudas comunes',  sub: 'Antes de escribir',                 icon: 'help'    },
+    { href: '/sobre-nosotros/',         title: 'CAMSEG',         sub: 'Quiénes somos',                     icon: 'about'   },
+  ],
+};
+
+export function getQuickLinks(currentPath: string): QuickLink[] {
+  // Match exacto
+  if (QUICK_LINKS_BY_PATH[currentPath]) return QUICK_LINKS_BY_PATH[currentPath];
+
+  // L3 (sub-servicios) — derivar del parent
+  const l3Match = currentPath.match(/^\/servicios\/([^/]+)\/([^/]+)\/?$/);
+  if (l3Match) {
+    const parentPath = `/servicios/${l3Match[1]}/`;
+    return QUICK_LINKS_BY_PATH[parentPath] ?? QUICK_LINKS_BY_PATH['/'];
+  }
+
+  // Fallback global
+  return QUICK_LINKS_BY_PATH['/'];
+}
+
 export function getPageContext(currentPath: string) {
   const config = PAGE_SEO[currentPath];
   return {

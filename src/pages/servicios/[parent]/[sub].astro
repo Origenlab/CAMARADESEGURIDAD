@@ -5,6 +5,7 @@ import Hero from '@components/Hero.astro';
 import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
+import { getQuickLinks } from '@/data/seo';
 
 export async function getStaticPaths() {
   const subs = await getCollection('subServicios');
@@ -141,8 +142,9 @@ const formatPrice = (n: number) =>
     col2HighlightStat={s.hero?.col2HighlightStat}
     col2Features={(s.hero?.col2Features ?? []).map((text) => ({ text }))}
     col2TrustStrip={s.hero?.col2TrustStrip ?? []}
+    quickLinks={getQuickLinks(`/servicios/${s.parentSlug}/${subSlug}/`)}
     showRecBadge={s.hero?.showRecBadge ?? true}
-    showQuickLinks={s.hero?.showQuickLinks ?? false}
+    showQuickLinks={true}
   />
 
   <!-- ════════════════════════════════════════════════════════

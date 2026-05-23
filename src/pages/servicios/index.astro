@@ -12,7 +12,7 @@ import CoberturaSection from '@components/CoberturaSection.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
-import { PAGE_SEO } from '@/data/seo';
+import { PAGE_SEO, getQuickLinks } from '@/data/seo';
 
 const seo = PAGE_SEO['/servicios/'];
 
@@ -125,6 +125,7 @@ Cuando un proyecto integra varias líneas damos descuento por proyecto integral 
 y todo queda bajo la misma garantía de 2 años por escrito.`,
       },
     ]}
+    quickLinks={getQuickLinks('/servicios/')}
   />
 
   <!-- 2. CARDS DE LAS 4 LÍNEAS (con sub-servicios listados, no paquetes) -->

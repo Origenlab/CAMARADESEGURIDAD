@@ -6,7 +6,7 @@ import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
-import { PAGE_SEO } from '@/data/seo';
+import { PAGE_SEO, getQuickLinks } from '@/data/seo';
 
 const seo = PAGE_SEO['/como-trabajamos/'];
 
@@ -127,6 +127,7 @@ y gestionar usuarios. Salimos cuando tú te sientes seguro — no cuando nosotro
       },
     ]}
     showRecBadge={true}
+    quickLinks={getQuickLinks("/como-trabajamos/")}
     showQuickLinks={true}
   />
 
