@@ -341,19 +341,17 @@ const formatPrice = (n: number) =>
       <!-- ── IDEAL PARA — full width debajo del grid principal ── -->
       {(s.idealParaDetalle?.length > 0 || s.idealPara.length > 0) && (
         <div class="mt-20">
-          <!-- Header bicolumna (1/3 título · 2/3 lead) — patrón canónico del index -->
-          <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-            <div>
-              <span class="eyebrow">Casos de uso</span>
-              <h3 class="heading-lg mt-4 text-balance">
-                Ideal <span class="text-accent-500">para</span>.
-              </h3>
-              <span class="marker-line mt-5"></span>
-            </div>
-            <p class="lead text-ink-600">
-              Estos son los escenarios donde nuestro servicio aplica mejor — identifica el tuyo para entender qué configuración recomendamos y por qué.
-            </p>
-          </div>
+          <!-- Header canónico SectionHeader -->
+          <SectionHeader
+            eyebrow="Casos de uso"
+            title="Ideal para los siguientes casos"
+            highlight="Ideal para"
+            level="lg"
+            lead={[
+              `Más de <strong class="font-bold text-brand-500">15,000 instalaciones</strong> nos enseñaron que cada inmueble tiene riesgos y dinámicas distintas. Estos son los escenarios donde nuestro servicio residencial CAMSEG aplica mejor — identifica el tuyo para entender qué configuración recomendamos y por qué.`,
+              `Cada caso de uso documentado abajo viene con <strong class="font-semibold text-brand-500">recomendación específica de equipos</strong> según experiencia real de instalaciones similares. Si tu situación no encaja exactamente en alguno de estos perfiles, escríbenos: diseñamos a la medida con visita técnica gratuita previa.`,
+            ]}
+          />
 
           {s.idealParaDetalle && s.idealParaDetalle.length > 0 ? (
             <!-- Versión rica con descripciones — 3 cols full width -->
