@@ -3,12 +3,12 @@
  * Modifica estos valores y se reflejarán en todo el sitio.
  */
 export const SITE = {
-  name: 'Cámara de Seguridad',
-  shortName: 'CámaraDeSeguridad',
+  name: 'CAMSEG',
+  shortName: 'CAMSEG',
   url: 'https://camara-de-seguridad.com',
-  defaultTitle: 'Cámara de Seguridad | Venta, Instalación y Monitoreo CCTV en México',
+  defaultTitle: 'CAMSEG | Cámaras de Seguridad CCTV en México · 50+ Años de Experiencia',
   defaultDescription:
-    'Especialistas en cámaras de seguridad CCTV en México. Venta, instalación profesional, configuración remota y monitoreo 24/7 para hogar, comercio e industria. Asesoría gratuita.',
+    'CAMSEG · empresa mexicana líder en venta e instalación de cámaras de seguridad CCTV con más de 50 años de experiencia. Cobertura nacional para hogar, comercio, industria y gobierno. Marcas Hikvision, Dahua y Axis con garantía por escrito.',
   defaultImage: '/og-default.jpg',
   locale: 'es-MX',
   lang: 'es',
@@ -19,7 +19,7 @@ export const SITE = {
     whatsappDisplay: '+52 55 5555 5555',
     phone: '+52 55 5555 5555',
     email: 'contacto@camara-de-seguridad.com',
-    address: 'Ciudad de México, México',
+    address: 'Ciudad de México, México · Cobertura nacional',
     hours: 'Lun – Sáb · 9:00 a 19:00',
   },
   social: {
@@ -28,9 +28,22 @@ export const SITE = {
     youtube: 'https://www.youtube.com/',
   },
   business: {
-    legalName: 'Cámara de Seguridad',
-    foundingYear: 2020,
-    serviceArea: ['Ciudad de México', 'Estado de México', 'Guadalajara', 'Monterrey', 'México'],
+    legalName: 'CAMSEG',
+    foundingYear: 1976,
+    serviceArea: [
+      'Ciudad de México',
+      'Estado de México',
+      'Guadalajara',
+      'Monterrey',
+      'Querétaro',
+      'Puebla',
+      'León',
+      'Tijuana',
+      'Mérida',
+      'Cancún',
+      'Veracruz',
+      'México',
+    ],
   },
 } as const;
 

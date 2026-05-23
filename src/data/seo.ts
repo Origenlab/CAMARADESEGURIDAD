@@ -82,9 +82,9 @@ export const LINK_CATALOG: Record<string, RelatedLink> = {
   },
   '/sobre-nosotros/': {
     href: '/sobre-nosotros/',
-    label: 'Quiénes somos · 10 años de experiencia',
+    label: 'Quiénes somos · 50 años de experiencia',
     eyebrow: 'Nosotros',
-    description: 'Más de 2,050 sistemas instalados en CDMX desde 2014, técnicos certificados Hikvision.',
+    description: 'Más de 15,000 sistemas instalados en CDMX desde 1976, técnicos certificados Hikvision.',
     icon: 'about',
     color: 'brand',
   },
@@ -127,78 +127,78 @@ export const LINK_CATALOG: Record<string, RelatedLink> = {
 // ─────────────────────────────────────────────────────────────
 export const PAGE_SEO: Record<string, PageSEO> = {
   '/': {
-    title: 'Cámaras de Seguridad CDMX | Instalación CCTV Profesional con Garantía 2 Años',
+    title: 'CAMSEG | Cámaras de Seguridad CCTV en México · 50+ Años · Cobertura Nacional',
     description:
-      'Instalamos cámaras de seguridad CCTV en CDMX y Estado de México con Hikvision, Dahua y Provision-ISR. Visita técnica gratis, garantía 2 años por escrito, sin contrato. Cotiza por WhatsApp en menos de 15 minutos.',
+      'CAMSEG · empresa mexicana líder en venta e instalación de cámaras de seguridad CCTV con más de 50 años de experiencia. +15,000 proyectos en toda la República Mexicana para hogar, comercio, industria y gobierno. Hikvision, Dahua, Axis y Provision-ISR con garantía 2 años por escrito.',
     keywords:
-      'cámaras de seguridad CDMX, instalación CCTV México, cámaras Hikvision, cámaras Dahua, sistema de videovigilancia, monitoreo 24/7, cámaras IP 4K, control de acceso',
+      'CAMSEG, cámaras de seguridad México, instalación CCTV nacional, empresa mexicana cámaras, cámaras Hikvision México, cámaras Dahua, Axis, videovigilancia profesional, monitoreo 24/7, cámaras IP 4K, control de acceso',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/sobre-nosotros/', '/preguntas-frecuentes/', '/contacto/'],
   },
 
   '/servicios/': {
-    title: 'Servicios de Cámaras de Seguridad CCTV | Hogar, Comercio e Industria',
+    title: 'Servicios CCTV CAMSEG | Hogar, Comercio, Industria y Gobierno · México',
     description:
-      'Cuatro líneas de servicio profesional CCTV: cámaras residenciales, comerciales, industriales y control de acceso. Visita técnica gratuita, equipos Hikvision y Dahua, garantía 2 años en CDMX y Edomex.',
+      'Catálogo completo de servicios CCTV de CAMSEG con cobertura nacional: cámaras residenciales, comerciales, industriales y control de acceso. 50+ años de experiencia, equipos Hikvision, Dahua y Axis, garantía 2 años por escrito en toda la República Mexicana.',
     keywords:
-      'servicios cámaras seguridad, instalación CCTV CDMX, cámaras residenciales, cámaras comerciales, sistemas industriales CCTV, control de acceso, videovigilancia profesional',
+      'servicios cámaras seguridad CAMSEG, instalación CCTV México, cámaras residenciales, cámaras comerciales, sistemas industriales CCTV, control de acceso, videovigilancia gobierno, integrador CCTV nacional',
     relatedLinks: ['/servicios/camaras-para-hogar/', '/servicios/camaras-para-comercio/', '/servicios/sistemas-cctv-industriales/', '/servicios/control-de-acceso/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/'],
     contextHeading: 'Explora cada línea de servicio en detalle',
     contextLead: 'Cada solución tiene sub-servicios independientes con paquetes, precios y especialidades. Revisa la línea que aplica a tu caso.',
   },
 
   '/sobre-nosotros/': {
-    title: 'Sobre Nosotros | Empresa de Cámaras de Seguridad CCTV en CDMX desde 2014',
+    title: 'Sobre CAMSEG | Empresa Mexicana de Cámaras de Seguridad desde 1976',
     description:
-      'Más de 10 años instalando sistemas CCTV en México. Técnicos certificados oficialmente por Hikvision y Dahua, +2,050 sistemas entregados, garantía de 2 años por escrito. Conoce nuestra historia, valores y diferenciadores.',
+      'CAMSEG · empresa familiar mexicana fundada en 1976. Más de 50 años instalando sistemas CCTV en toda la República. Técnicos certificados Hikvision, Dahua y Axis, más de 15,000 proyectos entregados en residencial, comercial, industrial y gobierno con garantía de 2 años por escrito.',
     keywords:
-      'empresa cámaras de seguridad CDMX, instaladores certificados Hikvision, técnicos Dahua, expertos CCTV México, mejor empresa cámaras seguridad',
+      'CAMSEG empresa, historia cámaras seguridad México, integrador CCTV 50 años, instaladores certificados Hikvision México, técnicos Dahua nacional, expertos CCTV gobierno, mejor empresa cámaras seguridad México',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/preguntas-frecuentes/', '/contacto/'],
     contextHeading: 'Conoce más sobre nuestra propuesta de valor',
-    contextLead: 'Lo que nos diferencia se ve en cada etapa: desde el proceso de trabajo hasta la cobertura, los servicios y el soporte post-venta.',
+    contextLead: 'Cinco décadas se ven en cada etapa: desde el proceso de trabajo hasta la cobertura nacional, los servicios y el soporte post-venta directo.',
   },
 
   '/como-trabajamos/': {
-    title: 'Cómo Trabajamos | Proceso de Instalación CCTV Paso a Paso · 6 Etapas',
+    title: 'Cómo Trabaja CAMSEG | Proceso de Instalación CCTV en 6 Etapas Documentadas',
     description:
-      'Proceso documentado de 6 pasos para instalar tu sistema de cámaras de seguridad: desde la primera respuesta hasta la entrega con app configurada. Tiempos reales, garantía firmada y soporte post-venta directo.',
+      'Proceso CAMSEG de 6 pasos para instalar tu sistema CCTV: del primer contacto a la entrega con app configurada. 50 años de experiencia detrás de cada visita técnica gratuita, propuesta formal y garantía de 2 años. Cobertura en toda la República Mexicana.',
     keywords:
-      'proceso instalación cámaras seguridad, cómo se instalan cámaras CCTV, pasos instalación videovigilancia, instalación profesional CCTV CDMX',
+      'proceso instalación CAMSEG, cómo trabaja CAMSEG, pasos instalación CCTV México, instalación profesional cámaras nacional, metodología instalación videovigilancia',
     relatedLinks: ['/servicios/', '/cobertura-cdmx-edomex/', '/sobre-nosotros/', '/preguntas-frecuentes/', '/contacto/'],
     contextHeading: 'Continúa explorando lo que incluye cada proyecto',
-    contextLead: 'El proceso es parte de un sistema integral. Conoce los servicios, la cobertura, las preguntas más frecuentes y los canales de contacto.',
+    contextLead: 'El proceso es parte de un sistema integral. Conoce los servicios, la cobertura, las preguntas más frecuentes y los canales de contacto directo con CAMSEG.',
   },
 
   '/cobertura-cdmx-edomex/': {
-    title: 'Cobertura CDMX, Estado de México y Nacional | Instalación CCTV Sin Cargo Extra',
+    title: 'Cobertura Nacional CAMSEG | Instalación CCTV en Toda la República Mexicana',
     description:
-      'Cobertura directa en 16 alcaldías de CDMX y 16+ municipios del Estado de México sin cargo por desplazamiento. También Guadalajara, Monterrey y Bajío. Visita técnica gratuita en 24-48 horas.',
+      'CAMSEG opera en toda la República Mexicana — CDMX, Estado de México, Guadalajara, Monterrey, Querétaro, Puebla, León, Tijuana, Mérida, Cancún, Veracruz y más. Visita técnica gratuita, técnicos certificados locales y garantía unificada en todo el país.',
     keywords:
-      'instalación cámaras CDMX, cámaras seguridad Estado de México, CCTV Naucalpan, CCTV Tlalnepantla, instalación cámaras Coyoacán, cámaras Guadalajara Monterrey, cobertura nacional CCTV',
+      'cobertura nacional CAMSEG, instalación cámaras México, CCTV Guadalajara, CCTV Monterrey, instalación cámaras Querétaro, CCTV Puebla, cámaras Mérida, cobertura República Mexicana, integrador CCTV nacional',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/sobre-nosotros/', '/preguntas-frecuentes/', '/contacto/'],
     contextHeading: 'Explora servicios disponibles en tu zona',
-    contextLead: 'En cualquier alcaldía o municipio cubierto aplicamos el mismo proceso, garantía y catálogo de servicios. Conoce qué incluye cada solución.',
+    contextLead: 'En toda la República aplicamos el mismo proceso, garantía y catálogo de servicios. Conoce qué incluye cada solución CAMSEG.',
   },
 
   '/preguntas-frecuentes/': {
-    title: 'Preguntas Frecuentes sobre Cámaras de Seguridad CCTV | 31 Respuestas',
+    title: 'Preguntas Frecuentes CAMSEG | 31 Respuestas sobre Cámaras de Seguridad CCTV',
     description:
-      'Resuelve todas tus dudas sobre instalación de cámaras de seguridad: precios reales, marcas, garantías, proceso, app móvil y cobertura. 31 respuestas honestas de expertos certificados Hikvision y Dahua.',
+      '31 preguntas frecuentes sobre instalación de cámaras de seguridad CCTV respondidas por expertos CAMSEG con 50+ años de experiencia: precios reales, marcas Hikvision y Dahua, garantías, proceso, app móvil y cobertura nacional.',
     keywords:
-      'preguntas frecuentes cámaras seguridad, cuánto cuesta CCTV, qué marca de cámara comprar, garantía cámaras seguridad, instalación cámaras dudas',
+      'preguntas frecuentes CAMSEG, cuánto cuesta CCTV México, qué marca de cámara comprar, garantía cámaras seguridad nacional, instalación cámaras dudas, FAQ cámaras seguridad',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/sobre-nosotros/', '/contacto/'],
     contextHeading: 'Más recursos para tomar tu decisión',
-    contextLead: 'Si las respuestas te sirvieron, complementa con el catálogo de servicios, la cobertura por zona y el proceso completo de instalación.',
+    contextLead: 'Si las respuestas te sirvieron, complementa con el catálogo de servicios CAMSEG, la cobertura nacional y el proceso completo de instalación.',
   },
 
   '/contacto/': {
-    title: 'Contacto | Cotización Gratuita de Cámaras de Seguridad CCTV en CDMX',
+    title: 'Contacto CAMSEG | Cotización Gratis de Cámaras de Seguridad CCTV · México',
     description:
-      'Solicita tu cotización de cámaras de seguridad CCTV en menos de 15 minutos. WhatsApp directo con técnico certificado Hikvision y Dahua, visita técnica gratuita en CDMX y zona metropolitana. Sin call center, sin bots.',
+      'Contacta a CAMSEG para tu cotización de cámaras de seguridad CCTV. Respuesta WhatsApp en menos de 15 minutos con técnico certificado Hikvision y Dahua, visita técnica gratuita en toda la República Mexicana. Sin call center, sin bots, sin contrato forzoso.',
     keywords:
-      'cotización cámaras seguridad CDMX, contacto instalador CCTV, presupuesto cámaras Hikvision, asesoría cámaras vigilancia, WhatsApp cámaras seguridad',
+      'contacto CAMSEG, cotización cámaras seguridad México, presupuesto CCTV nacional, asesoría cámaras vigilancia, WhatsApp CAMSEG, contacto instalador cámaras México',
     relatedLinks: ['/servicios/', '/como-trabajamos/', '/cobertura-cdmx-edomex/', '/sobre-nosotros/', '/preguntas-frecuentes/'],
     contextHeading: 'Antes de escribir, revisa también',
-    contextLead: 'Estos recursos suelen resolver el 80% de las dudas iniciales — y hacen tu cotización más precisa cuando nos contactes.',
+    contextLead: 'Estos recursos suelen resolver el 80% de las dudas iniciales — y hacen tu cotización más precisa cuando contactes a CAMSEG.',
   },
 };
 

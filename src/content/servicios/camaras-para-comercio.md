@@ -15,7 +15,7 @@ pilar: 2
 pilarIntro: "Tu negocio tiene cuatro frentes de riesgo simultáneos: punto de venta, accesos, áreas comunes y perímetro. Diseñamos el sistema para cubrirlos todos sin afectar tu operación — instalamos en horarios cerrados y entregamos planos profesionales. Cada elemento de tu equipo puede tener acceso diferenciado según su rol."
 
 stats:
-  - value: "+850"
+  - value: "+5,000"
     label: "Comercios instalados"
   - value: "0 hrs"
     label: "Operación afectada"

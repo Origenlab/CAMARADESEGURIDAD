@@ -4,13 +4,13 @@ shortTitle: "Hogar"
 eyebrow: "SERVICIO RESIDENCIAL"
 subtitle: "Sistemas CCTV diseñados a la medida de tu casa — no kits genéricos que se venden por internet."
 description: "Instalación profesional de cámaras de seguridad para hogar en CDMX y Estado de México. Equipos Hikvision, Dahua y Provision-ISR con visita técnica gratuita, garantía 2 años por escrito y soporte directo sin call center."
-descripcionLarga: "Una casa bien protegida no se logra comprando un kit genérico — se diseña. En camara-de-seguridad.com instalamos sistemas CCTV residenciales pensados específicamente para uso familiar: cámaras Hikvision, Dahua o Provision-ISR según tu caso, cableado oculto profesional, app móvil configurada en hasta 4 dispositivos con capacitación incluida, integración opcional con videoporteros, alarmas y monitoreo desde el celular. Todo respaldado con garantía de 2 años por escrito y soporte directo con el técnico que instaló tu sistema."
+descripcionLarga: "Una casa bien protegida no se logra comprando un kit genérico — se diseña. En CAMSEG instalamos sistemas CCTV residenciales pensados específicamente para uso familiar: cámaras Hikvision, Dahua o Provision-ISR según tu caso, cableado oculto profesional, app móvil configurada en hasta 4 dispositivos con capacitación incluida, integración opcional con videoporteros, alarmas y monitoreo desde el celular. Todo respaldado con garantía de 2 años por escrito y soporte directo con el técnico que instaló tu sistema."
 descripcionSecundaria: "Más allá del equipo, lo que protege tu hogar es el <strong class=\"font-bold text-brand-500\">criterio de instalación</strong>: dónde se coloca cada cámara, qué ángulo cubre, cómo se oculta el cableado, cómo se configura la app para tu familia. Por eso enviamos técnicos certificados Hikvision y Dahua — no subcontratistas. El mismo que diseña tu sistema es el que lo instala, te capacita y queda como contacto directo de soporte por WhatsApp. Sin call center, sin tickets perdidos, sin números que no responden a los 6 meses."
 
 miniStats:
-  - value: "10+"
+  - value: "50+"
     label: "años de experiencia"
-  - value: "+1,200"
+  - value: "+8,500"
     label: "hogares protegidos"
   - value: "32+"
     label: "zonas de cobertura"
@@ -45,7 +45,7 @@ hero:
   col2Title: "Protección residencial que realmente "
   col2TitleHighlight: "funciona"
   col2Paragraphs:
-    - "En <strong class=\"font-bold text-brand-500\">10 años instalando más de 1,200 sistemas CCTV residenciales</strong> en CDMX y Estado de México hemos visto el mismo patrón: la mayoría de los robos a casa habitación son <strong class=\"font-bold text-brand-500\">oportunistas</strong> y se previenen con disuasión visible más cobertura inteligente de los puntos críticos. Por eso no diseñamos para impresionar — diseñamos para que tu sistema funcione el día que realmente lo necesitas. Cada propuesta arranca con <strong class=\"font-bold text-brand-500\">visita técnica gratuita</strong> donde identificamos puntos ciegos, evaluamos infraestructura y dimensionamos cobertura exacta — sin sobre-instalar."
+    - "En <strong class=\"font-bold text-brand-500\">50 años instalando más de 15,000 sistemas CCTV residenciales</strong> en CDMX y Estado de México hemos visto el mismo patrón: la mayoría de los robos a casa habitación son <strong class=\"font-bold text-brand-500\">oportunistas</strong> y se previenen con disuasión visible más cobertura inteligente de los puntos críticos. Por eso no diseñamos para impresionar — diseñamos para que tu sistema funcione el día que realmente lo necesitas. Cada propuesta arranca con <strong class=\"font-bold text-brand-500\">visita técnica gratuita</strong> donde identificamos puntos ciegos, evaluamos infraestructura y dimensionamos cobertura exacta — sin sobre-instalar."
     - "Trabajamos <strong class=\"font-bold text-brand-500\">exclusivamente con Hikvision, Dahua y Provision-ISR</strong>, las mismas marcas certificadas que usan bancos, aeropuertos y centros comerciales en México. Cableado oculto profesional en muros y plafones, app oficial configurada en hasta <strong class=\"font-bold text-brand-500\">4 dispositivos de tu familia</strong> con capacitación incluida, y <strong class=\"font-bold text-brand-500\">garantía de 2 años por escrito</strong> en equipo Y mano de obra. Soporte post-instalación directo con el técnico responsable vía WhatsApp en menos de 15 minutos. Sin call center, sin contrato forzoso, sin mensualidad obligatoria."
   showRecBadge: true
   showQuickLinks: false
@@ -54,7 +54,7 @@ pilar: 1
 pilarIntro: "Lo que diferencia un sistema residencial profesional de un kit comprado en internet no es la cámara — es el diseño. Cada hogar tiene puntos críticos distintos: una casa con cochera necesita ángulos diferentes que un departamento, una quinta con jardín distintos que un fraccionamiento. Por eso cada instalación inicia con visita técnica gratuita y propuesta personalizada antes de cualquier compromiso."
 
 stats:
-  - value: "+1,200"
+  - value: "+8,500"
     label: "Casas instaladas"
   - value: "2 años"
     label: "Garantía por escrito"

@@ -14,7 +14,7 @@ pilar: 3
 pilarIntro: "Las cámaras industriales no son las residenciales más grandes — son una categoría con requisitos propios: equipos IK10/IP67, cableado estructurado certificado, software VMS de gestión multi-cámara y arquitectura escalable. Diseñamos cada proyecto con visita técnica formal, proyecto ejecutivo documentado y cumplimos normativa NOM-001."
 
 stats:
-  - value: "+120"
+  - value: "+800"
     label: "Plantas instaladas"
   - value: "NOM-001"
     label: "Cumple normativa"

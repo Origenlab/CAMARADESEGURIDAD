@@ -105,7 +105,7 @@ comparativa:
   - atributo: "Sustituye óptica?"
     valor: "NO · complementa · se usan juntas con cámaras ópticas para verificación visual"
   - atributo: "Vida útil sensor"
-    valor: "Sensor térmico: 10+ años · empaques IP67: 5-7 años exteriores extremos"
+    valor: "Sensor térmico: 50+ años · empaques IP67: 5-7 años exteriores extremos"
   - atributo: "Mantenimiento"
     valor: "Limpieza semestral · recalibración anual para predictivo crítico"
   - atributo: "Costo vs óptica equivalente"
