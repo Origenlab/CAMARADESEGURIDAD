@@ -99,6 +99,9 @@ const servicios = defineCollection({
       descripcionLarga: z.string().optional(),
       descripcionSecundaria: z.string().optional(),
 
+      // Header de sección 2 — 2 párrafos profesionales (canónico)
+      seccionIntro: z.array(z.string()).default([]),
+
       // Mini stats inline en sección 2 — para balance visual
       miniStats: z.array(z.object({
         value: z.string(),

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
+import SectionHeader from '@components/SectionHeader.astro';
 import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
@@ -138,19 +139,14 @@ const formatPrice = (n: number) =>
 
     <div class="container relative">
 
-      <!-- HEADER DE SECCIÓN (full width, dos columnas) -->
-      <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-        <div>
-          <span class="eyebrow">Sobre este servicio</span>
-          <h2 class="heading-lg mt-4 text-balance">
-            {s.title}<br/><span class="text-accent-500">en detalle</span>
-          </h2>
-          <span class="marker-line mt-5"></span>
-        </div>
-        <p class="lead text-ink-600">
-          {s.description}
-        </p>
-      </div>
+      <!-- HEADER DE SECCIÓN — SectionHeader canónico con 2 párrafos -->
+      <SectionHeader
+        eyebrow="Sobre este servicio"
+        title={`${s.title} en detalle`}
+        highlight="en detalle"
+        titleBreakBefore={true}
+        lead={s.seccionIntro && s.seccionIntro.length > 0 ? s.seccionIntro : [s.description]}
+      />
 
       <!-- GRID PRINCIPAL — 50/50 equilibrado · ambas cols mismo alto -->
       <div class="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-stretch">
