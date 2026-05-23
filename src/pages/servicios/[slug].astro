@@ -403,19 +403,16 @@ const formatPrice = (n: number) =>
   {s.segmentacion && s.segmentacion.length > 0 && (
     <section class="section-cream" id="segmentacion">
       <div class="container">
-        <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <div>
-            <span class="eyebrow">Encuentra tu caso</span>
-            <h2 class="heading-md mt-4 text-balance">
-              ¿Para qué tipo de hogar <span class="text-accent-500">es esto?</span>
-            </h2>
-            <span class="marker-line mt-5"></span>
-          </div>
-          <p class="lead text-ink-600">
-            Cada tipo de inmueble tiene riesgos diferentes y necesita un sistema distinto. Identifica tu caso para entender qué paquete y configuración aplican mejor — sin sobre-instalar ni quedarte corto.
-          </p>
-        </div>
-
+        <SectionHeader
+          eyebrow="Encuentra tu caso"
+          title="¿Para qué tipo de hogar es esto?"
+          highlight="es esto?"
+          level="lg"
+          lead={[
+            `Cada tipo de inmueble tiene <strong class="font-bold text-brand-500">riesgos diferentes</strong> y necesita un sistema distinto. Una casa con cochera requiere ángulos y equipos diferentes que un departamento en planta baja, y un residencial necesita roles multi-usuario que una quinta no usa. Identifica tu caso para entender qué paquete y configuración recomendamos.`,
+            `En CAMSEG no aplicamos <strong class="font-semibold text-brand-500">la misma propuesta a todos</strong> — el sistema correcto depende del tamaño del inmueble, los puntos críticos a cubrir y el nivel de riesgo de la zona. Sin sobre-instalar ni quedarte corto. La visita técnica gratuita confirma el diseño antes de cualquier compromiso.`,
+          ]}
+        />
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {s.segmentacion.map((seg, i) => {
             // Alterna fondo brand/accent para variedad visual
