@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import SectionHeader from '@components/SectionHeader.astro';
-import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
 import { SITE } from '@/consts';
 
@@ -867,40 +866,30 @@ const formatPrice = (n: number) =>
 
 
   <!-- ══════════════════════════════════════════════════════
-       6. FAQ ESPECÍFICO DEL SERVICIO
+       6. FAQ + CONTACTO WHATSAPP — módulo unificado bicolumna
        ══════════════════════════════════════════════════════ -->
   {s.faq.length > 0 && (
-    <section class="section-cream" id="faq">
+    <section class="section-cream" id="faq-contacto">
       <div class="container">
-        <div class="grid gap-12 lg:grid-cols-[1fr_1.8fr]">
 
-          <!-- Texto izquierdo -->
-          <div class="lg:sticky lg:top-32 lg:self-start">
-            <span class="eyebrow">Preguntas frecuentes</span>
-            <h2 class="heading-md mt-4 text-balance">
-              Todo lo que necesitas
-              <span class="text-accent-500"> saber</span>.
-            </h2>
-            <span class="marker-line mt-5"></span>
-            <p class="mt-5 text-[15px] leading-relaxed text-ink-600">
-              Si tu pregunta no está aquí, escríbenos por WhatsApp — respondemos en menos de 15 minutos.
-            </p>
-            <a
-              href={`https://wa.me/${SITE.contact.whatsapp}?text=${encodeURIComponent(`Hola, tengo una pregunta sobre ${s.title}`)}`}
-              target="_blank"
-              rel="noopener"
-              class="mt-6 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-all hover:gap-3"
-            >
-              Pregunta por WhatsApp
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          </div>
+        <SectionHeader
+          eyebrow="Preguntas + Contacto"
+          title="Resuelve tu duda o cotiza al instante"
+          highlight="cotiza al instante"
+          level="lg"
+          lead={[
+            `Las <strong class="font-bold text-brand-500">preguntas frecuentes</strong> de la izquierda resuelven el 90% de las dudas que recibimos. Si la tuya no aparece, el formulario de la derecha abre WhatsApp directamente con un técnico CAMSEG certificado — sin formularios largos, sin call center, sin bots.`,
+            `<strong class="font-semibold text-brand-500">Respuesta en menos de 15 minutos</strong> en horario hábil (Lun–Sáb 9:00–19:00). Para urgencias fuera de horario también respondemos, solo que el tiempo puede ser ligeramente mayor. Todas las consultas las atiende un técnico real, no un agente de ventas.`,
+          ]}
+        />
 
-          <!-- Acordeón FAQ -->
+        <div class="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-start">
+
+          <!-- ── COLUMNA IZQUIERDA — Acordeón FAQ ── -->
           <div class="space-y-3" id="faq-list">
             {s.faq.map((item, i) => (
               <details class="faq-item group rounded-2xl border border-cream-200 bg-white open:shadow-soft">
-                <summary class="flex cursor-pointer select-none list-none items-start justify-between gap-4 p-6 text-[15px] font-bold text-ink-800 transition-colors hover:text-brand-500">
+                <summary class="flex cursor-pointer select-none list-none items-start justify-between gap-4 p-5 text-[14.5px] font-bold text-ink-800 transition-colors hover:text-brand-500">
                   <span class="flex items-start gap-3">
                     <span class={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-black text-white ${isBrand ? 'bg-brand-500' : 'bg-accent-500'}`}>
                       {i + 1}
@@ -911,23 +900,150 @@ const formatPrice = (n: number) =>
                     <path d="m6 9 6 6 6-6"/>
                   </svg>
                 </summary>
-                <div class="border-t border-cream-100 px-6 pb-6 pt-4">
-                  <p class="pl-9 text-[14.5px] leading-[1.8] text-ink-600">{item.a}</p>
+                <div class="border-t border-cream-100 px-5 pb-5 pt-3">
+                  <p class="pl-9 text-[14px] leading-[1.75] text-ink-600">{item.a}</p>
                 </div>
               </details>
             ))}
           </div>
+
+          <!-- ── COLUMNA DERECHA — Formulario WhatsApp + Datos directos ── -->
+          <aside class="lg:sticky lg:top-32 lg:self-start">
+            <div class="overflow-hidden rounded-3xl bg-brand-500 text-white shadow-[0_24px_60px_-20px_rgba(10,37,64,0.5)]">
+
+              <!-- Header del módulo -->
+              <div class={`border-b border-white/10 bg-brand-600 px-6 py-5`}>
+                <p class="text-[10.5px] font-bold uppercase tracking-[0.24em] text-accent-400">⚡ Cotización por WhatsApp</p>
+                <h3 class="mt-1.5 font-display text-2xl font-black text-white">Cuéntanos tu caso</h3>
+                <p class="mt-1 text-[13px] text-cream-300">Abrimos WhatsApp con tu mensaje listo para enviar.</p>
+              </div>
+
+              <!-- Formulario compacto -->
+              <form id={`waform-${slug}`} class="space-y-4 px-6 py-6" onsubmit="return false">
+                <div>
+                  <label for={`wa-nombre-${slug}`} class="mb-1.5 block text-[11.5px] font-bold uppercase tracking-wide text-white/70">Tu nombre</label>
+                  <input type="text" id={`wa-nombre-${slug}`} placeholder="Ej. Carlos Ramírez" autocomplete="name"
+                    class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400" />
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label for={`wa-zona-${slug}`} class="mb-1.5 block text-[11.5px] font-bold uppercase tracking-wide text-white/70">Zona / Ciudad</label>
+                    <input type="text" id={`wa-zona-${slug}`} placeholder="Ej. CDMX"
+                      class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400" />
+                  </div>
+                  <div>
+                    <label for={`wa-camaras-${slug}`} class="mb-1.5 block text-[11.5px] font-bold uppercase tracking-wide text-white/70">Cámaras aprox.</label>
+                    <select id={`wa-camaras-${slug}`}
+                      class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400">
+                      <option class="bg-brand-700">No sé aún</option>
+                      <option class="bg-brand-700">2 cámaras</option>
+                      <option class="bg-brand-700">4 cámaras</option>
+                      <option class="bg-brand-700">6-8 cámaras</option>
+                      <option class="bg-brand-700">Más de 8</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for={`wa-msg-${slug}`} class="mb-1.5 block text-[11.5px] font-bold uppercase tracking-wide text-white/70">
+                    Cuéntanos más <span class="font-normal normal-case text-white/45">(opcional)</span>
+                  </label>
+                  <textarea id={`wa-msg-${slug}`} rows="3"
+                    placeholder="Ej. Tengo una casa de 2 pisos con cochera..."
+                    class="w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/35 transition focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400"></textarea>
+                </div>
+
+                <button type="button" data-waform-submit={slug} data-service-title={s.title} data-wa-phone={SITE.contact.whatsapp}
+                  class="group flex w-full items-center justify-center gap-3 rounded-xl bg-accent-500 px-6 py-4 font-display text-[15px] font-black text-white shadow-lg transition hover:bg-accent-600 hover:shadow-xl active:scale-[0.98]">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+                  </svg>
+                  Enviar por WhatsApp
+                </button>
+                <p class="text-center text-[11.5px] text-cream-400">Respuesta en menos de 15 minutos · sin call center</p>
+              </form>
+
+              <!-- ── DATOS DIRECTOS ── -->
+              <div class="border-t border-white/10 bg-brand-600 px-6 py-5">
+                <p class="text-[10.5px] font-bold uppercase tracking-[0.24em] text-accent-400 mb-4">Datos directos</p>
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3 text-[13.5px]">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 text-accent-400" aria-hidden="true">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+                      </svg>
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-[10.5px] font-bold uppercase tracking-wider text-cream-400">WhatsApp</p>
+                      <a href={`https://wa.me/${SITE.contact.whatsapp}`} target="_blank" rel="noopener" class="text-white hover:text-accent-300 transition-colors">{SITE.contact.whatsappDisplay}</a>
+                    </div>
+                  </li>
+                  <li class="flex items-center gap-3 text-[13.5px]">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-accent-400" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/>
+                      </svg>
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-[10.5px] font-bold uppercase tracking-wider text-cream-400">Teléfono</p>
+                      <a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`} class="text-white hover:text-accent-300 transition-colors">{SITE.contact.phone}</a>
+                    </div>
+                  </li>
+                  <li class="flex items-center gap-3 text-[13.5px]">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-accent-400" aria-hidden="true">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>
+                      </svg>
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-[10.5px] font-bold uppercase tracking-wider text-cream-400">Correo</p>
+                      <a href={`mailto:${SITE.contact.email}`} class="text-white hover:text-accent-300 transition-colors break-all">{SITE.contact.email}</a>
+                    </div>
+                  </li>
+                  <li class="flex items-center gap-3 text-[13.5px]">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-accent-400" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                      </svg>
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-[10.5px] font-bold uppercase tracking-wider text-cream-400">Horario</p>
+                      <p class="text-white">{SITE.contact.hours}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </aside>
 
         </div>
       </div>
     </section>
   )}
 
+  <!-- WhatsApp form submit handler (shared para todos los slugs) -->
+  <script>
+    document.querySelectorAll('[data-waform-submit]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const slug = btn.getAttribute('data-waform-submit');
+        const serviceTitle = btn.getAttribute('data-service-title') || 'tu servicio';
+        const nombre = (document.getElementById(`wa-nombre-${slug}`) as HTMLInputElement)?.value.trim() || 'un cliente';
+        const zona = (document.getElementById(`wa-zona-${slug}`) as HTMLInputElement)?.value.trim();
+        const camaras = (document.getElementById(`wa-camaras-${slug}`) as HTMLSelectElement)?.value;
+        const msg = (document.getElementById(`wa-msg-${slug}`) as HTMLTextAreaElement)?.value.trim();
 
-  <!-- ══════════════════════════════════════════════════════
-       8. CTA FINAL
-       ══════════════════════════════════════════════════════ -->
-  <CTASection />
+        let texto = `Hola, soy ${nombre}. Me interesa cotizar ${serviceTitle}`;
+        if (camaras && camaras !== 'No sé aún') texto += `, aprox. ${camaras}`;
+        if (zona) texto += `, en ${zona}`;
+        texto += '.';
+        if (msg) texto += ` ${msg}`;
+
+        const phone = btn.getAttribute('data-wa-phone') || '525555555555';
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(texto)}`, '_blank');
+      });
+    });
+  </script>
 
 </BaseLayout>
 
