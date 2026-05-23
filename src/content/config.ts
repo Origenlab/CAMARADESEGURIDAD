@@ -151,7 +151,7 @@ const servicios = defineCollection({
             name: z.string(),
             description: z.string(),
             url: z.string(),
-            icon: z.enum(['camera', 'eye', 'shield', 'lock', 'tool', 'bell', 'wifi', 'monitor', 'car', 'fingerprint']).optional(),
+            icon: z.enum(['camera', 'eye', 'shield', 'lock', 'tool', 'bell', 'wifi', 'monitor', 'car', 'fingerprint', 'ptz', 'thermal', 'lpr']).optional(),
           }),
         )
         .default([]),
