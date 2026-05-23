@@ -1,0 +1,161 @@
+---
+/**
+ * SectionHeader · COMPLEMENTO TÍTULO CANÓNICO del sitio.
+ *
+ * Patrón único para TODOS los headers de sección.
+ *
+ * Estructura:
+ *   [Badge pill opcional]
+ *   [Eyebrow] (uppercase tracking-wide)
+ *   [Heading h2/h3] con highlight accent + punto final
+ *   [Marker line accent]
+ *   [Tagline opcional debajo]
+ *   ────────  (1fr_2fr grid items-center)
+ *   [Lead paragraph 1]
+ *   [Lead paragraph 2 opcional]
+ *
+ * NUNCA usar items-end / items-start — siempre items-center.
+ * Variant 'dark' para fondos brand · 'light' (default) para cream/white.
+ */
+
+interface Props {
+  /** Pill badge arriba del eyebrow (opcional) */
+  badge?: string;
+  /** Texto eyebrow uppercase obligatorio */
+  eyebrow: string;
+  /** Texto del título (puede incluir <br/> para split visual) */
+  title: string;
+  /** Palabra/frase a resaltar en accent dentro del título */
+  highlight?: string;
+  /** Si el highlight va en su propia línea */
+  titleBreakBefore?: boolean;
+  /** Tagline corto bajo el marker-line (opcional) */
+  tagline?: string;
+  /** Lead — un string o array de strings (HTML permitido) */
+  lead?: string | string[];
+  /** Variant de color: light = cream/white · dark = section-brand */
+  variant?: 'light' | 'dark';
+  /** Tamaño del heading: lg (default · h2) · md (h3 · subtítulos internos) */
+  level?: 'lg' | 'md';
+  /** Proporciones del grid */
+  proportions?: '1fr_2fr' | '2fr_1fr' | '1fr_1fr';
+  /** ID del heading (para anchor links) */
+  headingId?: string;
+  /** Clase adicional al wrapper */
+  className?: string;
+}
+
+const {
+  badge,
+  eyebrow,
+  title,
+  highlight,
+  titleBreakBefore = false,
+  tagline,
+  lead,
+  variant = 'light',
+  level = 'lg',
+  proportions = '1fr_2fr',
+  headingId,
+  className = '',
+} = Astro.props;
+
+const isDark = variant === 'dark';
+const HeadingTag = level === 'lg' ? 'h2' : 'h3';
+const headingClass = level === 'lg' ? 'heading-lg' : 'heading-md';
+const eyebrowClass = isDark ? 'eyebrow-light' : 'eyebrow';
+const headingExtra = isDark ? 'heading-light' : '';
+const highlightClass = isDark ? 'text-accent-400' : 'text-accent-500';
+const leadClass = isDark ? 'lead-light' : 'lead';
+const secondaryLeadClass = isDark
+  ? 'text-[15.5px] leading-relaxed text-cream-300'
+  : 'text-[15.5px] leading-relaxed text-ink-600';
+const taglineClass = isDark
+  ? 'mt-5 text-[13px] font-bold uppercase tracking-[0.18em] text-cream-300'
+  : 'mt-5 text-[13px] font-bold uppercase tracking-[0.18em] text-ink-500';
+const badgeClass = isDark
+  ? 'inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.22em] text-cream-200'
+  : 'inline-flex items-center gap-2 rounded-full border border-brand-500/15 bg-brand-500/[0.04] px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-500';
+
+const gridCols =
+  proportions === '2fr_1fr'
+    ? 'lg:grid-cols-[2fr_1fr]'
+    : proportions === '1fr_1fr'
+    ? 'lg:grid-cols-2'
+    : 'lg:grid-cols-[1fr_2fr]';
+
+// Construir título con highlight
+const renderTitle = () => {
+  if (!highlight) return title;
+  const idx = title.indexOf(highlight);
+  if (idx === -1) return title;
+  return {
+    before: title.slice(0, idx),
+    highlight,
+    after: title.slice(idx + highlight.length),
+  };
+};
+const titleParts = renderTitle();
+
+const markerStyle = isDark ? 'background-color: rgb(var(--color-accent))' : '';
+
+// Normaliza lead a array
+const leadArray = lead == null ? [] : Array.isArray(lead) ? lead : [lead];
+---
+
+<div class={`grid items-center gap-8 ${gridCols} lg:gap-16 ${className}`}>
+
+  <!-- Columna 1 — TÍTULO -->
+  <div>
+    {badge && (
+      <span class={badgeClass}>
+        <span class={`h-1.5 w-1.5 rounded-full ${isDark ? 'bg-accent-400' : 'bg-accent-500'}`}></span>
+        {badge}
+      </span>
+    )}
+
+    <span class={`${eyebrowClass} ${badge ? 'mt-6 block' : ''}`}>{eyebrow}</span>
+
+    <HeadingTag
+      id={headingId}
+      class={`${headingClass} mt-4 text-balance ${headingExtra}`}
+    >
+      {typeof titleParts === 'string' ? (
+        <Fragment set:html={titleParts} />
+      ) : (
+        <>
+          {titleBreakBefore ? (
+            <>
+              <Fragment set:html={titleParts.before} />
+              <br />
+              <span class={highlightClass}>{titleParts.highlight}</span>
+              <Fragment set:html={titleParts.after} />.
+            </>
+          ) : (
+            <>
+              <Fragment set:html={titleParts.before} />
+              <span class={highlightClass}>{titleParts.highlight}</span>
+              <Fragment set:html={titleParts.after} />.
+            </>
+          )}
+        </>
+      )}
+    </HeadingTag>
+
+    <span class="marker-line mt-5" style={markerStyle}></span>
+
+    {tagline && <p class={taglineClass}>{tagline}</p>}
+  </div>
+
+  <!-- Columna 2 — LEAD (1 o 2 párrafos) -->
+  {leadArray.length > 0 && (
+    <div class="space-y-5">
+      {leadArray.map((paragraph, i) => (
+        <p
+          class={i === 0 ? leadClass : secondaryLeadClass}
+          set:html={paragraph}
+        />
+      ))}
+    </div>
+  )}
+</div>

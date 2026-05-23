@@ -1,4 +1,6 @@
 ---
+import SectionHeader from './SectionHeader.astro';
+
 const servicios = [
   {
     title: 'Cámaras para Hogar',
@@ -64,52 +66,18 @@ const icons: Record<string, string> = {
 
 <section id="servicios" class="section-white">
   <div class="container">
-    <div class="grid items-center gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-
-      <!-- Título canónico con badge superior + heading mejorado -->
-      <div>
-        <!-- Mini badge / chip arriba del eyebrow -->
-        <span class="inline-flex items-center gap-2 rounded-full border border-brand-500/15 bg-brand-500/[0.04] px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-500">
-          <span class="h-1.5 w-1.5 rounded-full bg-accent-500"></span>
-          Catálogo profesional
-        </span>
-
-        <span class="eyebrow mt-6 block">Nuestros servicios</span>
-
-        <h2 class="heading-lg mt-4 text-balance">
-          Sistemas CCTV diseñados<br/>
-          para <span class="text-accent-500">cada espacio</span>.
-        </h2>
-
-        <span class="marker-line mt-5"></span>
-
-        <!-- Tagline bajo el marker · 4 líneas de servicio -->
-        <p class="mt-5 text-[13px] font-bold uppercase tracking-[0.18em] text-ink-500">
-          Residencial · Comercial · Industrial · Control de acceso
-        </p>
-      </div>
-
-      <!-- 2 párrafos profesionales hablando de la empresa -->
-      <div class="space-y-5">
-        <p class="lead">
-          En <strong class="font-bold text-brand-500">CAMSEG</strong> diseñamos
-          e instalamos sistemas CCTV profesionales desde 1976 — más de
-          <strong class="font-bold text-brand-500">15,000 proyectos entregados</strong> en
-          toda la República Mexicana — desde CDMX, Guadalajara y Monterrey hasta Cancún, Mérida y Tijuana. Trabajamos exclusivamente
-          con equipos certificados <strong class="font-bold text-brand-500">Hikvision, Dahua
-          y Provision-ISR</strong>, las mismas marcas que usan bancos, aeropuertos y centros
-          comerciales mexicanos.
-        </p>
-        <p class="text-[15.5px] leading-relaxed text-ink-600">
-          Nuestra propuesta no es vender cámaras: es <strong class="font-semibold text-brand-500">diseñar
-          el sistema correcto para tu inmueble</strong>. Cada proyecto arranca con visita técnica
-          gratuita donde diagnosticamos riesgos, identificamos puntos ciegos y dimensionamos
-          cobertura — sin sobre-instalar, sin recomendar de más. Garantía de 2 años por escrito,
-          soporte directo por WhatsApp con el técnico responsable y sin contratos forzosos
-          ni mensualidad obligatoria.
-        </p>
-      </div>
-    </div>
+    <SectionHeader
+      badge="Catálogo profesional"
+      eyebrow="Nuestros servicios"
+      title="Sistemas CCTV diseñados para cada espacio"
+      highlight="cada espacio"
+      titleBreakBefore={true}
+      tagline="Residencial · Comercial · Industrial · Control de acceso"
+      lead={[
+        `En <strong class="font-bold text-brand-500">CAMSEG</strong> diseñamos e instalamos sistemas CCTV profesionales desde 1976 — más de <strong class="font-bold text-brand-500">15,000 proyectos entregados</strong> en toda la República Mexicana — desde CDMX, Guadalajara y Monterrey hasta Cancún, Mérida y Tijuana. Trabajamos exclusivamente con equipos certificados <strong class="font-bold text-brand-500">Hikvision, Dahua y Provision-ISR</strong>, las mismas marcas que usan bancos, aeropuertos y centros comerciales mexicanos.`,
+        `Nuestra propuesta no es vender cámaras: es <strong class="font-semibold text-brand-500">diseñar el sistema correcto para tu inmueble</strong>. Cada proyecto arranca con visita técnica gratuita donde diagnosticamos riesgos, identificamos puntos ciegos y dimensionamos cobertura — sin sobre-instalar, sin recomendar de más. Garantía de 2 años por escrito, soporte directo por WhatsApp con el técnico responsable y sin contratos forzosos ni mensualidad obligatoria.`,
+      ]}
+    />
 
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
