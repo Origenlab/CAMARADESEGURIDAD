@@ -925,50 +925,6 @@ const formatPrice = (n: number) =>
 
 
   <!-- ══════════════════════════════════════════════════════
-       7. SERVICIOS RELACIONADOS — navegar a los otros 3
-       ══════════════════════════════════════════════════════ -->
-  <section class="section-white">
-    <div class="container">
-      <div class="mb-10 flex items-end justify-between gap-4">
-        <div>
-          <span class="eyebrow">Más servicios</span>
-          <h2 class="heading-md mt-4">Otros servicios <span class="text-accent-500">relacionados</span></h2>
-          <span class="marker-line mt-5"></span>
-        </div>
-        <a href="/servicios/" class="btn-outline hidden sm:inline-flex shrink-0">Ver todos</a>
-      </div>
-
-      <div class="grid gap-5 sm:grid-cols-3">
-        {[
-          { href: '/servicios/camaras-para-hogar/',         label: 'Cámaras para Hogar',    eyebrow: 'Residencial',    icon: 'home',    color: 'brand' },
-          { href: '/servicios/camaras-para-comercio/',       label: 'Cámaras para Comercio', eyebrow: 'Comercial',     icon: 'store',   color: 'accent' },
-          { href: '/servicios/sistemas-cctv-industriales/',     label: 'Sistemas Industriales', eyebrow: 'Industrial',    icon: 'factory', color: 'brand' },
-          { href: '/servicios/control-de-acceso/', label: 'Control de Acceso',     eyebrow: 'Complementario', icon: 'lock',   color: 'accent' },
-        ]
-        .filter((rel) => rel.href !== `/servicios/${slug}/`)
-        .map((rel) => {
-          const relBg = rel.color === 'brand' ? 'bg-brand-500' : 'bg-accent-500';
-          return (
-            <a href={rel.href} class="card group flex items-center gap-4 p-5 transition-all hover:-translate-y-0.5 hover:shadow-card">
-              <span class={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${relBg}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white" aria-hidden="true" set:html={svgIcons[rel.icon] ?? ''}/>
-              </span>
-              <div class="min-w-0">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-ink-400">{rel.eyebrow}</p>
-                <p class="mt-0.5 font-bold text-ink-800 transition-colors group-hover:text-brand-500">{rel.label}</p>
-              </div>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-auto h-4 w-4 shrink-0 text-ink-200 transition-all group-hover:translate-x-0.5 group-hover:text-accent-500" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          );
-        })}
-      </div>
-
-      <a href="/servicios/" class="mt-6 flex items-center justify-center sm:hidden btn-outline w-full">Ver todos los servicios</a>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════════════
        8. CTA FINAL
        ══════════════════════════════════════════════════════ -->
   <CTASection />
