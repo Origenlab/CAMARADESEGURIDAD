@@ -867,35 +867,6 @@ const formatPrice = (n: number) =>
 
 
   <!-- ══════════════════════════════════════════════════════
-       5. BANNER GARANTÍA
-       ══════════════════════════════════════════════════════ -->
-  <section class={`${headerBg2} py-12 lg:py-16`} aria-label="Garantía">
-    <div class="container">
-      <div class="grid gap-8 sm:grid-cols-3 lg:grid-cols-4">
-
-        {[
-          { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>', title: 'Garantía 2 años', sub: 'Equipo + mano de obra por escrito' },
-          { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', title: 'WhatsApp en 15 min', sub: 'Respuesta rápida sin call center' },
-          { icon: '<path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11Z"/><path d="M9 22V12h6v10"/>', title: 'Visita técnica gratis', sub: 'En CDMX y Edomex sin costo' },
-          { icon: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 2v5M8 2v5M2 12h20"/>', title: 'Instalación en 1–2 días', sub: 'Sin afectar tu operación' },
-        ].map((item) => (
-          <div class="flex items-start gap-4">
-            <span class={`mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl ${isBrand ? 'bg-accent-500' : 'bg-white/20'}`}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-white" aria-hidden="true" set:html={item.icon}/>
-            </span>
-            <div>
-              <p class="font-bold text-white">{item.title}</p>
-              <p class="mt-0.5 text-[13px] text-white/65">{item.sub}</p>
-            </div>
-          </div>
-        ))}
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════════════
        6. FAQ ESPECÍFICO DEL SERVICIO
        ══════════════════════════════════════════════════════ -->
   {s.faq.length > 0 && (
