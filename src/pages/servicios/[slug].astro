@@ -152,11 +152,11 @@ const formatPrice = (n: number) =>
         </p>
       </div>
 
-      <!-- GRID PRINCIPAL — composición asimétrica -->
-      <div class="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14 lg:items-start">
+      <!-- GRID PRINCIPAL — 50/50 equilibrado · ambas cols mismo alto -->
+      <div class="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-stretch">
 
-        <!-- ── COLUMNA IZQUIERDA — descripción + stats + ideal para ── -->
-        <div>
+        <!-- ── COLUMNA IZQUIERDA — descripción + stats + 2do párrafo ── -->
+        <div class="flex flex-col">
           <!-- Drop-cap en primer párrafo -->
           <p class="text-[16.5px] leading-[1.85] text-ink-700 first-letter:float-left first-letter:mr-3 first-letter:mt-1.5 first-letter:font-display first-letter:text-[68px] first-letter:font-black first-letter:leading-none first-letter:text-accent-500">
             {s.descripcionLarga ?? s.description}
@@ -182,63 +182,12 @@ const formatPrice = (n: number) =>
           {s.descripcionSecundaria && (
             <p class="mt-8 text-[16px] leading-[1.85] text-ink-700" set:html={s.descripcionSecundaria}></p>
           )}
-
-          <!-- IDEAL PARA — cards modernas con check -->
-          {(s.idealParaDetalle?.length > 0 || s.idealPara.length > 0) && (
-            <div class="mt-14">
-              <!-- Título canónico (eyebrow + heading + marker-line) -->
-              <span class="eyebrow">Casos de uso</span>
-              <h3 class="heading-md mt-4 text-balance">
-                Ideal <span class="text-accent-500">para</span>.
-              </h3>
-              <span class="marker-line mt-5"></span>
-
-              {s.idealParaDetalle && s.idealParaDetalle.length > 0 ? (
-                <!-- Versión rica con descripciones -->
-                <ul class="mt-8 grid gap-3 sm:grid-cols-2">
-                  {s.idealParaDetalle.map((item, i) => (
-                    <li class="group relative flex flex-col gap-2.5 rounded-2xl border border-cream-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-accent-500/40 hover:shadow-card">
-                      <div class="flex items-center gap-3">
-                        <span class={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${isBrand ? 'bg-brand-50 text-brand-500' : 'bg-accent-50 text-accent-500'} transition-colors group-hover:bg-accent-500 group-hover:text-white`}>
-                          <span class="font-display text-[12px] font-black leading-none">
-                            {String(i + 1).padStart(2, '0')}
-                          </span>
-                        </span>
-                        <p class="font-display text-[14.5px] font-black leading-snug text-brand-500">
-                          {item.titulo}
-                        </p>
-                      </div>
-                      {item.descripcion && (
-                        <p class="text-[13px] leading-relaxed text-ink-600">
-                          {item.descripcion}
-                        </p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <!-- Versión simple sin descripciones (fallback) -->
-                <ul class="mt-8 grid gap-3 sm:grid-cols-2">
-                  {s.idealPara.map((item, i) => (
-                    <li class="group relative flex items-start gap-3 rounded-xl border border-cream-200 bg-white px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-accent-500/40 hover:shadow-card">
-                      <span class={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg ${isBrand ? 'bg-brand-50 text-brand-500' : 'bg-accent-50 text-accent-500'} transition-colors group-hover:bg-accent-500 group-hover:text-white`}>
-                        <span class="font-display text-[11px] font-black leading-none">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                      </span>
-                      <span class="text-[14px] font-semibold leading-snug text-ink-700">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
         </div>
 
-        <!-- ── COLUMNA DERECHA — pilar card destacada ── -->
+        <!-- ── COLUMNA DERECHA — pilar card destacada · full height ── -->
         {s.pilarIntro && (
-          <aside class="lg:sticky lg:top-32 lg:self-start">
-            <div class={`relative overflow-hidden rounded-3xl ${headerBg} text-white shadow-[0_24px_60px_-20px_rgba(10,37,64,0.5)]`}>
+          <aside class="flex">
+            <div class={`relative overflow-hidden rounded-3xl ${headerBg} text-white shadow-[0_24px_60px_-20px_rgba(10,37,64,0.5)] w-full flex flex-col`}>
 
               <!-- Número decorativo grande -->
               <span class="absolute right-6 top-2 font-display text-[140px] font-black leading-none text-white/[0.06] select-none pointer-events-none" aria-hidden="true">
@@ -252,7 +201,7 @@ const formatPrice = (n: number) =>
               <!-- Borde accent superior -->
               <div class={`absolute left-0 top-0 h-1 w-full ${isBrand ? 'bg-accent-500' : 'bg-white/30'}`} aria-hidden="true"></div>
 
-              <div class="relative p-8 lg:p-9">
+              <div class="relative flex flex-1 flex-col p-8 lg:p-9">
 
                 <!-- Icon tile -->
                 <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/20 backdrop-blur-sm">
@@ -316,6 +265,64 @@ const formatPrice = (n: number) =>
         )}
 
       </div>
+
+      <!-- ── IDEAL PARA — full width debajo del grid principal ── -->
+      {(s.idealParaDetalle?.length > 0 || s.idealPara.length > 0) && (
+        <div class="mt-20">
+          <!-- Header bicolumna (1/3 título · 2/3 lead) — patrón canónico del index -->
+          <div class="grid items-end gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div>
+              <span class="eyebrow">Casos de uso</span>
+              <h3 class="heading-lg mt-4 text-balance">
+                Ideal <span class="text-accent-500">para</span>.
+              </h3>
+              <span class="marker-line mt-5"></span>
+            </div>
+            <p class="lead text-ink-600">
+              Estos son los escenarios donde nuestro servicio aplica mejor — identifica el tuyo para entender qué configuración recomendamos y por qué.
+            </p>
+          </div>
+
+          {s.idealParaDetalle && s.idealParaDetalle.length > 0 ? (
+            <!-- Versión rica con descripciones — 3 cols full width -->
+            <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {s.idealParaDetalle.map((item, i) => (
+                <li class="group relative flex flex-col gap-3 rounded-2xl border border-cream-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-accent-500/40 hover:shadow-card">
+                  <div class="flex items-center gap-3">
+                    <span class={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isBrand ? 'bg-brand-50 text-brand-500' : 'bg-accent-50 text-accent-500'} transition-colors group-hover:bg-accent-500 group-hover:text-white`}>
+                      <span class="font-display text-[13px] font-black leading-none">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                    </span>
+                    <h4 class="font-display text-[15px] font-black leading-snug text-brand-500 group-hover:text-accent-500 transition-colors">
+                      {item.titulo}
+                    </h4>
+                  </div>
+                  {item.descripcion && (
+                    <p class="text-[13.5px] leading-relaxed text-ink-600">
+                      {item.descripcion}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {s.idealPara.map((item, i) => (
+                <li class="group relative flex items-start gap-3 rounded-xl border border-cream-200 bg-white px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-accent-500/40 hover:shadow-card">
+                  <span class={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${isBrand ? 'bg-brand-50 text-brand-500' : 'bg-accent-50 text-accent-500'} transition-colors group-hover:bg-accent-500 group-hover:text-white`}>
+                    <span class="font-display text-[12px] font-black leading-none">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </span>
+                  <span class="text-[14px] font-semibold leading-snug text-ink-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
     </div>
   </section>
 
