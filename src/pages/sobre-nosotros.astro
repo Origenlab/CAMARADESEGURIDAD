@@ -4,8 +4,8 @@ import Hero from '@components/Hero.astro';
 import FaqSection from '@components/FaqSection.astro';
 import CTASection from '@components/CTASection.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
-import { SITE } from '@/consts';
-import { PAGE_SEO, getQuickLinks } from '@/data/seo';
+import { SITE } from '@config/site';
+import { PAGE_SEO, getQuickLinks } from '@lib/seo';
 
 const seo = PAGE_SEO['/sobre-nosotros/'];
 

@@ -8,6 +8,8 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@config/*": ["src/config/*"],
+      "@lib/*": ["src/lib/*"],
       "@styles/*": ["src/styles/*"],
       "@content/*": ["src/content/*"],
       "@assets/*": ["src/assets/*"]

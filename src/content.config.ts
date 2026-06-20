@@ -330,6 +330,12 @@ const subServicios = defineCollection({
         col2Title: z.string(),
         col2TitleHighlight: z.string(),
         col2Paragraphs: z.array(z.string()),
+        col2HighlightStat: z.object({
+          value: z.string(),
+          label: z.string(),
+        }).optional(),
+        col2Features: z.array(z.string()).default([]),
+        col2TrustStrip: z.array(z.string()).default([]),
         showRecBadge: z.boolean().default(true),
         showQuickLinks: z.boolean().default(false),
       }).optional(),

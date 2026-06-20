@@ -4,8 +4,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import SectionHeader from '@components/SectionHeader.astro';
 import RelatedLinks from '@components/RelatedLinks.astro';
-import { SITE } from '@/consts';
-import { getQuickLinks } from '@/data/seo';
+import { SITE } from '@config/site';
+import { getQuickLinks } from '@lib/seo';
 
 export async function getStaticPaths() {
   const servicios = await getCollection('servicios');
