@@ -30,6 +30,6 @@
     "prettier-plugin-tailwindcss": "^0.6.11"
   },
   "engines": {
-    "node": ">=18.17.1"
+    "node": ">=22.12.0"
   }
 }
